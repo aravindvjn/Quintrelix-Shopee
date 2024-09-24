@@ -1,0 +1,43 @@
+/* ELECTRONICS SLIDER */
+
+.electronics-slider {
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    margin: 15px;
+    padding: 20px;
+}
+
+.electronics-slider>div {
+    display: flex;
+    gap: 20px;
+    overflow-x: scroll;
+}
+
+.electronics-slider>div::-webkit-scrollbar {
+    display: none;
+}
+
+.electronics-scroller {
+    border: 1px solid silver;
+    height: 100%;
+    width: 250px;
+    border-radius: 7px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+}
+
+
+.electronics-scroller img {
+    height: 230px;
+    width: 230px;
+    border-radius: 7px;
+    margin: 10px;
+}
+
+.electronics-scroller p,
+.electronics-scroller h6 {
+    margin: 0;
+    text-align: center;
+}

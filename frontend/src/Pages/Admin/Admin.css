@@ -1,0 +1,109 @@
+body{
+    margin: 0;
+}
+ul.add-product{
+    display: flex;
+    justify-content: space-around;
+}
+li{
+    list-style: none;
+    cursor: pointer;
+}
+.selected{
+    color: blue;
+    text-decoration: underline;
+}
+.fashion-add-parent{
+ background-color: red;
+}
+
+
+/* Electronics */
+.electronics-add-parent{
+    
+}
+td button{
+    margin: 5px 5px;
+    border-radius: 7px;
+    background-color: rgb(255, 255, 255);
+}
+#add-product-button{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    padding: 10px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    background-color: blue;
+    color: white;
+}
+.add-product-form{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.43);
+    backdrop-filter: blur(15px);
+}
+.add-product-form form{
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 50px;
+    flex-direction: column;
+}
+.add-product-form form input{
+border-radius: 10px;
+margin: 5px;
+}
+.add-product-form form button{
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: rgb(0, 255, 0);
+}
+#close-add-new{
+ border-radius: 7px;
+ padding: 3px 5px;
+ background-color: red;
+ color: white;   
+ position: absolute;
+ right: 30px;
+ top:30px
+}
+
+.show-category-form{
+    margin: 20px 50px;
+    border-radius: 5px;
+    background-color: yellow;
+    padding: 10px;
+}
+select{
+    padding: 5px 15px;
+    border-radius: 7px;
+}
+
+@media (max-width:676px){
+    td button{
+        margin: 5px 2px;
+        border-radius: 7px;
+        background-color: rgb(255, 255, 255);
+    }
+    #add-product-button{
+        border-radius: 50%;
+        height: 70px;
+        font-size: 12px;
+        width: 70px;
+        padding: 10px;
+        position: fixed;
+        right: 30px;
+        bottom: 50px;
+    }
+}
