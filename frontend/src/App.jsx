@@ -8,6 +8,7 @@ import Electronics from "./Pages/Electronics/Electronics";
 import Admin from "./Pages/Admin/Admin";
 import AddProducts from "./Pages/Admin/Add Products/AddProducts";
 import ProductsOnCategory from "./Pages/Electronics/ProductsOnCategory";
+import Auth from "./Pages/Auth/Auth";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,6 +25,7 @@ function App() {
           <Route  path="/category" element={<ProductsOnCategory/>} />
           <Route  exact path="/admin/auth" element={<Admin />} />
           <Route  exact path="/admin/add-products" element={<AddProducts />} />
+          <Route  exact path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -41,7 +41,7 @@ const Header = ({admin}) => {
           </ul>
           <ul className="nav">
             <li className="nav-item">
-              <Link href="#" className="nav-link link-body-emphasis px-2">
+              <Link to={'/auth'} className="nav-link link-body-emphasis px-2">
                 Login
               </Link>
             </li>

@@ -1,11 +1,13 @@
 import express from "express";
 import pg from "pg";
-import cors from 'cors';
-import dotenv from 'dotenv';
+import cors from "cors";
+import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 dotenv.config();
 const { Pool } = pg;
 const PORT = 3000;
 const app = express();
+const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +17,33 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+});
+//AUTH
+app.post("/register", async (req, res) => {
+  try {
+    const { email, password, fullName } = req.body;
+    const userCheck = await pool.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+
+    if (userCheck.rows.length > 0) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    bcrypt.hash(password, saltRounds, async (err, hash) => {
+      const results = await pool.query(
+        "INSERT INTO users(fullName,email,password) VALUES ($1,$2,$3)",
+        [fullName, email, hash]
+      );
+      console.log(results);
+      res.status(201).json({ message: "sucess" });
+      if (err) {
+        console.log("error in hashing", err);
+      }
+    });
+  } catch (err) {
+    console.log("catch err in register", err);
+  }
 });
 
 //get all products
@@ -74,10 +103,18 @@ app.get("/api/products/category/:category", async (req, res) => {
 app.post("/api/products", async (req, res) => {
   try {
     console.log(req.body);
-    const { name, description, price, stock, category,image } = req.body;
+    const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
       "INSERT INTO products (name,description,price,stock,category,idcategory,image) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
-      [name, description, price, stock, category,category.split(' ').join('-').split("'").join('').toLowerCase(),image]
+      [
+        name,
+        description,
+        price,
+        stock,
+        category,
+        category.split(" ").join("-").split("'").join("").toLowerCase(),
+        image,
+      ]
     );
     res.status(201).json(results.rows[0]);
   } catch (err) {
@@ -89,10 +126,15 @@ app.post("/api/products", async (req, res) => {
 app.post("/api/products/category", async (req, res) => {
   try {
     console.log(req.body);
-    const { name,type,image} = req.body;
+    const { name, type, image } = req.body;
     const results = await pool.query(
       "INSERT INTO category (name,type,idname,image) VALUES ($1,$2,$3,$4) RETURNING *",
-      [name,type,name.split(' ').join('-').split("'").join('').toLowerCase(),image]
+      [
+        name,
+        type,
+        name.split(" ").join("-").split("'").join("").toLowerCase(),
+        image,
+      ]
     );
     res.status(201).json(results.rows[0]);
   } catch (err) {
@@ -100,16 +142,15 @@ app.post("/api/products/category", async (req, res) => {
   }
 });
 
-
 //updating a products
 app.put("/api/products/:id", async (req, res) => {
   try {
-      console.log(req.body)
+    console.log(req.body);
     const { id } = req.params;
-    const { name, description, price, stock, category,image } = req.body;
+    const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
       "UPDATE products SET name=$1,description = $2,price=$3,stock=$4,category=$5,image=$6 WHERE id=$7 RETURNING *",
-      [name, description, price, stock, category,image, id]
+      [name, description, price, stock, category, image, id]
     );
     if (results.rows.length > 0) {
       res.status(201).json(results.rows[0]);

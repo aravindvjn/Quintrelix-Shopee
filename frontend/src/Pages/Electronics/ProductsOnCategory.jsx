@@ -8,7 +8,7 @@ const ProductsOnCategory = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const [categoryList, setCategoryList] = useState([{}]);
-  const [refresh,setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   console.log(location.state);
   useEffect(() => {
     console.log("products", products);
@@ -59,30 +59,33 @@ const ProductsOnCategory = () => {
             });
             console.log("categoryListFiltered", categoryListFiltered);
             setProducts(() => {
-             return data.filter((singleData)=>{
-              return categoryListFiltered.some((cat)=>cat.idname===singleData.idcategory)
-             })
+              return data.filter((singleData) => {
+                return categoryListFiltered.some(
+                  (cat) => cat.idname === singleData.idcategory
+                );
+              });
             });
             console.log("products", products);
-            setTimeout(()=>{
-              setRefresh(true)
-            },100)
+            setTimeout(() => {
+              setRefresh(true);
+            }, 100);
           });
       } catch (err) {
         console.log("Error in Fetching Data");
       }
     };
 
-    if (location.state === "Electronics" || location.state==="Fashion") {
+    if (location.state === "Electronics" || location.state === "Fashion") {
       fetchAllCategory();
     } else {
       fetchProducts();
     }
-  }, [location.state,refresh]);
+  }, [location.state, refresh]);
 
   return (
     <div>
       <Header />
+      {products.length === 0 && <center>No products available</center>}
       <div className="products-on-category">
         {products &&
           products.map((product) => {
