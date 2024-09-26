@@ -39,6 +39,7 @@ const pool = new Pool({
 });
 
 //AUTH
+//register
 app.post("/register", async (req, res) => {
   try {
     const { email, password, fullName } = req.body;
@@ -62,8 +63,8 @@ app.post("/register", async (req, res) => {
         req.login(user, (err) => {
           console.log("success,user:", user);
           res.status(201).json({
-            "username":user.fullname,
-            "email":user.email
+            username: user.fullname,
+            email: user.email,
           });
         });
       }
@@ -72,22 +73,60 @@ app.post("/register", async (req, res) => {
     console.log("catch err in register", err);
   }
 });
-//passport.js
+
+//login
+app.post("/login",async (req,res)=>{
+ try{
+  const {email,password} = req.body;
+  const results = await pool.query("SELECT * FROM users WHERE email =$1", [
+    email,
+  ]);
+  if(results.rows.length> 0){
+    const user =results.rows[0]
+    const data = user.password;
+    console.log(data);
+    bcrypt.compare(password, data, (err, valid) => {
+      if (err) {
+        console.error("Error in comparing password", err);
+      } else {
+        if (valid) {
+          console.log("user bro", user);
+          res.status(201).json({
+            username: user.fullname,
+            email: user.email,
+          });
+        } else {
+        res.status(400).json({message:"Invalid username or password"})
+        }
+      }
+    });
+  }else{
+    res.status(400).json({message:"Invalid username or password"})
+  }
+ }catch(err){
+  console.log("error in login",err)
+ }
+});
+
+passport.js
 passport.use(
-  new Strategy(async (email, password, cb) => {
+  new Strategy("local",async (email, password, cb) => {
     try {
+      
       const results = await pool.query("SELECT * FROM users WHERE email =$1", [
         email,
       ]);
       if (results.rows.length > 0) {
         const user = results.rows[0];
         const storedHashedPassword = user.password;
+        console.log("password", password);
         bcrypt.compare(password, storedHashedPassword, (err, valid) => {
           if (err) {
             console.error("Error in comparing password", err);
             return cb(err);
           } else {
             if (valid) {
+              console.log("user bro", user);
               return cb(null, user);
             } else {
               return cb(null, false);
@@ -116,9 +155,10 @@ app.get("/logout", (req, res) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.status(201).json({ message: "success" });
   });
 });
+
 //PRODUCTS
 
 //get all products

@@ -9,25 +9,29 @@ import Admin from "./Pages/Admin/Admin";
 import AddProducts from "./Pages/Admin/Add Products/AddProducts";
 import ProductsOnCategory from "./Pages/Electronics/ProductsOnCategory";
 import Auth from "./Pages/Auth/Auth";
+import { UserProvider } from "./Pages/Context/context";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route  path="/profile" element={<Profile />} />
-          <Route  path="/orders" element={<Orders />} />
-          <Route  path="/fashion" element={<Electronics />} />
-          <Route  path="/electronics" element={<Electronics />} />
-          <Route  path="/category" element={<ProductsOnCategory/>} />
-          <Route  exact path="/admin/auth" element={<Admin />} />
-          <Route  exact path="/admin/add-products" element={<AddProducts />} />
-          <Route  exact path="/auth" element={<Auth />} />
-        </Routes>
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/fashion" element={<Electronics />} />
+            <Route path="/electronics" element={<Electronics />} />
+            <Route path="/category" element={<ProductsOnCategory />} />
+            <Route exact path="/admin/auth" element={<Admin />} />
+            <Route exact path="/admin/add-products" element={<AddProducts />} />
+            <Route exact path="/signup" element={<Auth page={"signup"} />} />
+            <Route exact path="/login" element={<Auth page={"login"} />} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </>
   );
 }

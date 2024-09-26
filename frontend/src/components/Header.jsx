@@ -1,9 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/Q-shopee.png'
 import './Components.css'
+import { UserContext } from "../Pages/Context/context";
+import { authURL } from "../server";
 
 const Header = ({admin}) => {
+  const {user,setUser} = useContext(UserContext)
+const history = useNavigate()
   return (
     <div>
       <nav className="py-2 bg-body-tertiary border-bottom">
@@ -41,13 +45,34 @@ const Header = ({admin}) => {
           </ul>
           <ul className="nav">
             <li className="nav-item">
-              <Link to={'/auth'} className="nav-link link-body-emphasis px-2">
+             {user? <p className="nav-link link-body-emphasis px-2" style={{
+              backgroundColor:"gold",
+              borderRadius:"7px",
+              padding:'3px',
+              transform:'translateY(4px)'
+             }}>{user.username}</p>:  <Link to={'/login'} className="nav-link link-body-emphasis px-2">
                 Login
-              </Link>
+              </Link>}
             </li>
-            <li className="nav-item">
-              <Link href="#" className="nav-link link-body-emphasis px-2">
-                Sign up
+            <li className="nav-item" onClick={async()=>{
+              if(user){
+                try{
+                  const response = await fetch(authURL+"logout/")
+                  console.log("response")
+                  if(response.ok){
+                    history("/")
+                    console.log("OK")
+                    setUser('')
+                  }else{
+                    history("/")
+                  }
+                }catch(err){
+                  console.log("Error in logout",err)
+                }
+              }
+            }}>
+              <Link to={user?"/logout":'/signup'} href="#" className="nav-link link-body-emphasis px-2">
+                {user?"Logout" :"Sign up "}
               </Link>
             </li>
           </ul>

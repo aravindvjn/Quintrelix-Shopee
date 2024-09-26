@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from './Form';
-
-const Auth = () => {
+import './Auth.css'
+const Auth = ({page}) => {
     const [input,setInput] = useState({
         fullName:'',
         email:'',
@@ -16,7 +16,7 @@ const Auth = () => {
     }
   return (
     <div className='add-product-form' style={{backgroundColor:'white'}}>
-      <Form handleChange={handleChange} input={input} setInput={setInput}/>
+      <Form handleChange={handleChange} input={input} setInput={setInput} page={page}/>
     </div>
   )
 }
