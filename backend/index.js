@@ -84,6 +84,7 @@ app.post("/api/products", async (req, res) => {
     res.status(404).json("Error in creating products");
   }
 });
+
 //create a category group
 app.post("/api/products/category", async (req, res) => {
   try {

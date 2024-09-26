@@ -14,6 +14,7 @@
 }
 .products-on-category-single:hover{
     box-shadow: 1px 1px 3px silver,-1px -1px 3px silver;
+    transform: scale(1.02);
 }
 .products-on-category-single div{
     margin-left: 10px;

@@ -8,8 +8,10 @@ const ProductsOnCategory = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const [categoryList, setCategoryList] = useState([{}]);
+  const [refresh,setRefresh] = useState(false);
   console.log(location.state);
   useEffect(() => {
+    console.log("products", products);
     const fetchProducts = async () => {
       try {
         await fetch(
@@ -52,30 +54,31 @@ const ProductsOnCategory = () => {
           .then((data) => {
             console.log("all products", data);
             console.log("categorylist", categoryList);
-
+            const categoryListFiltered = categoryList.filter((cat) => {
+              return cat.type === location.state;
+            });
+            console.log("categoryListFiltered", categoryListFiltered);
             setProducts(() => {
-              return data.filter((item) => {
-                return categoryList.map((cat) => {
-                  if (cat.type === location.state) {
-                    return cat.idname === item.idcategory;
-                  }
-                  return;
-                });
-              });
+             return data.filter((singleData)=>{
+              return categoryListFiltered.some((cat)=>cat.idname===singleData.idcategory)
+             })
             });
             console.log("products", products);
+            setTimeout(()=>{
+              setRefresh(true)
+            },100)
           });
       } catch (err) {
         console.log("Error in Fetching Data");
       }
     };
 
-    if (location.state === "Electronics") {
+    if (location.state === "Electronics" || location.state==="Fashion") {
       fetchAllCategory();
     } else {
       fetchProducts();
     }
-  }, []);
+  }, [location.state,refresh]);
 
   return (
     <div>

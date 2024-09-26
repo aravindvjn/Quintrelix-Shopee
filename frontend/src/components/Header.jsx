@@ -24,7 +24,7 @@ const Header = ({admin}) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={'/fashion'} className="nav-link link-body-emphasis px-2">
+              <Link to={'/fashion'} className="nav-link link-body-emphasis px-2" state={"Fashion"}>
                 Fashion
               </Link>
             </li>
