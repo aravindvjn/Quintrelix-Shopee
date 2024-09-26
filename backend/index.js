@@ -3,14 +3,33 @@ import pg from "pg";
 import cors from "cors";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import passport from "passport";
+import { Strategy } from "passport-local";
+import session from "express-session";
 dotenv.config();
 const { Pool } = pg;
 const PORT = 3000;
 const app = express();
 const saltRounds = 10;
+
+//MIDDLEWARES
+app.use(
+  session({
+    secret: "TATAKAE",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
+  })
+);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//DataBase Connection
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -18,6 +37,7 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
 //AUTH
 app.post("/register", async (req, res) => {
   try {
@@ -31,20 +51,75 @@ app.post("/register", async (req, res) => {
     }
 
     bcrypt.hash(password, saltRounds, async (err, hash) => {
-      const results = await pool.query(
-        "INSERT INTO users(fullName,email,password) VALUES ($1,$2,$3)",
-        [fullName, email, hash]
-      );
-      console.log(results);
-      res.status(201).json({ message: "sucess" });
       if (err) {
         console.log("error in hashing", err);
+      } else {
+        const results = await pool.query(
+          "INSERT INTO users(fullname,email,password) VALUES ($1,$2,$3) RETURNING *",
+          [fullName, email, hash]
+        );
+        const user = results.rows[0];
+        req.login(user, (err) => {
+          console.log("success,user:", user);
+          res.status(201).json({
+            "username":user.fullname,
+            "email":user.email
+          });
+        });
       }
     });
   } catch (err) {
     console.log("catch err in register", err);
   }
 });
+//passport.js
+passport.use(
+  new Strategy(async (email, password, cb) => {
+    try {
+      const results = await pool.query("SELECT * FROM users WHERE email =$1", [
+        email,
+      ]);
+      if (results.rows.length > 0) {
+        const user = results.rows[0];
+        const storedHashedPassword = user.password;
+        bcrypt.compare(password, storedHashedPassword, (err, valid) => {
+          if (err) {
+            console.error("Error in comparing password", err);
+            return cb(err);
+          } else {
+            if (valid) {
+              return cb(null, user);
+            } else {
+              return cb(null, false);
+            }
+          }
+        });
+      } else {
+        return cb("User Not Found");
+      }
+    } catch (err) {
+      console.log("err in passport.use", err);
+    }
+  })
+);
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
+
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+//PRODUCTS
 
 //get all products
 app.get("/api/products", async (req, res) => {
