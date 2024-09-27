@@ -100,7 +100,10 @@ const ProductsOnCategory = () => {
                   <p>{product.category}</p>
                   <p>{product.description}</p>
                   <h6>Rs. {product.price}</h6>
+                  <div className="products-buttons"><button>Add to Cart</button>
+                  <button>Buy</button></div>
                 </div>
+              
               </div>
             );
           })}

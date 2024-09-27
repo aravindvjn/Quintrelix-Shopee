@@ -11,6 +11,7 @@
     margin: 10px;
     padding: 20px 20px;
     cursor: pointer;
+    position: relative;
 }
 .products-on-category-single:hover{
     box-shadow: 1px 1px 3px silver,-1px -1px 3px silver;
@@ -26,4 +27,19 @@
 }
 .products-on-category-single div h5{
     margin-bottom: 10px;
+}
+.products-buttons{
+    position: absolute;
+    bottom: 20px;
+}
+.products-buttons button{
+    border-radius: 5px;
+    background-color: gold;
+    margin-right: 30px;
+ padding: 7px 15px;
+
+}
+.products-buttons button:hover{
+    background-color:rgba(255, 217, 0, 0.563) ;
+    box-shadow: 1px 1px 2px silver,-1px -1px 2px silver;
 }

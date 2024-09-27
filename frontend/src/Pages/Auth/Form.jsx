@@ -98,6 +98,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
             className="auth-inputs"
             value={input.fullName}
             onChange={handleChange}
+            placeholder="Full Name"
           />
         </>
       )}
@@ -108,6 +109,8 @@ const Form = ({ input, handleChange, setInput, page }) => {
         className="auth-inputs"
         value={input.email}
         onChange={handleChange}
+        placeholder="Email"
+
       />
       <label htmlFor="password">Password</label>
       <input
@@ -116,6 +119,8 @@ const Form = ({ input, handleChange, setInput, page }) => {
         className="auth-inputs"
         value={input.password}
         onChange={handleChange}
+        placeholder="Password"
+
       />
       {page === "signup" && (
         <>
@@ -126,6 +131,8 @@ const Form = ({ input, handleChange, setInput, page }) => {
             className="auth-inputs"
             value={input.cpassword}
             onChange={handleChange}
+            placeholder="Confirm Password"
+
           />
         </>
       )}

@@ -1,3 +1,8 @@
 form strong{
     cursor: pointer;
 }
+.auth-inputs{
+    width: 350px;
+    height: 40px;
+    padding-left: 5px;
+}
