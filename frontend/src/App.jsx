@@ -10,6 +10,8 @@ import AddProducts from "./Pages/Admin/Add Products/AddProducts";
 import ProductsOnCategory from "./Pages/Electronics/ProductsOnCategory";
 import Auth from "./Pages/Auth/Auth";
 import { UserProvider } from "./Pages/Context/context";
+import Customize from "./Pages/Admin/Customize/Customize";
+import Cart from "./Pages/Cart/Cart";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +24,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/fashion" element={<Electronics />} />
             <Route path="/electronics" element={<Electronics />} />
             <Route path="/category" element={<ProductsOnCategory />} />
@@ -29,6 +32,7 @@ function App() {
             <Route exact path="/admin/add-products" element={<AddProducts />} />
             <Route exact path="/signup" element={<Auth page={"signup"} />} />
             <Route exact path="/login" element={<Auth page={"login"} />} />
+            <Route exact path="/customize" element={<Customize />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

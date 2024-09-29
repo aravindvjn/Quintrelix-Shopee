@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import URL from "../../server";
 import { useLocation } from "react-router-dom";
 import "./ProductsOnCategory.css";
+import Products from "./Products";
 
 const ProductsOnCategory = () => {
   const [products, setProducts] = useState([]);
@@ -90,21 +91,7 @@ const ProductsOnCategory = () => {
         {products &&
           products.map((product) => {
             return (
-              <div className="products-on-category-single">
-                <div>
-                  {" "}
-                  <img src={product.image} height="300px" alt={product.name} />
-                </div>
-                <div>
-                  <h5>{product.name}</h5>
-                  <p>{product.category}</p>
-                  <p>{product.description}</p>
-                  <h6>Rs. {product.price}</h6>
-                  <div className="products-buttons"><button>Add to Cart</button>
-                  <button>Buy</button></div>
-                </div>
-              
-              </div>
+              <Products {...product} />
             );
           })}
       </div>

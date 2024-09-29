@@ -33,24 +33,24 @@ const history = useNavigate()
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={'/orders'} className="nav-link link-body-emphasis px-2">
-                Orders
+              <Link to={admin? '/customize':'/cart'} className="nav-link link-body-emphasis px-2">
+              {admin? 'Customize':'Cart'}
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={admin? '/admin/add-products':'/profile'} className="nav-link link-body-emphasis px-2">
+              <Link to={admin? '/admin/add-products':'/orders'} className="nav-link link-body-emphasis px-2">
                 {admin? 'Add Products':'Profile'}
               </Link>
             </li>
           </ul>
           <ul className="nav">
             <li className="nav-item">
-             {user? <p className="nav-link link-body-emphasis px-2" style={{
+             {user? <Link to={'/profile'} className="nav-link link-body-emphasis px-2" style={{
               backgroundColor:"gold",
               borderRadius:"7px",
               padding:'3px',
               transform:'translateY(4px)'
-             }}>{user.username}</p>:  <Link to={'/login'} className="nav-link link-body-emphasis px-2">
+             }}>{user.username}</Link>:  <Link to={'/login'} className="nav-link link-body-emphasis px-2">
                 Login
               </Link>}
             </li>
@@ -71,7 +71,7 @@ const history = useNavigate()
                 }
               }
             }}>
-              <Link to={user?"/logout":'/signup'} href="#" className="nav-link link-body-emphasis px-2">
+              <Link to={user?"/logout":'/signup'}  className="nav-link link-body-emphasis px-2">
                 {user?"Logout" :"Sign up "}
               </Link>
             </li>

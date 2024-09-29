@@ -19,7 +19,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 1000 * 60 * 60,
+      maxAge: 1000 * 60 * 60 * 60 * 60,
     },
   })
 );
@@ -63,6 +63,7 @@ app.post("/register", async (req, res) => {
         req.login(user, (err) => {
           console.log("success,user:", user);
           res.status(201).json({
+            id:user.id,
             username: user.fullname,
             email: user.email,
           });
@@ -75,44 +76,44 @@ app.post("/register", async (req, res) => {
 });
 
 //login
-app.post("/login",async (req,res)=>{
- try{
-  const {email,password} = req.body;
-  const results = await pool.query("SELECT * FROM users WHERE email =$1", [
-    email,
-  ]);
-  if(results.rows.length> 0){
-    const user =results.rows[0]
-    const data = user.password;
-    console.log(data);
-    bcrypt.compare(password, data, (err, valid) => {
-      if (err) {
-        console.error("Error in comparing password", err);
-      } else {
-        if (valid) {
-          console.log("user bro", user);
-          res.status(201).json({
-            username: user.fullname,
-            email: user.email,
-          });
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const results = await pool.query("SELECT * FROM users WHERE email =$1", [
+      email,
+    ]);
+    if (results.rows.length > 0) {
+      const user = results.rows[0];
+      const data = user.password;
+      console.log(data);
+      bcrypt.compare(password, data, (err, valid) => {
+        if (err) {
+          console.error("Error in comparing password", err);
         } else {
-        res.status(400).json({message:"Invalid username or password"})
+          if (valid) {
+            console.log("user bro", user);
+            res.status(201).json({
+              id:user.id,
+              username: user.fullname,
+              email: user.email,
+            });
+          } else {
+            res.status(400).json({ message: "Invalid username or password" });
+          }
         }
-      }
-    });
-  }else{
-    res.status(400).json({message:"Invalid username or password"})
+      });
+    } else {
+      res.status(400).json({ message: "Invalid username or password" });
+    }
+  } catch (err) {
+    console.log("error in login", err);
   }
- }catch(err){
-  console.log("error in login",err)
- }
 });
 
-passport.js
+passport.js;
 passport.use(
-  new Strategy("local",async (email, password, cb) => {
+  new Strategy("local", async (email, password, cb) => {
     try {
-      
       const results = await pool.query("SELECT * FROM users WHERE email =$1", [
         email,
       ]);
@@ -170,11 +171,30 @@ app.get("/api/products", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
+//get all products
+app.get("/api/products/banner", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM banner");
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
 
 //get all category group
 app.get("/api/products/category", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM category");
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+//get all cart items
+app.get("/api/products/cart/:id", async (req, res) => {
+  try {
+    const {id}=req.params;
+    const results = await pool.query("SELECT * FROM cart WHERE cart_id=$1",[id]);
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -256,6 +276,20 @@ app.post("/api/products/category", async (req, res) => {
     res.status(404).json("Error in creating products");
   }
 });
+//create and add cart item
+app.post("/api/products/cart", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { id, productId, quantity } = req.body;
+    const results = await pool.query(
+      "INSERT INTO cart (cart_id,product_id,quantity) VALUES ($1,$2,$3) RETURNING *",
+      [id, productId, quantity]
+    );
+    res.status(201).json(results.rows[0]);
+  } catch (err) {
+    res.status(404).json("Error in creating products");
+  }
+});
 
 //updating a products
 app.put("/api/products/:id", async (req, res) => {
@@ -266,6 +300,25 @@ app.put("/api/products/:id", async (req, res) => {
     const results = await pool.query(
       "UPDATE products SET name=$1,description = $2,price=$3,stock=$4,category=$5,image=$6 WHERE id=$7 RETURNING *",
       [name, description, price, stock, category, image, id]
+    );
+    if (results.rows.length > 0) {
+      res.status(201).json(results.rows[0]);
+    } else {
+      res.status(404).json("product not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating products");
+  }
+});
+//updating a products
+app.put("/api/products/banner/:id", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { id } = req.params;
+    const { name, image } = req.body;
+    const results = await pool.query(
+      "UPDATE banner SET name=$1,image=$2 WHERE id=$3 RETURNING *",
+      [name, image, id]
     );
     if (results.rows.length > 0) {
       res.status(201).json(results.rows[0]);
@@ -301,6 +354,22 @@ app.delete("/api/products/category/:id", async (req, res) => {
     const results = await pool.query(
       "DELETE FROM category WHERE id=$1 RETURNING *",
       [id]
+    );
+    if (results.rows.length > 0) {
+      res.json("category deleted");
+    } else {
+      res.status(404).json("category not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in deleting a category");
+  }
+});
+app.delete("/api/products/cart/:cart_id/:product_id", async (req, res) => {
+  try {
+    const {cart_id,product_id } = req.params;
+    const results = await pool.query(
+      "DELETE FROM cart WHERE cart_id=$1 AND product_id=$2 RETURNING *",
+      [cart_id,product_id ]
     );
     if (results.rows.length > 0) {
       res.json("category deleted");
