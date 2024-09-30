@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import URL from "../../server";
 import { useLocation } from "react-router-dom";
 import "./ProductsOnCategory.css";
 import Products from "./Products";
+import { UserContext } from "../Context/context";
 
 const ProductsOnCategory = () => {
+  const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   console.log(location.state);
   useEffect(() => {
     console.log("products", products);
@@ -76,6 +79,20 @@ const ProductsOnCategory = () => {
       }
     };
 
+    const fetchCart = async () => {
+      const cartResult = await fetch(URL + "cart/" + user.id);
+      const cartdata = await cartResult.json();
+      console.log("cart data", cartdata);
+      cartdata.map((item) => {
+        setCartItems((prev) => {
+          return [...prev, item.product_id];
+        });
+      });
+    };
+    if (user) {
+      setCartItems([])
+      fetchCart();
+    }
     if (location.state === "Electronics" || location.state === "Fashion") {
       fetchAllCategory();
     } else {
@@ -90,9 +107,10 @@ const ProductsOnCategory = () => {
       <div className="products-on-category">
         {products &&
           products.map((product) => {
-            return (
-              <Products {...product} />
-            );
+            if(cartItems.includes(product.id)){
+            return <Products {...product} cartItems={true} setRefresh={setRefresh} refresh={refresh}/>;
+            }
+            return <Products {...product} cartItems={false} setRefresh={setRefresh} refresh={refresh}/>;
           })}
       </div>
     </div>

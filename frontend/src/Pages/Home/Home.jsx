@@ -10,7 +10,7 @@ import { UserContext } from "../Context/context";
 
 const Home = ({ admin }) => {
   const [fetchCategory, setFetchCategory] = useState();
-  const {cartItems,setCartItems,user} = useContext(UserContext)
+  const {setCartItems,user} = useContext(UserContext)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,23 +28,6 @@ const Home = ({ admin }) => {
       }
     };
     fetchData();
-    const fetchCart = async () => {
-      const cartResult = await fetch(URL + "cart/" + user.id);
-      const cartdata = await cartResult.json();
-      console.log("cart data", cartdata);
-      const fetchAllProducts = async () => {
-        const result = await fetch(URL);
-        const data = await result.json();
-        console.log("data", data);
-        setCartItems(() => {
-          return data.filter((singleData) => {
-            return cartdata.some((cart) => cart.product_id === singleData.id);
-          });
-        });
-      };
-      fetchAllProducts();
-    };
-    fetchCart();
   }, []);
   return (
     <div>
