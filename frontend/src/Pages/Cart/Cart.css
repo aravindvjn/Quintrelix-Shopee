@@ -1,0 +1,14 @@
+.cart-product-parent{
+    display: grid;
+    grid-template-columns: 50px 70px 1fr 150px;
+    margin: 10px 50px;
+}
+.cart-product-parent img{
+    width: 50px;
+    margin: 0px 5px;
+}
+.cart-product-parent input{
+    width: 20px;
+    height: 20px;
+    margin: auto;
+}

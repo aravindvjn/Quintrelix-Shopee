@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import "./ProductsOnCategory.css";
 import Products from "./Products";
 import { UserContext } from "../Context/context";
+import LoginPopUp from "../../components/LoginPopUp";
 
 const ProductsOnCategory = () => {
   const { user } = useContext(UserContext);
@@ -13,6 +14,7 @@ const ProductsOnCategory = () => {
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [popUp,setPopUP] = useState(false)
   console.log(location.state);
   useEffect(() => {
     console.log("products", products);
@@ -103,14 +105,15 @@ const ProductsOnCategory = () => {
   return (
     <div>
       <Header />
+      {popUp&&<LoginPopUp setPopUP={setPopUP} />}
       {products.length === 0 && <center>No products available</center>}
       <div className="products-on-category">
         {products &&
           products.map((product) => {
             if(cartItems.includes(product.id)){
-            return <Products {...product} cartItems={true} setRefresh={setRefresh} refresh={refresh}/>;
+            return <Products {...product} cartItems={true} setRefresh={setRefresh} refresh={refresh} setPopUP={setPopUP}/>;
             }
-            return <Products {...product} cartItems={false} setRefresh={setRefresh} refresh={refresh}/>;
+            return <Products {...product} cartItems={false} setRefresh={setRefresh} refresh={refresh} setPopUP={setPopUP}/>;
           })}
       </div>
     </div>
