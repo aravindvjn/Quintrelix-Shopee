@@ -63,7 +63,7 @@ app.post("/register", async (req, res) => {
         req.login(user, (err) => {
           console.log("success,user:", user);
           res.status(201).json({
-            id:user.id,
+            id: user.id,
             username: user.fullname,
             email: user.email,
           });
@@ -93,7 +93,7 @@ app.post("/login", async (req, res) => {
           if (valid) {
             console.log("user bro", user);
             res.status(201).json({
-              id:user.id,
+              id: user.id,
               username: user.fullname,
               email: user.email,
             });
@@ -193,8 +193,10 @@ app.get("/api/products/category", async (req, res) => {
 //get all cart items
 app.get("/api/products/cart/:id", async (req, res) => {
   try {
-    const {id}=req.params;
-    const results = await pool.query("SELECT * FROM cart WHERE cart_id=$1",[id]);
+    const { id } = req.params;
+    const results = await pool.query("SELECT * FROM cart WHERE cart_id=$1", [
+      id,
+    ]);
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -310,7 +312,38 @@ app.put("/api/products/:id", async (req, res) => {
     res.status(404).json("Error in updating products");
   }
 });
-//updating a products
+//updating a cart
+app.put("/api/products/cart/:id", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { id } = req.params;
+    const { operation } = req.body;
+    if (operation === "increase") {
+      const results = await pool.query(
+        "UPDATE cart SET quantity=quantity + 1 WHERE id=$1 RETURNING *",
+        [id]
+      );
+      if (results.rows.length > 0) {
+        res.status(201).json(results.rows[0]);
+      } else {
+        res.status(404).json("product not found");
+      }
+    }else if(operation === 'decrease'){
+      const results = await pool.query(
+        "UPDATE cart SET quantity=quantity - 1 WHERE id=$1 RETURNING *",
+        [id]
+      );
+      if (results.rows.length > 0) {
+        res.status(201).json(results.rows[0]);
+      } else {
+        res.status(404).json("product not found");
+      }
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating products");
+  }
+});
+//updating a banner
 app.put("/api/products/banner/:id", async (req, res) => {
   try {
     console.log(req.body);
@@ -366,10 +399,10 @@ app.delete("/api/products/category/:id", async (req, res) => {
 });
 app.delete("/api/products/cart/:cart_id/:product_id", async (req, res) => {
   try {
-    const {cart_id,product_id } = req.params;
+    const { cart_id, product_id } = req.params;
     const results = await pool.query(
       "DELETE FROM cart WHERE cart_id=$1 AND product_id=$2 RETURNING *",
-      [cart_id,product_id ]
+      [cart_id, product_id]
     );
     if (results.rows.length > 0) {
       res.json("category deleted");

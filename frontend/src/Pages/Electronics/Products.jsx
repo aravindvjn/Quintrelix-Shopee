@@ -12,33 +12,33 @@ const Products = ({
   cartItems,
   setRefresh,
   refresh,
-  setPopUP
+  setPopUP,
 }) => {
   const { user } = useContext(UserContext);
   console.log("cart", cartItems);
   console.log("user", user);
   const removeFromCartHandler = async () => {
-  if(!user){
-    setPopUP(true)
-  }else{
-    try {
-      const response = await fetch(URL + "cart/" + user.id + "/" + id, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setRefresh(!refresh);
-        alert("Removed from cart");
-      } else {
-        alert("Failed to Remove");
+    if (!user) {
+      setPopUP(true);
+    } else {
+      try {
+        const response = await fetch(URL + "cart/" + user.id + "/" + id, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          setRefresh(!refresh);
+          alert("Removed from cart");
+        } else {
+          alert("Failed to Remove");
+        }
+      } catch (err) {
+        console.log("Error in add to Cart", err);
       }
-    } catch (err) {
-      console.log("Error in add to Cart", err);
     }
-  }
   };
   const addToCartHandler = async () => {
     if (!user) {
-      setPopUP(true)
+      setPopUP(true);
     } else {
       try {
         const response = await fetch(URL + "cart", {
@@ -63,11 +63,11 @@ const Products = ({
       }
     }
   };
-  const buyHandler=()=>{
-    if(!user){
-      setPopUP(true)
+  const buyHandler = () => {
+    if (!user) {
+      setPopUP(true);
     }
-  }
+  };
   return (
     <div className="products-on-category-single">
       <div>
@@ -76,7 +76,14 @@ const Products = ({
       <div>
         <h5>{name}</h5>
         <p>{category}</p>
-        <p>{description}</p>
+        {description.length < 150 ? (
+          <p>{description}</p>
+        ) : (
+          <p>
+            {description.slice(0, 150)}
+            <strong>...</strong>
+          </p>
+        )}
         <h6>Rs. {price}</h6>
         <div className="products-buttons">
           {cartItems ? (

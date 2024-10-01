@@ -39,7 +39,7 @@ const history = useNavigate()
             </li>
             <li className="nav-item">
               <Link to={admin? '/admin/add-products':'/orders'} className="nav-link link-body-emphasis px-2">
-                {admin? 'Add Products':'Profile'}
+                {admin? 'Add Products':'Orders'}
               </Link>
             </li>
           </ul>

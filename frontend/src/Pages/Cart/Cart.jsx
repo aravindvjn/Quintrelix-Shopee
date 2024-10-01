@@ -4,7 +4,8 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
   const [cart, setCart] = useState([]);
-  const [total,setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     console.log("Refreshed");
     const fetchCart = async () => {
@@ -25,12 +26,12 @@ const Cart = () => {
       fetchAllProducts();
     };
     fetchCart();
-  }, []);
+  }, [refresh]);
   if (!user) {
     return (
       <>
         <Header />
-       <CartLoginWarning />
+        <CartLoginWarning />
       </>
     );
   }
@@ -42,12 +43,20 @@ const Cart = () => {
           cartItems.map((item, index) => {
             return (
               <div>
-                <CartProduct key={item.id} {...item} cart={cart[index]} setTotal={setTotal} />
+                <CartProduct
+                  key={item.id}
+                  {...item}
+                  cart={cart.find((obj) => {
+                    return obj.product_id === item.id;
+                  })}
+                  setTotal={setTotal}
+                  setRefresh={setRefresh}
+                />
                 <hr />
               </div>
             );
           })}
-          {cartItems.length>0&& <p>Total : {total}</p>}
+        {cartItems.length > 0 && <p>Total : {total}</p>}
       </div>
     </>
   );
