@@ -6,15 +6,16 @@ import "./ProductsOnCategory.css";
 import Products from "./Products";
 import { UserContext } from "../Context/context";
 import LoginPopUp from "../../components/LoginPopUp";
+import SingleProduct from "./SingleProduct/SingleProduct";
 
 const ProductsOnCategory = () => {
   const { user } = useContext(UserContext);
+  const [showDetail, setShowDetail] = useState(false);
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [popUp,setPopUP] = useState(false)
   console.log(location.state);
   useEffect(() => {
     console.log("products", products);
@@ -92,7 +93,7 @@ const ProductsOnCategory = () => {
       });
     };
     if (user) {
-      setCartItems([])
+      setCartItems([]);
       fetchCart();
     }
     if (location.state === "Electronics" || location.state === "Fashion") {
@@ -101,19 +102,25 @@ const ProductsOnCategory = () => {
       fetchProducts();
     }
   }, [location.state, refresh]);
-
+  if (showDetail.status) {
+    return <SingleProduct {...showDetail}/>;
+  }
   return (
     <div>
       <Header />
-      {popUp&&<LoginPopUp setPopUP={setPopUP} />}
       {products.length === 0 && <center>No products available</center>}
       <div className="products-on-category">
         {products &&
           products.map((product) => {
-            if(cartItems.includes(product.id)){
-            return <Products {...product} cartItems={true} setRefresh={setRefresh} refresh={refresh} setPopUP={setPopUP}/>;
-            }
-            return <Products {...product} cartItems={false} setRefresh={setRefresh} refresh={refresh} setPopUP={setPopUP}/>;
+            return (
+              <Products
+                {...product}
+                cartItems={cartItems.includes(product.id) ? true : false}
+                setRefresh={setRefresh}
+                refresh={refresh}
+                setShowDetail={setShowDetail}
+              />
+            );
           })}
       </div>
     </div>

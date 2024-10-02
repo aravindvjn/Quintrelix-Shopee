@@ -30,3 +30,13 @@
     top: 15px;
     cursor: pointer;
 }
+
+
+@media (max-width:576px) {
+    .display-hide{
+       display: none;
+    }
+    .header-parent{
+        font-size: 12px;
+    }
+}

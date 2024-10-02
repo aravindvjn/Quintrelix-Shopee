@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Header from "../../components/Header";
 
 const Orders = () => {
   return (
     <div>
-      Orders
+      <Header />
     </div>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;

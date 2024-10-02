@@ -15,6 +15,10 @@ table{
   width: 90%;
   margin: 5%;
 }
+.custom-link{
+  text-decoration: none;
+  color: black;
+}
 @media (max-width:676px){
   table,th,th{
     font-size: 12px;

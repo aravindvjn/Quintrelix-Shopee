@@ -28,7 +28,6 @@
     transition: 0.5s ease-in-out;
 }
 
-
 .electronics-scroller img {
     height: 230px;
     width: 230px;
@@ -41,8 +40,64 @@
     margin: 0;
     text-align: center;
 }
-.center{
+
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/*media*/
+@media (max-width:576px) {
+    .electronics-slider {
+        background-color: white;
+        border-radius: 5px;
+        height: 100%;
+        margin: 7px;
+        padding: 10px;
+    }
+
+    .electronics-slider>div {
+        display: flex;
+        gap: 7px;
+        overflow-x: scroll;
+    }
+
+    .electronics-scroller img {
+        height: 60px;
+        width: 60px;
+        border-radius: 3px;
+        margin: 5px;
+    }
+
+    .electronics-scroller {
+        width: 80px;
+        padding: 0px 5px;
+        padding-bottom: 5px;
+
+
+    }
+
+    .electronics-scroller p {
+        font-size: 12px;
+    }
+
+    .carousel-inner img,
+    .carousel-inner {
+        width: 100%;
+        height: 100px;
+    }
+
+    .ad-slider-parent button {
+        width: 20px;
+        margin: 10px;
+    }
+
+    #carousel-indicators-button {
+        width: 10px;
+        transform: translateY(30px);
+    }
+    .electronics-slider h4{
+        font-size: 16px;
+    }
 }

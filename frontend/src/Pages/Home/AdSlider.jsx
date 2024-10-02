@@ -25,7 +25,7 @@ const AdSlider = () => {
   }, []);
 
   return (
-    <div>
+    <div className="ad-slider-parent">
       <div className="bd-example m-0 border-0">
         <div
           id="carouselExampleIndicators"
@@ -34,6 +34,7 @@ const AdSlider = () => {
           <div className="carousel-indicators">
             <button
               type="button"
+              id="carousel-indicators-button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="0"
               className={image === 1 && "active"}
@@ -42,6 +43,7 @@ const AdSlider = () => {
               fdprocessedid="jpnosm"
             ></button>
             <button
+              id="carousel-indicators-button"
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="1"
@@ -50,6 +52,7 @@ const AdSlider = () => {
               fdprocessedid="el68an"
             ></button>
             <button
+              id="carousel-indicators-button"
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="2"

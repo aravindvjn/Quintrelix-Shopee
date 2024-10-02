@@ -5,31 +5,29 @@ import URL from "../../server";
 const CartProduct = ({
   id,
   name,
-  category,
   image,
   price,
-  description,
   cart,
-  setTotal,
-  setRefresh
+  setTotalPrice,
+  totalPrice,
+  setRefresh,
 }) => {
+  const [total, setTotal] = useState(0);
   const check = useRef();
   const checkClick = () => {
     if (check.current.checked) {
-      setTotal((prev) => {
-        return prev + cart.quantity * price;
-      });
+      setTotal(cart.quantity * price);
+      setTotalPrice((prev) => prev + cart.quantity * price );
     } else {
-      setTotal((prev) => {
-        return prev - cart.quantity * price;
-      });
+      setTotal(0);
     }
+    console.log(total, totalPrice);
   };
   const increaseQty = async () => {
-    updateQty('increase')
+    updateQty("increase");
   };
   const decreaseQty = () => {
-    updateQty('decrease')
+    updateQty("decrease");
   };
   const updateQty = async (operation) => {
     try {
@@ -45,7 +43,7 @@ const CartProduct = ({
       const data = await response.json();
       if (response.ok) {
         alert("qty updated");
-        setRefresh(prev=>!prev);
+        setRefresh((prev) => !prev);
       } else {
         alert("Failed to update qty");
       }

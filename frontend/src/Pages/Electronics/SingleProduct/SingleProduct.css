@@ -1,0 +1,10 @@
+.single-product-details{
+  margin: 50px 100px;
+  flex-direction: column;
+  gap: 20px;
+}
+.single-product-details img{
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 10px;
+}

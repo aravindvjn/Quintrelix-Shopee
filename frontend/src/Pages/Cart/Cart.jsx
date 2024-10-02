@@ -4,7 +4,7 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     console.log("Refreshed");
@@ -26,6 +26,10 @@ const Cart = () => {
       fetchAllProducts();
     };
     fetchCart();
+    // total.forEach((rs) => {
+    //   setTotalPrice((prev) => prev + rs);
+    // });
+    console.log(totalPrice)
   }, [refresh]);
   if (!user) {
     return (
@@ -49,14 +53,16 @@ const Cart = () => {
                   cart={cart.find((obj) => {
                     return obj.product_id === item.id;
                   })}
-                  setTotal={setTotal}
+                  index={index}
+                  setTotalPrice={setTotalPrice}
+                  totalPrice={totalPrice}
                   setRefresh={setRefresh}
                 />
                 <hr />
               </div>
             );
           })}
-        {cartItems.length > 0 && <p>Total : {total}</p>}
+        {cartItems.length > 0 ? <p>Total :{totalPrice}</p> : <p className="center">No Carts Available</p>}
       </div>
     </>
   );
