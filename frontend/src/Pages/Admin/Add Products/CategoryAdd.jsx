@@ -4,6 +4,9 @@ import URL from '../../../server';
 
 const CategoryAdd = ({products,setRefresh}) => {
     const [addCategoryForm,setAddCategoryForm] = useState(false);
+    const handleEdit=async()=>{
+      
+    }
     const handleDelete=async (id)=>{
       console.log(id)
       try {
@@ -48,6 +51,7 @@ const CategoryAdd = ({products,setRefresh}) => {
                 <td>{item.type}</td>
                 <td>{item.price}</td>
                 <td><button onClick={()=>{
+                  handleEdit(item.id)
                 }}>Edit</button>
                 <button onClick={()=>{
                   handleDelete(item.id)

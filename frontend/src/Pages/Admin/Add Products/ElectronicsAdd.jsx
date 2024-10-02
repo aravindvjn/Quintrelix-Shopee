@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import URL from "../../../server";
 import '../Admin.css'
 import AddProductForm from "./AddProductForm";
-const ElectronicsAdd = ({products,setRefresh}) => {
+const ElectronicsAdd = ({products,setRefresh, setAddNewProducts}) => {
+
 const handleDelete= async (id)=>{
   try{
     const response = await fetch(URL+id,{
@@ -42,6 +43,7 @@ const handleDelete= async (id)=>{
                 <td>{item.price}</td>
                 <td>{item.stock}</td>
                 <td><button onClick={()=>{
+                   setAddNewProducts(true);
                 }}>Edit</button>
                 <button onClick={()=>{
                   handleDelete(item.id)

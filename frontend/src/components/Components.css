@@ -32,10 +32,15 @@
 }
 
 
-@media (max-width:576px) {
+@media (max-width:992px) {
     .display-hide{
        display: none;
     }
+    .header-parent{
+        font-size: 15px;
+    }
+}
+@media (max-width:576px) {
     .header-parent{
         font-size: 12px;
     }

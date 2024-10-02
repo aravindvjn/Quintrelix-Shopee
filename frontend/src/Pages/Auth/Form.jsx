@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { authURL } from "../../server";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/context";
+import QLogo from '../../assets/Q-Shopee.png'
 
 const Form = ({ input, handleChange, setInput, page }) => {
   const [message, setMessage] = useState("");
@@ -87,6 +88,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         }
       }}
     >
+      <img id='logo' src={QLogo} alt="" />
       {message && <center>{message}</center>}
 
       {page === "signup" && (

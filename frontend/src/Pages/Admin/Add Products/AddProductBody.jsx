@@ -7,41 +7,66 @@ import URL from "../../../server";
 const AddProductBody = () => {
   const [selected, setSelected] = useState("Electronics");
   const [addNewProducts, setAddNewProducts] = useState();
-  const [category, setCategory] = useState();
-  const [addNewFashion, setAddNewFashion] = useState();
   const [products, setProducts] = useState();
-  const [refresh,setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
+  const [categoryList, setCategoryList] = useState([{}]);
 
   let element;
   const selectionHandler = (e) => {
     setSelected(e.target.textContent);
   };
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchAllCategory = async () => {
       try {
-        let endpoint = "";
-        if (selected === "Electronics") {
-          endpoint = "";
-        } else if (selected === "Category") {
-          endpoint = "category";
-        }
-        await fetch(URL + endpoint)
+        await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
-            setProducts(data);
+            console.log("category", data);
+            setCategoryList(data);
+            fetchAllProducts();
           });
       } catch (err) {
         console.log("Error in Fetching Data");
       }
     };
-    fetchProducts();
-  }, [selected,refresh]);
+
+    const fetchAllProducts = async () => {
+      try {
+        await fetch(URL)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("all products", data);
+            console.log("categorylist", categoryList);
+            const categoryListFiltered = categoryList.filter((cat) => {
+              return cat.type === selected;
+            });
+            console.log("categoryListFiltered", categoryListFiltered);
+            setProducts(() => {
+              return data.filter((singleData) => {
+                return categoryListFiltered.some(
+                  (cat) => cat.idname === singleData.idcategory
+                );
+              });
+            });
+            console.log("products", products);
+            setTimeout(() => {
+              setRefresh(true);
+            }, 100);
+          });
+      } catch (err) {
+        console.log("Error in Fetching Data");
+      }
+    };
+    fetchAllCategory();
+  }, [selected, refresh]);
 
   return (
     <div>
       {addNewProducts && (
-        <AddProductForm setAddNewProducts={setAddNewProducts} setRefresh={setRefresh} />
+        <AddProductForm
+          setAddNewProducts={setAddNewProducts}
+          setRefresh={setRefresh}
+        />
       )}
 
       <ul className="add-product">
@@ -64,9 +89,15 @@ const AddProductBody = () => {
           Category
         </li>
       </ul>
-      {selected === "Electronics" && <ElectronicsAdd products={products} setRefresh={setRefresh} />}
-      {selected === "Fashion" && <ElectronicsAdd products={products} setRefresh={setRefresh}/>}
-      {selected === "Category" && <CategoryAdd products={products} setRefresh={setRefresh} />}
+      {selected === "Electronics" && (
+        <ElectronicsAdd products={products} setRefresh={setRefresh} setAddNewProducts={setAddNewProducts} />
+      )}
+      {selected === "Fashion" && (
+        <ElectronicsAdd products={products} setRefresh={setRefresh} setAddNewProducts={setAddNewProducts} />
+      )}
+      {selected === "Category" && (
+        <CategoryAdd products={categoryList} setRefresh={setRefresh} />
+      )}
       <button
         id="add-product-button"
         onClick={() => {

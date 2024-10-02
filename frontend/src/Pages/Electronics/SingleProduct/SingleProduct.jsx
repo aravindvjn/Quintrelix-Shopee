@@ -12,6 +12,7 @@ const SingleProduct = () => {
   const { id, name, category, image, price, description } = location.state;
   const [popUp, setPopUP] = useState(false);
   const [toggleBtn, setToggleBtn] = useState(cartItems.includes(id));
+  const [dateShow, setDateShow] = useState();
   const removeFromCartHandler = async () => {
     if (!user) {
       setPopUP(true);
@@ -75,6 +76,17 @@ const SingleProduct = () => {
       setToggleBtn(checkCartStatus.length > 0 ? true : false);
     };
     fetchCart();
+
+    const dateFetch = () => {
+      const dateObject = new Date();
+      dateObject.setDate(dateObject.getDate() + 5);
+      const formattedDate = dateObject.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+      });
+      setDateShow(formattedDate);
+    };
+    dateFetch();
   }, []);
   return (
     <div>
@@ -93,6 +105,7 @@ const SingleProduct = () => {
           </p>
           <p>{description}</p>
           <h4>Rs. {price}</h4>
+          <div style={{marginBottom:'5px'}}>Free Delivery by <strong>{dateShow}</strong></div>
           <div className="products-buttons">
             {toggleBtn ? (
               <button onClick={removeFromCartHandler}>Remove from Cart</button>

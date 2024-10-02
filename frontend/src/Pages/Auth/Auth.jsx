@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Form from './Form';
-import './Auth.css'
+import './Auth.css';
 const Auth = ({page}) => {
     const [input,setInput] = useState({
         fullName:'',
