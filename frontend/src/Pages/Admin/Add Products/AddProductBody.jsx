@@ -7,10 +7,11 @@ import URL from "../../../server";
 const AddProductBody = () => {
   const [selected, setSelected] = useState("Electronics");
   const [addNewProducts, setAddNewProducts] = useState();
+  const [editPanel, setEditPanel] = useState({ status: false , id: 0 });
   const [products, setProducts] = useState();
   const [refresh, setRefresh] = useState(false);
   const [categoryList, setCategoryList] = useState([{}]);
-
+  const [allProducts, setAllProducts] = useState([]);
   let element;
   const selectionHandler = (e) => {
     setSelected(e.target.textContent);
@@ -36,6 +37,7 @@ const AddProductBody = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("all products", data);
+            setAllProducts(data);
             console.log("categorylist", categoryList);
             const categoryListFiltered = categoryList.filter((cat) => {
               return cat.type === selected;
@@ -66,6 +68,8 @@ const AddProductBody = () => {
         <AddProductForm
           setAddNewProducts={setAddNewProducts}
           setRefresh={setRefresh}
+          setEditPanel={setEditPanel}
+          editPanel={editPanel}
         />
       )}
 
@@ -89,14 +93,20 @@ const AddProductBody = () => {
           Category
         </li>
       </ul>
-      {selected === "Electronics" && (
-        <ElectronicsAdd products={products} setRefresh={setRefresh} setAddNewProducts={setAddNewProducts} />
-      )}
-      {selected === "Fashion" && (
-        <ElectronicsAdd products={products} setRefresh={setRefresh} setAddNewProducts={setAddNewProducts} />
+      {(selected === "Electronics" || selected === "Fashion") && (
+        <ElectronicsAdd
+          products={products}
+          setRefresh={setRefresh}
+          setAddNewProducts={setAddNewProducts}
+          setEditPanel={setEditPanel}
+        />
       )}
       {selected === "Category" && (
-        <CategoryAdd products={categoryList} setRefresh={setRefresh} />
+        <CategoryAdd
+          categoryList={categoryList}
+          allProducts={allProducts}
+          setRefresh={setRefresh}
+        />
       )}
       <button
         id="add-product-button"

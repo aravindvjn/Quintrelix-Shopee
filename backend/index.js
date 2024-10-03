@@ -208,7 +208,7 @@ app.get("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query("SELECT * FROM products WHERE id= $1", [
-      id,
+      id
     ]);
     if (results.rows.length > 0) {
       res.status(200).json(results.rows[0]);

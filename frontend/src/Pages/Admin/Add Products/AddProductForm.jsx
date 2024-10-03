@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import URL from "../../../server";
 
-const AddProductForm = ({ setAddNewProducts, setRefresh }) => {
+const AddProductForm = ({
+  setAddNewProducts,
+  setRefresh,
+  setEditPanel,
+  editPanel,
+}) => {
+  console.log("edit pannel", editPanel.id);
   const [input, setInput] = useState({});
   const handleInput = (e) => {
     setInput({
@@ -9,9 +15,33 @@ const AddProductForm = ({ setAddNewProducts, setRefresh }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   const [category, setCategory] = useState();
   useEffect(() => {
+    const fetchProductData = async (id) => {
+      try {
+        console.log(URL + id);
+        const results = await fetch(URL + id);
+        const data = await results.json();
+        if (results) {
+          setInput({
+            name: data.name,
+            category: data.category,
+            description: data.description,
+            price: data.price,
+            image: data.image,
+            stock: data.stock,
+          });
+        } else {
+          console.log("product not found");
+        }
+      } catch (err) {
+        console.log("Error in fetching data", err);
+      }
+    };
+    if (editPanel.status) {
+      fetchProductData(editPanel.id);
+    }
+
     const fetchProducts = async () => {
       try {
         await fetch(URL + "category")
@@ -33,6 +63,7 @@ const AddProductForm = ({ setAddNewProducts, setRefresh }) => {
         id="close-add-new"
         onClick={() => {
           setAddNewProducts(false);
+          setEditPanel({ status: false, id: 0 });
         }}
       >
         Close
@@ -43,18 +74,22 @@ const AddProductForm = ({ setAddNewProducts, setRefresh }) => {
           e.preventDefault();
           console.log(input);
           try {
-            const response = await fetch(URL, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(input),
-            });
+            const response = await fetch(
+              URL + (editPanel.status ? editPanel.id : ""),
+              {
+                method: editPanel.status ? "PUT" : "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(input),
+              }
+            );
 
             if (response.ok) {
               alert("Form submitted successfully!");
               setInput({});
               setAddNewProducts(false);
+              setEditPanel({ status: false, id: 0 });
               setRefresh((prev) => {
                 return !prev;
               });

@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import URL from "../../../server";
-import '../Admin.css'
-import AddProductForm from "./AddProductForm";
-const ElectronicsAdd = ({products,setRefresh, setAddNewProducts}) => {
-
-const handleDelete= async (id)=>{
-  try{
-    const response = await fetch(URL+id,{
-      method:'DELETE'
-    })
-    if(response.ok){
-      alert("Product deleted")
-      setRefresh((prev)=>{
-        return !prev;
-      })
-    }else{
-      alert("Failed")
+import "../Admin.css";
+const ElectronicsAdd = ({
+  products,
+  setRefresh,
+  setAddNewProducts,
+  setEditPanel,
+}) => {
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(URL + id, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        alert("Product deleted");
+        setRefresh((prev) => {
+          return !prev;
+        });
+      } else {
+        alert("Failed");
+      }
+    } catch (err) {
+      console.error("Error in deleting a product");
     }
-  }catch(err){
-    console.error("Error in deleting a product")
-  }
-}
+  };
   return (
     <div className="electronics-add-parent">
       <table>
@@ -37,17 +40,30 @@ const handleDelete= async (id)=>{
             return (
               <tr>
                 <td>{index + 1}</td>
-                <td><img src={item.image} height="30px" alt={item.name}/></td>
+                <td>
+                  <img src={item.image} height="30px" alt={item.name} />
+                </td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.price}</td>
                 <td>{item.stock}</td>
-                <td><button onClick={()=>{
-                   setAddNewProducts(true);
-                }}>Edit</button>
-                <button onClick={()=>{
-                  handleDelete(item.id)
-                }}>Delete</button></td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setAddNewProducts(true);
+                      setEditPanel({ status: true, id: item.id });
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             );
           })}
