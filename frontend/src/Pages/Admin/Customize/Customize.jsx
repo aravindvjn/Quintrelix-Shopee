@@ -27,8 +27,8 @@ const Customize = () => {
         <div className="customize-body">
             <center><h3>Banners</h3></center>
           <div className="customize-banner">
-            {fetchBanner && fetchBanner.map((banner)=>{
-              return <Banner {...banner} setEdit={setEdit} edit={edit}/>
+            {fetchBanner && fetchBanner.map((banner,index)=>{
+              return <Banner key={index} {...banner} setEdit={setEdit} edit={edit}/>
             })}
           </div>
         </div>

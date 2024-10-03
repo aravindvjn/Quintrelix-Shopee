@@ -3,8 +3,10 @@ import ElectronicsAdd from "./ElectronicsAdd";
 import AddProductForm from "./AddProductForm";
 import CategoryAdd from "./CategoryAdd";
 import URL from "../../../server";
+import PhotoPreview from "../../../components/FeatureComponents/PhotoPreview";
 
 const AddProductBody = () => {
+  const [photoPreview,setPhotoPreview] = useState({status : false})
   const [selected, setSelected] = useState("Electronics");
   const [addNewProducts, setAddNewProducts] = useState();
   const [editPanel, setEditPanel] = useState({ status: false , id: 0 });
@@ -64,6 +66,7 @@ const AddProductBody = () => {
 
   return (
     <div>
+      {photoPreview.status && <PhotoPreview image={photoPreview.image} setPhotoPreview={setPhotoPreview} />}
       {addNewProducts && (
         <AddProductForm
           setAddNewProducts={setAddNewProducts}
@@ -99,12 +102,14 @@ const AddProductBody = () => {
           setRefresh={setRefresh}
           setAddNewProducts={setAddNewProducts}
           setEditPanel={setEditPanel}
+          setPhotoPreview={setPhotoPreview}
         />
       )}
       {selected === "Category" && (
         <CategoryAdd
           categoryList={categoryList}
           allProducts={allProducts}
+          setPhotoPreview={setPhotoPreview}
           setRefresh={setRefresh}
         />
       )}

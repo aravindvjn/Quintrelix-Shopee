@@ -60,6 +60,7 @@ const AddCategoryForm = ({ setAddCategoryForm,setRefresh }) => {
           required
         />
         <label htmlFor="">Type</label>
+        
         <select value={input.type} name="type" onChange={handleInput}>
           <option>Electronics</option>
           <option>Fashion</option>

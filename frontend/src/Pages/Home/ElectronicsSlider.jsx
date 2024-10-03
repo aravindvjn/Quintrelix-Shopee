@@ -44,7 +44,6 @@ const ElectronicsSlider = ({ name }) => {
                   <div>
                     <img src={product.image} alt="" />
                     <p>{product.name}</p>
-                    <h6>{product.price}</h6>
                   </div>
                 </div>
               </Link>

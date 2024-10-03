@@ -96,6 +96,7 @@ app.post("/login", async (req, res) => {
               id: user.id,
               username: user.fullname,
               email: user.email,
+              admin:user.admin
             });
           } else {
             res.status(400).json({ message: "Invalid username or password" });
@@ -171,7 +172,7 @@ app.get("/api/products", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
-//get all products
+//get all banner
 app.get("/api/products/banner", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM banner");
@@ -180,6 +181,7 @@ app.get("/api/products/banner", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
+
 
 //get all category group
 app.get("/api/products/category", async (req, res) => {

@@ -13,6 +13,7 @@ import { UserProvider } from "./Pages/Context/context";
 import Customize from "./Pages/Admin/Customize/Customize";
 import Cart from "./Pages/Cart/Cart";
 import SingleProduct from "./Pages/Electronics/SingleProduct/SingleProduct";
+import SearchResult from "./Pages/SearchResult/SearchResult";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/login" element={<Auth page={"login"} />} />
             <Route exact path="/customize" element={<Customize />} />
             <Route exact path="/show-product" element={<SingleProduct />} />
+            <Route exact path="/search-product" element={<SearchResult />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

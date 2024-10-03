@@ -6,6 +6,7 @@ const Banner = ({image,name,id,setEdit,edit}) => {
   return (
     <div className='banner-parent'>
         {edit && <EditForm setEdit={setEdit} initialImage={image} initialName={name} id={id}/>}
+        {id===4 && <h5>Ad Section</h5>}
         <img src={image || loadingImage} alt={name || "default"} onClick={()=>{
             setEdit(true)
         }} />

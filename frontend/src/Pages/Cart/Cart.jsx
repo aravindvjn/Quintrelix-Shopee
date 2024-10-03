@@ -35,7 +35,7 @@ const Cart = () => {
     return (
       <>
         <Header />
-        <CartLoginWarning />
+        <CartLoginWarning message={"Login to see the items you added previously"} />
       </>
     );
   }

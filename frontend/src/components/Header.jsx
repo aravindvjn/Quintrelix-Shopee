@@ -4,9 +4,14 @@ import logo from "../assets/Q-shopee.png";
 import "./Components.css";
 import { UserContext } from "../Pages/Context/context";
 import { authURL } from "../server";
+import Search from "./Search/Search";
 
-const Header = ({ admin }) => {
+const Header = () => {
   const { user, setUser } = useContext(UserContext);
+  let admin;
+  if (user) {
+    admin = user.admin;
+  }
   const history = useNavigate();
   return (
     <div className="header-parent">
@@ -112,7 +117,7 @@ const Header = ({ admin }) => {
           </ul>
         </div>
       </nav>
-      <header className="py-3 mb-4 border-bottom display-hide" >
+      <header className="py-3 mb-4 border-bottom display-hide">
         <div className="container d-flex flex-wrap justify-content-center">
           <Link
             to={"/"}
@@ -120,14 +125,7 @@ const Header = ({ admin }) => {
           >
             <img className="Q-logo" src={logo} alt="" />
           </Link>
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search..."
-              aria-label="Search"
-            />
-          </form>
+          <Search />
         </div>
       </header>
     </div>

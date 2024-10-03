@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import AddCategoryForm from "./AddCategoryForm";
 import URL from "../../../server";
+import PhotoPreview from "../../../components/FeatureComponents/PhotoPreview";
 
-const CategoryAdd = ({ categoryList, setRefresh,allProducts }) => {
+const CategoryAdd = ({
+  categoryList,
+  setRefresh,
+  allProducts,
+  setPhotoPreview,
+}) => {
   const [addCategoryForm, setAddCategoryForm] = useState(false);
-  const handleEdit = async () => {};
   const handleDelete = async (id) => {
     console.log(id);
     try {
@@ -45,28 +50,31 @@ const CategoryAdd = ({ categoryList, setRefresh,allProducts }) => {
           <th>SL No</th>
           <th>Image</th>
           <th>Name</th>
+          <th>No. Products</th>
           <th>Group</th>
-          <th>Starting Price</th>
         </tr>
         {categoryList &&
           categoryList.map((item, index) => {
-            const filteredProduct = allProducts.filter((product)=>{
+            const array = allProducts.filter((product) => {
               return product.idcategory === item.idname;
-            })
-            console.log(item.name,filteredProduct)
-            const priceArray = filteredProduct.map(pro=>{
-              return pro.price;
-            })
-            console.log()
+            });
             return (
               <tr>
-                <td>{item.id}</td>
+                <td>{index + 1}</td>
                 <td>
-                  <img src={item.image} height="30px" alt={item.name} />
+                  <img
+                    onClick={() =>
+                      setPhotoPreview({ status: true, image: item.image })
+                    }
+                    src={item.image}
+                    height="30px"
+                    alt={item.name}
+                    style={{ cursor: "pointer" }}
+                  />
                 </td>
                 <td>{item.name}</td>
+                <td>{array.length}</td>
                 <td>{item.type}</td>
-                <td>{Math.min(...priceArray)===Infinity? 0 :Math.min(...priceArray)}</td>
                 <td>
                   <button
                     onClick={() => {

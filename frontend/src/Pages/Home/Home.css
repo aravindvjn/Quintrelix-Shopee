@@ -55,6 +55,7 @@
     width: 100%;
     height: 280px;
 }
+
 /* Large Device */
 @media (max-width:992px){
     .electronics-slider {

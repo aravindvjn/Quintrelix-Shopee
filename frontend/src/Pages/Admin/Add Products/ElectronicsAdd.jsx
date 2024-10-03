@@ -6,6 +6,7 @@ const ElectronicsAdd = ({
   setRefresh,
   setAddNewProducts,
   setEditPanel,
+  setPhotoPreview
 }) => {
   const handleDelete = async (id) => {
     try {
@@ -41,11 +42,11 @@ const ElectronicsAdd = ({
               <tr>
                 <td>{index + 1}</td>
                 <td>
-                  <img src={item.image} height="30px" alt={item.name} />
+                  <img src={item.image} onClick={()=>setPhotoPreview({status:true,image:item.image})} height="30px" alt={item.name} style={{cursor:'pointer'}} />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
-                <td>{item.price}</td>
+                <td>Rs.{item.price}</td>
                 <td>{item.stock}</td>
                 <td>
                   <button
