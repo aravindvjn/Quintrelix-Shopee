@@ -7,6 +7,7 @@ import Products from "./Products";
 import { UserContext } from "../Context/context";
 import LoginPopUp from "../../components/LoginPopUp";
 import SingleProduct from "./SingleProduct/SingleProduct";
+import Loading from "../../components/Loading/Loading";
 
 const ProductsOnCategory = () => {
   const { user } = useContext(UserContext);
@@ -108,9 +109,8 @@ const ProductsOnCategory = () => {
   return (
     <div>
       <Header />
-      {products.length === 0 && <center>No products available</center>}
       <div className="products-on-category">
-        {products &&
+        {products ?
           products.map((product) => {
             return (
               <Products
@@ -121,7 +121,7 @@ const ProductsOnCategory = () => {
                 setShowDetail={setShowDetail}
               />
             );
-          })}
+          }): <Loading />}
       </div>
     </div>
   );

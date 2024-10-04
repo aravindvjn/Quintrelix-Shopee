@@ -1,7 +1,14 @@
 .cart-product-parent{
     display: grid;
-    grid-template-columns: 50px 70px 1fr 150px;
-    margin: 10px 50px;
+    grid-template-columns: 50px 1fr 150px;
+    margin: 10px 90px;
+    position: relative;
+}
+.cart-product-parent section{
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    cursor: pointer;
+    font-weight: 500;
 }
 .cart-product-parent img{
     width: 50px;
@@ -11,4 +18,15 @@
     width: 20px;
     height: 20px;
     margin: auto;
+}
+#cart-total{
+    font-size: 20px;
+    margin-left: 90px;
+    font-weight: bold;
+}
+#cart-delete{
+    position: absolute;
+    right: 10px;
+    top:30%;
+    cursor: pointer;
 }

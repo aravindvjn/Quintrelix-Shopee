@@ -6,7 +6,7 @@ const ElectronicsAdd = ({
   setRefresh,
   setAddNewProducts,
   setEditPanel,
-  setPhotoPreview
+  setPhotoPreview,
 }) => {
   const handleDelete = async (id) => {
     try {
@@ -42,11 +42,24 @@ const ElectronicsAdd = ({
               <tr>
                 <td>{index + 1}</td>
                 <td>
-                  <img src={item.image} onClick={()=>setPhotoPreview({status:true,image:item.image})} height="30px" alt={item.name} style={{cursor:'pointer'}} />
+                  <img
+                    src={item.image}
+                    onClick={() =>
+                      setPhotoPreview({ status: true, image: item.image })
+                    }
+                    height="30px"
+                    alt={item.name}
+                    style={{ cursor: "pointer" }}
+                  />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
-                <td>Rs.{item.price}</td>
+                <td>
+                  {Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR",
+                  }).format(item.price)}
+                </td>
                 <td>{item.stock}</td>
                 <td>
                   <button

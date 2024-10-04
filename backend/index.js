@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
               id: user.id,
               username: user.fullname,
               email: user.email,
-              admin:user.admin
+              admin: user.admin,
             });
           } else {
             res.status(400).json({ message: "Invalid username or password" });
@@ -172,6 +172,18 @@ app.get("/api/products", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
+//get all orders
+app.get("/api/products/orders/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const results = await pool.query("SELECT * FROM orders WHERE user_id=$1", [
+      id,
+    ]);
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
 //get all banner
 app.get("/api/products/banner", async (req, res) => {
   try {
@@ -181,7 +193,6 @@ app.get("/api/products/banner", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
-
 
 //get all category group
 app.get("/api/products/category", async (req, res) => {
@@ -210,7 +221,7 @@ app.get("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query("SELECT * FROM products WHERE id= $1", [
-      id
+      id,
     ]);
     if (results.rows.length > 0) {
       res.status(200).json(results.rows[0]);
@@ -238,6 +249,36 @@ app.get("/api/products/category/:category", async (req, res) => {
   }
 });
 
+//create a orders
+app.post("/api/products/orders", async (req, res) => {
+  try {
+    console.log(req.body);
+    const {
+      user_id,
+      product_id,
+      customer_name,
+      total_amount,
+      shipping_address,
+      payment_method,
+    } = req.body;
+    const order_date = new Date();
+    const results = await pool.query(
+      "INSERT INTO orders (user_id, product_id, customer_name, order_date, total_amount,shipping_address, payment_method) VALUES ($1, $2,$3, $4,$5,$6,$7) RETURNING *",
+      [
+        user_id,
+        product_id,
+        customer_name,
+        order_date,
+        total_amount,
+        shipping_address,
+        payment_method,
+      ]
+    );
+    res.status(201).json(results.rows[0]);
+  } catch (err) {
+    res.status(404).json("Error in creating products");
+  }
+});
 //create a products
 app.post("/api/products", async (req, res) => {
   try {
@@ -330,7 +371,7 @@ app.put("/api/products/cart/:id", async (req, res) => {
       } else {
         res.status(404).json("product not found");
       }
-    }else if(operation === 'decrease'){
+    } else if (operation === "decrease") {
       const results = await pool.query(
         "UPDATE cart SET quantity=quantity - 1 WHERE id=$1 RETURNING *",
         [id]

@@ -68,7 +68,12 @@ const Products = (props) => {
               <strong>...</strong>
             </p>
           )}
-          <h6>Rs. {price}</h6>
+          <h6>
+            {Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+            }).format(price)}
+          </h6>
         </div>
       </div>
       <hr className="product-hr-line" />

@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import LoginPopUp from "../../../components/LoginPopUp";
 import { UserContext } from "../../Context/context";
 import URL from "../../../server";
+import BuyFeature from "../BuyFeature/BuyFeature";
 const SingleProduct = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
@@ -23,9 +24,9 @@ const SingleProduct = () => {
         });
         if (response.ok) {
           setToggleBtn(!toggleBtn);
-          alert("Removed from cart");
+          // alert("Removed from cart");
         } else {
-          alert("Failed to Remove");
+          // alert("Failed to Remove");
         }
       } catch (err) {
         console.log("Error in add to Cart", err);
@@ -50,20 +51,16 @@ const SingleProduct = () => {
         });
         if (response.ok) {
           setToggleBtn(!toggleBtn);
-          alert("added to cart");
+          // alert("added to cart");
         } else {
-          alert("Failed to add");
+          // alert("Failed to add");
         }
       } catch (err) {
         console.log("Error in add to Cart", err);
       }
     }
   };
-  const buyHandler = () => {
-    if (!user) {
-      setPopUP(true);
-    }
-  };
+
   useEffect(() => {
     console.log("Refreshed");
     const fetchCart = async () => {
@@ -104,7 +101,10 @@ const SingleProduct = () => {
             </strong>
           </p>
           <p>{description}</p>
-          <h4>Rs. {price}</h4>
+          <h4>{Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+            }).format(price)}</h4>
           <div style={{marginBottom:'5px'}}>Free Delivery by <strong>{dateShow}</strong></div>
           <div className="products-buttons">
             {toggleBtn ? (
@@ -112,7 +112,7 @@ const SingleProduct = () => {
             ) : (
               <button onClick={addToCartHandler}>Add to Cart</button>
             )}
-            <button onClick={buyHandler}>Buy</button>
+            <BuyFeature setPopUP={setPopUP} {...location.state} />
           </div>
         </div>
       </div>

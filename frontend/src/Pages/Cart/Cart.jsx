@@ -1,11 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
+import "./Cart.css";
+import Header from "../../components/Header";
+import URL from "../../server";
+import { UserContext } from "../Context/context";
+import Products from "../Electronics/Products";
+import CartProduct from "./CartProduct";
+import CartLoginWarning from "./CartLoginWarning";
+
 const Cart = () => {
   const { user } = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [refresh, setRefresh] = useState(false);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     console.log("Refreshed");
     const fetchCart = async () => {
@@ -26,16 +35,19 @@ const Cart = () => {
       fetchAllProducts();
     };
     fetchCart();
-    // total.forEach((rs) => {
-    //   setTotalPrice((prev) => prev + rs);
-    // });
-    console.log(totalPrice)
+    console.log(
+      Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(
+        Object.values(total).reduce((acc, val) => acc + val, 0)
+      )
+    );
   }, [refresh]);
   if (!user) {
     return (
       <>
         <Header />
-        <CartLoginWarning message={"Login to see the items you added previously"} />
+        <CartLoginWarning
+          message={"Login to see the items you added previously"}
+        />
       </>
     );
   }
@@ -49,29 +61,39 @@ const Cart = () => {
               <div>
                 <CartProduct
                   key={item.id}
-                  {...item}
+                  item={item}
                   cart={cart.find((obj) => {
                     return obj.product_id === item.id;
                   })}
                   index={index}
-                  setTotalPrice={setTotalPrice}
-                  totalPrice={totalPrice}
                   setRefresh={setRefresh}
+                  setTotal={setTotal}
                 />
                 <hr />
               </div>
             );
           })}
-        {cartItems.length > 0 ? <p>Total :{totalPrice}</p> : <p className="center">No Carts Available</p>}
+        <div id="cart-total">
+          {cartItems.length > 0 ? (
+            <p>
+              Total :{" "}
+              {Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+              }).format(
+                Object.values(total).reduce((acc, val) => acc + val, 0)
+              )}
+            </p>
+          ) : (
+            <p className="center" style={{fontWeight:'normal',fontSize:'15px'}}>No Carts Available</p>
+          )}
+          {cartItems.length > 0 && Object.values(total).reduce((acc, val) => acc + val, 0) > 0 && (
+            <button className="btn btn-warning">Order Now</button>
+          )}
+        </div>
       </div>
     </>
   );
 };
-import "./Cart.css";
-import Header from "../../components/Header";
-import URL from "../../server";
-import { UserContext } from "../Context/context";
-import Products from "../Electronics/Products";
-import CartProduct from "./CartProduct";
-import CartLoginWarning from "./CartLoginWarning";
+
 export default Cart;

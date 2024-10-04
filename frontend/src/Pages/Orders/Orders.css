@@ -1,0 +1,77 @@
+.single-order {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    width: 100%;
+    padding: 10px 100px 30px 100px;
+    position: relative;
+    border-bottom: 1px solid silver;
+
+}
+
+.single-order-parent {
+    width: 96%;
+    margin: 20px 2%;
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+
+.order-parent {
+    width: 100%;
+    flex-direction: column;
+}
+
+.single-colored {
+    padding: 20px 100px;
+    width: 100%;
+    background-color: rgb(218, 218, 218);
+    display: flex;
+    justify-content: start;
+    gap: 50px;
+    color: rgb(103, 103, 103);
+}
+.single-colored h6{
+    line-height: 10px;
+    text-align: center;
+}
+.delivery-status{
+    padding: 10px 100px;
+    line-height: 10px;
+}
+.delivery-status h5,.delivery-status p{
+    display: inline;
+}
+.single-order-button{
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    gap: 20px;
+}
+.single-order-button button{
+    width: 160px;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.single-order-button button:nth-child(1):hover{
+    background-color: rgb(255, 0, 0);
+}
+.single-order-price{
+    position: absolute;
+    bottom: 20px;
+}
+.single-order div:nth-child(1){
+    padding: 0px 30px;
+}
+.single-order img{
+    max-width: 80%;
+    border-radius: 5px;
+
+}
+.single-order-price button{
+ padding: 5px 10px;
+ border-radius: 10px;
+ font-size: 14px;
+}
+.single-order-price button:hover{
+ background-color: gold;
+
+}
