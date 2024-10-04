@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import URL from "../../server";
 
 const OrderBody = ({
   id,
@@ -9,9 +10,11 @@ const OrderBody = ({
   price,
   description,
   order,
+  setRefresh,
 }) => {
   const [dateShow, setDateShow] = useState();
-  const navigate = useNavigate()
+  const [deliveryStatus, setDeliveryStatus] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const dateFetch = () => {
       const dateObject = new Date(order.order_date);
@@ -22,43 +25,73 @@ const OrderBody = ({
       });
       setDateShow(formattedDate);
     };
+    setDeliveryStatus(
+      new Date(order.order_date).setDate(
+        new Date(order.order_date).getDate() + 5
+      ) < new Date()
+    );
     dateFetch();
-  });
+  }, [order.order_date]);
+
+  const cancelHandler = async () => {
+    try {
+      const response = await fetch(URL + "orders/" + order.order_id, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setRefresh((prev) => !prev);
+        alert("Cancelled the product");
+      } else {
+        alert("Failed in canceling product");
+      }
+    } catch (err) {
+      console.log("Canceling error", err);
+    }
+  };
   return (
     <>
       <div className="delivery-status">
-        <h5>Delivery Expected on </h5>
-        <p>{dateShow}</p>
+        {deliveryStatus ? (
+          <h5>Delivered on {dateShow}</h5>
+        ) : (
+          <h5>Delivery is expected on {dateShow}</h5>
+        )}{" "}
       </div>
       <div className="single-order">
         <div>
           <img src={image} alt="" style={{ maxWidth: "100%" }} />
         </div>
         <div>
-          <h5>{name}</h5>
-          <div className="single-order-price">
-            <h5>
-              {Intl.NumberFormat("en-IN", {
-                style: "currency",
-                currency: "INR",
-              }).format(price)}
-            </h5>
-            <button   onClick={() =>
-          navigate("/show-product", {
-            state: {
-              id,
-              name,
-              category,
-              image,
-              price,
-              description,
-            },
-          })
-        }>View Product</button>
-          </div>
+          <p>{name}</p>
+          <h5>
+            {Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+            }).format(price)}
+          </h5>
         </div>
         <div className="single-order-button">
-          <button>Cancel</button>
+          <button
+            onClick={() =>
+              navigate("/show-product", {
+                state: {
+                  id,
+                  name,
+                  category,
+                  image,
+                  price,
+                  description,
+                },
+              })
+            }
+          >
+            View Product
+          </button>
+          {!deliveryStatus && (
+            <button onClick={cancelHandler} id="cancel-button">
+              Cancel
+            </button>
+          )}
           <button>Track Your Package</button>
           <button>More Information</button>
         </div>

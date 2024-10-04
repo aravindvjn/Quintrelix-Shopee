@@ -34,21 +34,17 @@ const BuyFeature = ({
             payment_method: paymentMethod,
           }),
         });
-        if(response.ok){
-            alert("Added to Cart")
-        }else{
-            alert("Failed to add to cart")
+        if (response.ok) {
+          alert("Placed Order");
+        } else {
+          alert("Failed to place order");
         }
       } catch (err) {
         console.log("Error in adding order", err);
       }
     }
   };
-  return (
-    <div>
-      <button onClick={buyHandler}>Buy</button>
-    </div>
-  );
+  return <button onClick={buyHandler}>Buy</button>;
 };
 
 export default BuyFeature;

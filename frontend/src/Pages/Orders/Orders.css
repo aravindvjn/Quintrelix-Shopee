@@ -29,49 +29,57 @@
     gap: 50px;
     color: rgb(103, 103, 103);
 }
-.single-colored h6{
-    line-height: 10px;
+
+.single-colored h6 {
+    line-height: 12px;
     text-align: center;
 }
-.delivery-status{
+
+.delivery-status {
     padding: 10px 100px;
     line-height: 10px;
 }
-.delivery-status h5,.delivery-status p{
+
+.delivery-status h5,
+.delivery-status p {
     display: inline;
 }
-.single-order-button{
+
+.single-order-button {
     display: flex;
     font-size: 14px;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
-.single-order-button button{
+
+.single-order-button button {
     width: 160px;
     padding: 5px 10px;
     border-radius: 10px;
 }
-.single-order-button button:nth-child(1):hover{
+
+.single-order-button button:hover {
+    background-color: silver;
+}
+
+#cancel-button:hover {
     background-color: rgb(255, 0, 0);
 }
-.single-order-price{
-    position: absolute;
-    bottom: 20px;
-}
-.single-order div:nth-child(1){
+
+.single-order div:nth-child(1) {
     padding: 0px 30px;
 }
-.single-order img{
+
+.single-order img {
     max-width: 80%;
     border-radius: 5px;
 
 }
-.single-order-price button{
- padding: 5px 10px;
- border-radius: 10px;
- font-size: 14px;
-}
-.single-order-price button:hover{
- background-color: gold;
 
+.single-order p {
+    margin-top: 10px;
+    color: blue;
+}
+.order-parent select{
+    transform: translate(10px,-5px);
 }

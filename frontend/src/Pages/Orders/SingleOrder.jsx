@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import OrderBody from "./OrderBody";
 
-const SingleOrder = ({product,order}) => {
-    console.log("the product",product)
-    const [dateShow, setDateShow] = useState();
-useEffect(()=>{
+const SingleOrder = ({ product, order,setRefresh }) => {
+  const [dateShow, setDateShow] = useState();
+  useEffect(() => {
     const dateFetch = () => {
-        const dateObject = new Date(order.order_date);
-        dateObject.setDate(dateObject.getDate());
-        const formattedDate = dateObject.toLocaleDateString("en-US", {
-          day: "numeric",
-          month: "long",
-        });
-        setDateShow(formattedDate);
-      };
-      dateFetch();
-})
+      const dateObject = new Date(order.order_date);
+      dateObject.setDate(dateObject.getDate());
+      const formattedDate = dateObject.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+      });
+      setDateShow(formattedDate);
+    };
+    dateFetch();
+  });
+  if (product.length <= 0) {
+    return;
+  }
   return (
     <div className="single-order-parent">
       <div className="single-colored">
@@ -34,7 +36,7 @@ useEffect(()=>{
           </h6>
         </div>
       </div>
-      <OrderBody order={order} {...product[0]} />
+      <OrderBody order={order} {...product[0]} setRefresh={setRefresh} />
     </div>
   );
 };

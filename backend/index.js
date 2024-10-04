@@ -407,6 +407,23 @@ app.put("/api/products/banner/:id", async (req, res) => {
 });
 
 // Deleting a products
+app.delete("/api/products/orders/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const results = await pool.query(
+      "DELETE FROM orders WHERE order_id=$1 RETURNING *",
+      [id]
+    );
+    if (results.rows.length > 0) {
+      res.json("product deleted");
+    } else {
+      res.status(404).json("product not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in deleting a product");
+  }
+});
+// Deleting a products
 app.delete("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
