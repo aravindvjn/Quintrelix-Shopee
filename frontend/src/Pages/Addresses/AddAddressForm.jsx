@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { authURL } from "../../server";
 import { UserContext } from "../Context/context";
 import Header from "../../components/Header";
@@ -8,6 +8,7 @@ import Footer from "../../components/Footer";
 
 const AddAddressForm = () => {
   const { user } = useContext(UserContext);
+  const location = useLocation();
   const [input, setInput] = useState({});
   const navigate = useNavigate();
   const inputHandler = (e) => {
@@ -19,32 +20,65 @@ const AddAddressForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(input);
+    console.log( location.state ? location.state : " ")
     try {
-      const response = await fetch(authURL + "api/user/address", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id:user.id,
-          name:input.firstName +' '+ input.lastName,
-          address:input.address,
-          state:input.state,
-          country:input.country,
-          postal_code:input.postal_code,
-          phone_number:input.phone_number,
-        }),
-      });
-      if(response.ok){
-        navigate('/')
-      }else{
-        alert("Failed")
+      const response = await fetch(
+        authURL + "api/user/address/" + location.state,
+        {
+          method: location.state ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            name: input.lastName
+              ? input.firstName + " " + input.lastName
+              : input.firstName,
+            address: input.address,
+            state: input.state,
+            country: input.country,
+            postal_code: input.postal_code,
+            phone_number: input.phone_number,
+          }),
+        }
+      );
+      if (response.ok) {
+        navigate("/account/addresses");
+      } else {
+        alert("Failed");
       }
     } catch (err) {
       console.log("Error in adding product", err);
     }
-  }; 
-if (!user) {
+  };
+
+  useEffect(() => {
+    const fetchAddressData = async () => {
+      try {
+        const results = await fetch(
+          authURL + "api/user/address/" + user.id + "/" + location.state
+        );
+        const data = await results.json();
+        if (data.length > 0) {
+          setInput({
+            firstName: data[0].name,
+            address: data[0].address,
+            state: data[0].state,
+            country: data[0].country,
+            postal_code: data[0].postal_code,
+            phone_number: data[0].phone_number,
+          });
+        }
+      } catch (err) {
+        console.log("Error in fetching address");
+      }
+    };
+    if (location.state) {
+      fetchAddressData();
+    }
+  }, []);
+
+  if (!user) {
     return (
       <div>
         <CartLoginWarning />
@@ -63,14 +97,14 @@ if (!user) {
             name="firstName"
             required
             onChange={inputHandler}
+            value={input.firstName}
           />
           <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
             name="lastName"
-            required
             onChange={inputHandler}
-            value={input.name}
+            value={input.lastName}
           />
           <h5 style={{ transform: "translateY(20px)", margin: "30px 0px" }}>
             DELIVERY ADDRESS
@@ -116,7 +150,7 @@ if (!user) {
             value={input.phone_number}
           />
           <button style={{ margin: "30px 0px" }} className="btn btn-primary">
-            Add
+            Save
           </button>
         </form>
       </div>

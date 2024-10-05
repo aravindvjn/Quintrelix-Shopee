@@ -1,10 +1,19 @@
-.single-product-details{
+.single-product-details {
   margin: 50px 100px;
   flex-direction: column;
   gap: 20px;
+  align-items: start;
 }
-.single-product-details img{
-    width: 100%;
-    max-height: 100vh;
-    border-radius: 10px;
+
+.single-product-details>div:nth-child(1) {
+  margin-left: 50%;
+  margin-bottom: 20px;
+  transform: translateX(-50%);
+
+}
+
+.single-product-details img {
+  width: 100%;
+  max-height: 100vh;
+  border-radius: 10px;
 }

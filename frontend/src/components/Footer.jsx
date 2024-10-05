@@ -7,8 +7,8 @@ const Footer = () => {
   return (
     <div>
       <div className="container">
-        <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-          <div className="col mb-3 footer-links-div">
+        <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5  border-top">
+          <div className="col mb-3 footer-links-div" style={{marginBottom:'0px'}}>
             <h5>Quick Links</h5>
             <ul className="nav flex-column">
               {user && (

@@ -6,6 +6,7 @@ import LoginPopUp from "../../../components/LoginPopUp";
 import { UserContext } from "../../Context/context";
 import URL from "../../../server";
 import BuyFeature from "../BuyFeature/BuyFeature";
+import Footer from "../../../components/Footer";
 const SingleProduct = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();

@@ -176,9 +176,10 @@ app.get("/api/products", async (req, res) => {
 app.get("/api/products/orders/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const results = await pool.query("SELECT * FROM orders WHERE user_id=$1 ORDER BY created_at DESC;", [
-      id,
-    ]);
+    const results = await pool.query(
+      "SELECT * FROM orders WHERE user_id=$1 ORDER BY created_at DESC;",
+      [id]
+    );
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -207,9 +208,24 @@ app.get("/api/products/category", async (req, res) => {
 app.get("/api/user/address/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
-    const results = await pool.query("SELECT * FROM addresses WHERE user_id=$1", [
-      user_id,
-    ]);
+    const results = await pool.query(
+      "SELECT * FROM addresses WHERE user_id=$1",
+      [user_id]
+    );
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+
+//get user address by id
+app.get("/api/user/address/:user_id/:id", async (req, res) => {
+  try {
+    const { user_id, id } = req.params;
+    const results = await pool.query(
+      "SELECT * FROM addresses WHERE user_id=$1 AND id=$2",
+      [user_id, id]
+    );
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -294,7 +310,6 @@ app.post("/api/products/orders", async (req, res) => {
 //create an address
 app.post("/api/user/address", async (req, res) => {
   try {
-    console.log(req.body);
     const {
       user_id,
       name,
@@ -440,6 +455,36 @@ app.put("/api/products/banner/:id", async (req, res) => {
   }
 });
 
+//updating an address
+app.put("/api/user/address/:id", async (req, res) => {
+  try {
+    const {
+      user_id,
+      name,
+      address,
+      state,
+      country,
+      postal_code,
+      phone_number,
+    } = req.body;
+    console.log(req.body)
+    const { id } = req.params;
+    const results = await pool.query(
+      "UPDATE addresses SET phone_number=$1,name=$2,address=$3,state=$4,country=$5,postal_code=$6 WHERE id=$7 AND user_id=$8 RETURNING *",
+      [phone_number, name, address, state, country, postal_code, id, user_id]
+    );
+    if (results.rows.length > 0) {
+      res.status(201).json(results.rows[0]);
+    } else {
+      res.status(404).json("product not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating products");
+  }
+});
+
+//DELETING
+
 // Deleting a products
 app.delete("/api/products/orders/:id", async (req, res) => {
   try {
@@ -457,6 +502,26 @@ app.delete("/api/products/orders/:id", async (req, res) => {
     res.status(404).json("Error in deleting a product");
   }
 });
+
+// Deleting an address
+app.delete("/api/user/address/:id", async (req, res) => {
+  try {
+    const { user_id } = req.body;
+    const { id } = req.params;
+    const results = await pool.query(
+      "DELETE FROM addresses WHERE id=$1 AND user_id=$2 RETURNING *",
+      [id, user_id]
+    );
+    if (results.rows.length > 0) {
+      res.json("product deleted");
+    } else {
+      res.status(404).json("product not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in deleting a product");
+  }
+});
+
 // Deleting a products
 app.delete("/api/products/:id", async (req, res) => {
   try {
