@@ -3,9 +3,9 @@ import LoginButton from '../../components/LoginButton'
 
 const CartLoginWarning = ({message}) => {
   return (
-    <div className='center'>
+    <div className='center cart-login-warning'>
         <div className='center' style={{flexDirection:'column'}}>
-            <p>{message}</p>
+            <p>{message ? message : "Please Login"}</p>
             <LoginButton />
         </div>
     </div>

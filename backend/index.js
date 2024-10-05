@@ -176,7 +176,7 @@ app.get("/api/products", async (req, res) => {
 app.get("/api/products/orders/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const results = await pool.query("SELECT * FROM orders WHERE user_id=$1", [
+    const results = await pool.query("SELECT * FROM orders WHERE user_id=$1 ORDER BY created_at DESC;", [
       id,
     ]);
     res.status(200).json(results.rows);
@@ -198,6 +198,18 @@ app.get("/api/products/banner", async (req, res) => {
 app.get("/api/products/category", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM category");
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+//get all user address
+app.get("/api/user/address/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const results = await pool.query("SELECT * FROM addresses WHERE user_id=$1", [
+      user_id,
+    ]);
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -273,6 +285,28 @@ app.post("/api/products/orders", async (req, res) => {
         shipping_address,
         payment_method,
       ]
+    );
+    res.status(201).json(results.rows[0]);
+  } catch (err) {
+    res.status(404).json("Error in creating products");
+  }
+});
+//create an address
+app.post("/api/user/address", async (req, res) => {
+  try {
+    console.log(req.body);
+    const {
+      user_id,
+      name,
+      address,
+      state,
+      country,
+      postal_code,
+      phone_number,
+    } = req.body;
+    const results = await pool.query(
+      "INSERT INTO addresses (user_id,name,address,state,country,postal_code,phone_number) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+      [user_id, name, address, state, country, postal_code, phone_number]
     );
     res.status(201).json(results.rows[0]);
   } catch (err) {

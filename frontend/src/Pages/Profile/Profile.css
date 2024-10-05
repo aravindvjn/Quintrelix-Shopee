@@ -1,3 +1,30 @@
 .profile-parent-div{
-    margin: 20px 50px;
+    margin: 20px 150px;
+}
+.profile-function{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(2,100px);
+    gap: 50px;
+    margin: 50px 50px;
+    
+}
+.profile-function >div{
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border: 1px solid silver;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+.profile-function >div div{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.profile-function >div div:nth-child(2){
+    padding-left: 0;
 }

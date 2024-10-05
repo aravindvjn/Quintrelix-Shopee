@@ -1,19 +1,36 @@
-import React, { useContext } from 'react'
-import Header from '../../components/Header'
-import { UserContext } from '../Context/context'
-import './Profile.css'
+import React, { useContext } from "react";
+import Header from "../../components/Header";
+import { UserContext } from "../Context/context";
+import "./Profile.css";
+import ProfileFunctions from "./ProfileFunctions";
+import { useNavigate } from "react-router-dom";
+import CartLoginWarning from "../Cart/CartLoginWarning";
+import Footer from "../../components/Footer";
 const Profile = () => {
-  const {user} = useContext(UserContext)
-  console.log(user)
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  console.log(user);
+  if (!user) {
+    return (
+      <div>
+        <Header />
+        <CartLoginWarning />
+        <Footer />
+      </div>
+    );
+  }
   return (
     <div>
-        <Header />
-        <div className="profile-parent-div">
-          <p>Name : <strong>{user.username.toUpperCase()}</strong></p>
-          <p>Email : <strong>{user.email}</strong></p>
-        </div>
+      <Header />
+      <div className="profile-parent-div">
+        <h4 style={{ margin: "20px 0px" }}>
+          Hello, {user.username.toUpperCase()}
+        </h4>
+        <ProfileFunctions />
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

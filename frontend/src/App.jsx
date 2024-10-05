@@ -14,6 +14,8 @@ import Customize from "./Pages/Admin/Customize/Customize";
 import Cart from "./Pages/Cart/Cart";
 import SingleProduct from "./Pages/Electronics/SingleProduct/SingleProduct";
 import SearchResult from "./Pages/SearchResult/SearchResult";
+import Address from "./Pages/Addresses/Address";
+import AddAddress from "./Pages/Addresses/AddAddress";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -37,6 +39,8 @@ function App() {
             <Route exact path="/customize" element={<Customize />} />
             <Route exact path="/show-product" element={<SingleProduct />} />
             <Route exact path="/search-product" element={<SearchResult />} />
+            <Route exact path="/account/addresses" element={<Address />} />
+            <Route exact path="/account/addresses/add" element={<AddAddress />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

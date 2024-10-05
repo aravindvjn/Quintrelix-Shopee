@@ -66,18 +66,21 @@ const Header = () => {
           <ul className="nav">
             <li className="nav-item">
               {user ? (
-                <Link
-                  to={"/profile"}
-                  className="nav-link link-body-emphasis px-2"
-                  style={{
-                    backgroundColor: "gold",
-                    borderRadius: "7px",
-                    padding: "3px",
-                    transform: "translateY(4px)",
-                  }}
-                >
-                  {user.username}
-                </Link>
+                <div className="header-account">
+                  <Link
+                    to={"/profile"}
+                    className="nav-link link-body-emphasis px-2"
+                    style={{
+                      backgroundColor: "gold",
+                      borderRadius: "7px",
+                      padding: "3px",
+                      transform: "translateY(4px)",
+                    }}
+                  >
+                    {user.username}
+                  </Link>
+                  <p className="your-account">Your account</p>
+                </div>
               ) : (
                 <Link
                   to={"/login"}

@@ -1,0 +1,57 @@
+.address-parent {
+    margin: 20px 100px;
+    position: relative;
+}
+
+.single-address div {
+}
+
+.single-address {
+    border: 1px solid silver;
+    border-radius: 10px;
+    width: 40%;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+
+.single-address-edit-div {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.address-add-hover {
+    position: absolute;
+    background-color: rgb(206, 206, 206);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.add-address-parent div{
+
+    margin: 30px 150px;
+
+}
+
+.add-address-div form{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    width: 60%;
+    font-size: 14px;
+}
+
+
+.add-address-div label {
+    margin-top: 20px;
+}
+
+.add-address-div input {
+    width: 70%;
+    border-radius: 5px;
+    border: none;
+    padding:8px;
+    font-size: 14px;
+}

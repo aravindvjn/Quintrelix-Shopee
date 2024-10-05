@@ -7,6 +7,7 @@ import { UserContext } from "../Context/context";
 import Products from "../Electronics/Products";
 import CartProduct from "./CartProduct";
 import CartLoginWarning from "./CartLoginWarning";
+import Footer from "../../components/Footer";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
@@ -48,6 +49,7 @@ const Cart = () => {
         <CartLoginWarning
           message={"Login to see the items you added previously"}
         />
+        <Footer />
       </>
     );
   }
@@ -85,13 +87,20 @@ const Cart = () => {
               )}
             </p>
           ) : (
-            <p className="center" style={{fontWeight:'normal',fontSize:'15px'}}>No Carts Available</p>
+            <p
+              className="center"
+              style={{ fontWeight: "normal", fontSize: "15px" }}
+            >
+              No Carts Available
+            </p>
           )}
-          {cartItems.length > 0 && Object.values(total).reduce((acc, val) => acc + val, 0) > 0 && (
-            <button className="btn btn-warning">Order Now</button>
-          )}
+          {cartItems.length > 0 &&
+            Object.values(total).reduce((acc, val) => acc + val, 0) > 0 && (
+              <button className="btn btn-warning">Order Now</button>
+            )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

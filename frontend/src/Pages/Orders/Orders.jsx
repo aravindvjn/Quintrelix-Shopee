@@ -5,13 +5,14 @@ import CartLoginWarning from "../Cart/CartLoginWarning";
 import "./Orders.css";
 import SingleOrder from "./SingleOrder";
 import URL from "../../server";
+import Footer from "../../components/Footer";
 
 const Orders = () => {
   const { user } = useContext(UserContext);
   const [orderData, setOrderData] = useState([]);
   const [products, setProducts] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const [selected, setSelected] = useState('1 Month');
+  const [selected, setSelected] = useState("1 Month");
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -20,10 +21,10 @@ const Orders = () => {
         if (data.length > 0) {
           setOrderData(() => {
             return data.filter((item) => {
-              console.log("test",Number(selected.slice(0,1)))
+              console.log("test", Number(selected.slice(0, 1)));
               return (
                 new Date().setMonth(
-                  new Date().getMonth() - Number(selected.slice(0,1))
+                  new Date().getMonth() - Number(selected.trim().split(" ")[0])
                 ) < new Date(item.order_date)
               );
             });
@@ -51,7 +52,7 @@ const Orders = () => {
     };
     fetchOrders();
     fetchProducts();
-  }, [refresh,selected]);
+  }, [refresh, selected]);
   const selectElement = useRef();
 
   if (!user) {
@@ -59,6 +60,7 @@ const Orders = () => {
       <>
         <Header />
         <CartLoginWarning message={"Please Login First"} />
+        <Footer />
       </>
     );
   }
@@ -68,7 +70,7 @@ const Orders = () => {
       <Header />
       <div className="center order-parent">
         <div className="center">
-          <p>Products placed in</p>
+          <p>Orders within</p>
           <select
             ref={selectElement}
             onChange={() => setSelected(selectElement.current.value)}
@@ -92,6 +94,7 @@ const Orders = () => {
             );
           })}
       </div>
+      <Footer />
     </div>
   );
 };

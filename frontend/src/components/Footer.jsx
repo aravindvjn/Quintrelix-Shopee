@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Pages/Context/context";
 
 const Footer = () => {
+  const { user } = useContext(UserContext);
   return (
     <div>
       <div className="container">
@@ -9,6 +11,13 @@ const Footer = () => {
           <div className="col mb-3 footer-links-div">
             <h5>Quick Links</h5>
             <ul className="nav flex-column">
+              {user && (
+                <li className="nav-item mb-2">
+                  <Link id="not-link" to={"/profile"}>
+                    Your account
+                  </Link>
+                </li>
+              )}
               <li className="nav-item mb-2">
                 <Link id="not-link" to={"/"}>
                   Home
@@ -36,7 +45,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-         
         </footer>
         <p>©{new Date().getFullYear()}</p>
       </div>
