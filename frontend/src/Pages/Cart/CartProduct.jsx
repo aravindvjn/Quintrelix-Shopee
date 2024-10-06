@@ -5,7 +5,7 @@ import URL from "../../server";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../Context/context";
-const CartProduct = ({ item, cart, setRefresh, setTotal }) => {
+const CartProduct = ({ item, cart, setRefresh, setTotal}) => {
   const { id, name, category, image, price, description } = item;
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
@@ -22,7 +22,6 @@ const CartProduct = ({ item, cart, setRefresh, setTotal }) => {
         setTotal((prev) => {
           return { ...prev, [cart.id]: 0 };
         });
-        alert("Removed from cart");
         setRefresh((prev) => !prev);
       } else {
         alert("Failed to Remove");
@@ -51,7 +50,6 @@ const CartProduct = ({ item, cart, setRefresh, setTotal }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("qty updated");
         setRefresh((prev) => !prev);
       } else {
         alert("Failed to update qty");

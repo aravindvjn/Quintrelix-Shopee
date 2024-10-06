@@ -88,7 +88,11 @@ const OrderBody = ({
             View Product
           </button>
           {!deliveryStatus && (
-            <button onClick={cancelHandler} id="cancel-button">
+            <button onClick={()=>{
+              if (confirm("Do You Want to Cancel")) {
+                cancelHandler()
+              }
+            }} id="cancel-button">
               Cancel
             </button>
           )}

@@ -13,7 +13,8 @@ const Buying = () => {
   const [selected, setSelected] = useState("Cash on Delivery");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const location = useLocation();
+  const location = useLocation(0);
+  let totalPrice = 0;
   const { user } = useContext(UserContext);
   useEffect(() => {
     console.log("selected", selected);
@@ -29,7 +30,7 @@ const Buying = () => {
       </div>
     );
   }
-  const buyHandler = async () => {
+  const buyHandler = async (state1) => {
     try {
       const response = await fetch(URL + "orders", {
         method: "POST",
@@ -38,9 +39,9 @@ const Buying = () => {
         },
         body: JSON.stringify({
           user_id: user.id,
-          product_id: location.state.id,
+          product_id: state1.id,
           customer_name: selectedAddress.name,
-          total_amount: location.state.price,
+          total_amount: state1.price,
           shipping_address: selectedAddress.shipping_address,
           payment_method: selected,
         }),
@@ -55,18 +56,46 @@ const Buying = () => {
     }
   };
   const orderHandler = () => {
-    if (selected == "" || selectedAddress == "") {
-      alert("Fill Everything");
-    } else {
-      buyHandler();
+    {
+      if (location.state.id) {
+        buyHandler(location.state);
+      } else if (location.state.cartcheck) {
+        location.state.cartcheck.map((item) => {
+          buyHandler(item);
+        });
+      }
     }
   };
+
   return (
     <div className="mb-5 pb-5">
       <Header />
       <div className="buying-parent ">
         <h3>Order Now</h3>
-        <DeliveryProduct {...location.state} />
+        {location.state.id && <DeliveryProduct {...location.state} />}
+        <div style={{display:'flex',gap:'20px',flexWrap:'wrap'}}>
+        {location.state.cartcheck &&
+          location.state.cartcheck.map((item) => {
+            return <DeliveryProduct {...item} />;
+          })}
+        </div>
+        {location.state.cartcheck &&
+          location.state.cartcheck.length > 1 &&
+          location.state.cartcheck.map((item) => {
+            totalPrice = totalPrice + Number(item.price);
+            console.log(totalPrice);
+          })}
+        {totalPrice !== 0 && (
+          <div style={{display:'flex',marginBottom:'50px'}}>
+            <h3>Total : </h3>
+            <h2 style={{ color: "red", marginLeft: "10px" }}>
+              {Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+              }).format(totalPrice)}
+            </h2>
+          </div>
+        )}
         <h4>Select a payment method</h4>
         <PaymentMethod
           setRefresh={setRefresh}
@@ -105,7 +134,16 @@ const Buying = () => {
         product={location.state}
       />
       <div className="address-parent">
-        <button className="btn btn-warning" onClick={orderHandler}>
+        <button
+          className="btn btn-warning"
+          onClick={() => {
+            if (selected == "" || selectedAddress == "") {
+              alert("Fill Everything");
+            } else {
+              orderHandler();
+            }
+          }}
+        >
           Order Now
         </button>
       </div>
