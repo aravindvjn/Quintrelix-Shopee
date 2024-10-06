@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./BuyFeature.css";
 import { UserContext } from "../../Context/context";
 import URL from "../../../server";
+import { useNavigate } from "react-router-dom";
+import LoginPopUp from "../../../components/LoginPopUp";
 
 const BuyFeature = ({
   setPopUP,
@@ -12,39 +14,32 @@ const BuyFeature = ({
   price,
   description,
 }) => {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const inputAddress = "Nandanam,Kaithackal,Anayadi";
-  const paymentMethod = "Credit Card";
-  const buyHandler = async () => {
-    if (!user) {
-      setPopUP(true);
-    } else {
-      try {
-        const response = await fetch(URL + "orders", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: user.id,
-            product_id: id,
-            customer_name: user.username,
-            total_amount: price,
-            shipping_address: inputAddress,
-            payment_method: paymentMethod,
-          }),
-        });
-        if (response.ok) {
-          alert("Placed Order");
-        } else {
-          alert("Failed to place order");
-        }
-      } catch (err) {
-        console.log("Error in adding order", err);
-      }
-    }
-  };
-  return <button onClick={buyHandler}>Buy</button>;
+  return (
+    <>
+      <button
+        onClick={() => {
+          if (!user) {
+            setPopUP(true);
+          } else {
+            navigate("/buy-product", {
+              state: {
+                id,
+                name,
+                category,
+                image,
+                price,
+                description,
+              },
+            });
+          }
+        }}
+      >
+        Buy
+      </button>
+    </>
+  );
 };
 
 export default BuyFeature;

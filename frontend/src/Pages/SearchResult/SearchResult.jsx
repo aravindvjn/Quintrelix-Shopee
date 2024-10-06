@@ -9,6 +9,7 @@ const SearchResult = () => {
   return (
     <div>
     <Header />
+    <h5 className='address-parent'>Search Results:</h5>
     {products.length === 0 && <center>No products available</center>}
     <div className="products-on-category">
       {products &&

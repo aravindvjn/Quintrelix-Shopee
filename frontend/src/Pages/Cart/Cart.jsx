@@ -35,12 +35,9 @@ const Cart = () => {
       };
       fetchAllProducts();
     };
-    fetchCart();
-    console.log(
-      Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(
-        Object.values(total).reduce((acc, val) => acc + val, 0)
-      )
-    );
+    if (user) {
+      fetchCart();
+    }
   }, [refresh]);
   if (!user) {
     return (

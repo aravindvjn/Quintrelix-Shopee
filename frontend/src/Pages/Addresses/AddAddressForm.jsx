@@ -20,12 +20,13 @@ const AddAddressForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(input);
-    console.log( location.state ? location.state : " ")
+    console.log(location.state ? location.state.id : " ");
     try {
       const response = await fetch(
-        authURL + "api/user/address/" + location.state,
+        authURL + "api/user/address/" + location.state.id,
+
         {
-          method: location.state ? "PUT" : "POST",
+          method: location.state.id ? "PUT" : "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -43,7 +44,13 @@ const AddAddressForm = () => {
         }
       );
       if (response.ok) {
-        navigate("/account/addresses");
+        if (location.state.buyPage) {
+          navigate("/buy-product", {
+            state: location.state.state,
+          });
+        } else {
+          navigate("/account/addresses");
+        }
       } else {
         alert("Failed");
       }
@@ -56,7 +63,7 @@ const AddAddressForm = () => {
     const fetchAddressData = async () => {
       try {
         const results = await fetch(
-          authURL + "api/user/address/" + user.id + "/" + location.state
+          authURL + "api/user/address/" + user.id + "/" + location.state.id
         );
         const data = await results.json();
         if (data.length > 0) {
@@ -73,7 +80,7 @@ const AddAddressForm = () => {
         console.log("Error in fetching address");
       }
     };
-    if (location.state) {
+    if (location.state.id) {
       fetchAddressData();
     }
   }, []);

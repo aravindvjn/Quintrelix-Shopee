@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import Orders from "./Pages/Orders/Orders";
-import Fashion from "./Pages/Fashion/Fashion";
 import Electronics from "./Pages/Electronics/Electronics";
 import Admin from "./Pages/Admin/Admin";
 import AddProducts from "./Pages/Admin/Add Products/AddProducts";
@@ -14,8 +13,10 @@ import Customize from "./Pages/Admin/Customize/Customize";
 import Cart from "./Pages/Cart/Cart";
 import SingleProduct from "./Pages/Electronics/SingleProduct/SingleProduct";
 import SearchResult from "./Pages/SearchResult/SearchResult";
-import Address from "./Pages/Addresses/Address";
 import AddAddress from "./Pages/Addresses/AddAddress";
+import Buying from "./Pages/Buying/Buying";
+import AddressPage from "./Pages/Addresses/AddressPage";
+import YourProfile from "./Pages/Profile/YourProfile/YourProfile";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,9 +39,15 @@ function App() {
             <Route exact path="/login" element={<Auth page={"login"} />} />
             <Route exact path="/customize" element={<Customize />} />
             <Route exact path="/show-product" element={<SingleProduct />} />
+            <Route exact path="/buy-product" element={<Buying />} />
             <Route exact path="/search-product" element={<SearchResult />} />
-            <Route exact path="/account/addresses" element={<Address />} />
-            <Route exact path="/account/addresses/add" element={<AddAddress />} />
+            <Route exact path="/account/addresses" element={<AddressPage />} />
+            <Route exact path="/account/user" element={<YourProfile />} />
+            <Route
+              exact
+              path="/account/addresses/add"
+              element={<AddAddress />}
+            />
           </Routes>
         </BrowserRouter>
       </UserProvider>

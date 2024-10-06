@@ -10,7 +10,7 @@ const SingleProfileFunction = () => {
   const navigate = useNavigate()
   return (
     <div className="profile-function">
-      <div >
+      <div  onClick={()=>navigate('/account/user')}>
         <div>
           <AccountCircleIcon fontSize="large" />
         </div>

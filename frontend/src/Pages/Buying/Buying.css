@@ -1,0 +1,47 @@
+.buying-parent {
+    margin: 10px 100px;
+}
+
+.delivery-product {
+    width: fit-content;
+    border: 3px solid gold;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 0px;
+    max-width: 400px;
+}
+
+.delivery-product img {
+    max-width: 200px;
+    min-width: 200px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+}
+
+.delivery-table {
+    width: 100%;
+}
+
+.delivery-table th,
+.delivery-table td,
+.delivery-table {
+    border: none;
+    text-align: start;
+    padding: 0px;
+    margin: 0;
+}
+
+.delivery-product-total {
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+}
+
+.delivery-product-total div {
+    align-items: center;
+    display: flex;
+}
+.buying-parent input {
+    cursor: pointer;
+}

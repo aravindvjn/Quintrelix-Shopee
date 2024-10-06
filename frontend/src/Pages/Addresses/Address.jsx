@@ -9,7 +9,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAddress from "./AddAddress";
 import { useNavigate } from "react-router-dom";
 
-const Address = () => {
+const Address = ({buyPage,setSelectedAddress,product}) => {
   const { user } = useContext(UserContext);
   const [addresses, setAddresses] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -33,15 +33,20 @@ const Address = () => {
     fetchAddresses();
   }, [refresh]);
   return (
-    <div>
-      <Header />
+
       <div className="address-parent">
         {user ? (
           <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
             <h5>Saved Addresses </h5>
             <div className="address-add-div">
               <AddCircleIcon style={{cursor:'pointer'}} onClick={()=>{
-                navigate('/account/addresses/add')
+                navigate('/account/addresses/add',{
+                  state: {
+                    id:'',
+                    buyPage:buyPage,
+                    state:product
+                  }
+                })
               }}
                 onMouseEnter={() => {
                   setIsHovered(true);
@@ -59,13 +64,12 @@ const Address = () => {
         )}
         {addresses.length > 0 ? (
           addresses.map((address) => {
-            return <SingleAddress {...address} setRefresh={setRefresh} />;
+            return <SingleAddress {...address} setRefresh={setRefresh} buyPage={buyPage} setSelectedAddress={setSelectedAddress} product={product} />;
           })
         ) : (
           <p>No Saved Addresses are available</p>
         )}
       </div>
-    </div>
   );
 };
 

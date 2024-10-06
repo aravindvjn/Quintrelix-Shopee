@@ -15,9 +15,11 @@ const SingleAddress = ({
   postal_code,
   phone_number,
   setRefresh,
+  buyPage,
+  product,
+  setSelectedAddress,
 }) => {
   const { user } = useContext(UserContext);
-  const [defaults, setDefaults] = useState(false);
   const input = useRef();
   const navigate = useNavigate();
   const deleteAddresss = async () => {
@@ -41,36 +43,51 @@ const SingleAddress = ({
   };
   const editAddresss = () => {
     navigate("/account/addresses/add", {
-      state: id,
+      state:{
+        id,
+        buyPage:buyPage,
+        state:product
+      }
     });
   };
 
-  //   const checkIt = () => {
-  //     if (input.current.checked) {
-  //       setDefaults(true);
-  //     } else {
-  //       setDefaults(false);
-  //     }
-  //     setRefresh((prev) => !prev);
-  //   };
+  const checkIt = () => {
+    if (input.current.checked) {
+      setSelectedAddress({
+        name: name,
+        shipping_address:
+          address +
+          ", " +
+          state +
+          ", " +
+          country +
+          ", Postal Code : " +
+          postal_code +
+          ", Phone Number : " +
+          phone_number,
+      });
+    }
+    setRefresh((prev) => !prev);
+  };
   useEffect(() => {
-    // checkIt();
-  });
+    if (buyPage) {
+      checkIt();
+    }
+  },[]);
   return (
     <div className="single-address">
       <div className="single-address-edit-div">
         <DeleteIcon style={{ cursor: "pointer" }} onClick={deleteAddresss} />
         <EditIcon style={{ cursor: "pointer" }} onClick={editAddresss} />
       </div>
-      {false && (
+      {buyPage && (
         <div>
-          <input
+          <input style={{transform:'translateY(-20px)'}}
             type="radio"
             name="single-address"
             ref={input}
             onClick={checkIt}
           />
-          <span> {defaults && " Default"}</span>
         </div>
       )}
       <p>
@@ -93,3 +110,5 @@ const SingleAddress = ({
 };
 
 export default SingleAddress;
+
+
