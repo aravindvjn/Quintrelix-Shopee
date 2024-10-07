@@ -161,6 +161,20 @@ app.get("/logout", (req, res) => {
   });
 });
 
+app.get("/api/user-data/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    const results = await pool.query("SELECT email,fullname FROM users WHERE id=$1",[id]);
+    if (results.rows.length > 0) {
+      res.status(200).json(results.rows[0]);
+    } else {
+      res.status(404).json("user not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+
 //PRODUCTS
 
 //get all products
@@ -172,7 +186,19 @@ app.get("/api/products", async (req, res) => {
     res.status(404).json("Error in getting all products");
   }
 });
+
 //get all orders
+app.get("/api/products/orders/all", async (req, res) => {
+  try {
+    const results = await pool.query(
+      "SELECT * FROM orders"
+    );
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+//get all orders by user
 app.get("/api/products/orders/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -467,7 +493,7 @@ app.put("/api/user/address/:id", async (req, res) => {
       postal_code,
       phone_number,
     } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     const { id } = req.params;
     const results = await pool.query(
       "UPDATE addresses SET phone_number=$1,name=$2,address=$3,state=$4,country=$5,postal_code=$6 WHERE id=$7 AND user_id=$8 RETURNING *",

@@ -74,6 +74,7 @@ const Header = () => {
                       backgroundColor: "gold",
                       borderRadius: "7px",
                       padding: "3px",
+                      textAlign:'center',
                       transform: "translateY(4px)",
                     }}
                   >
@@ -90,6 +91,17 @@ const Header = () => {
                 </Link>
               )}
             </li>
+            {admin && (
+              <li
+              >
+                <Link
+                  to={"/admin/orders"}
+                  className="nav-link link-body-emphasis px-2"
+                >
+                  Orders
+                </Link>
+              </li>
+            )}
             <li
               className="nav-item"
               onClick={async () => {
