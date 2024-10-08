@@ -1,0 +1,64 @@
+.track-info-parent {
+    margin: 20px 100px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.track-info-parent .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.track-info-parent h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.tracking-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tracking-point {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    position: relative;
+}
+
+.tracking-point.active {
+    background-color: #007bff;
+}
+
+.tracking-point::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 80px;
+    height: 4px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+}
+
+.tracking-point:last-child::after {
+    display: none;
+}
+
+.tracking-point.active::after {
+    background-color: #007bff;
+}
+

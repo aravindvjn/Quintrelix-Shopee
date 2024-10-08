@@ -68,7 +68,7 @@ const Orders = () => {
   return (
     <div>
       <Header />
-      <div className="center order-parent">
+      <div className="center order-parent" style={{minWidth:'65vh'}}>
         <div className="center">
           <p>Orders within</p>
           <select

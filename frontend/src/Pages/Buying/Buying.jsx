@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import "./Buying.css";
 import PaymentMethod from "./PaymentMethod";
 import Address from "../Addresses/Address";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DeliveryProduct from "./DeliveryProduct";
 import CartLoginWarning from "../Cart/CartLoginWarning";
 import { UserContext } from "../Context/context";
@@ -14,6 +14,7 @@ const Buying = () => {
   const [selectedAddress, setSelectedAddress] = useState("");
   const [refresh, setRefresh] = useState(false);
   const location = useLocation(0);
+  const navigate = useNavigate();
   let totalPrice = 0;
   const { user } = useContext(UserContext);
   useEffect(() => {
@@ -30,42 +31,7 @@ const Buying = () => {
       </div>
     );
   }
-  const buyHandler = async (state1) => {
-    try {
-      const response = await fetch(URL + "orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: user.id,
-          product_id: state1.id,
-          customer_name: selectedAddress.name,
-          total_amount: state1.price,
-          shipping_address: selectedAddress.shipping_address,
-          payment_method: selected,
-        }),
-      });
-      if (response.ok) {
-        alert("Placed Order");
-      } else {
-        alert("Failed to place order");
-      }
-    } catch (err) {
-      console.log("Error in adding order", err);
-    }
-  };
-  const orderHandler = () => {
-    {
-      if (location.state.id) {
-        buyHandler(location.state);
-      } else if (location.state.cartcheck) {
-        location.state.cartcheck.map((item) => {
-          buyHandler(item);
-        });
-      }
-    }
-  };
+
 
   return (
     <div className="mb-5 pb-5">
@@ -73,11 +39,11 @@ const Buying = () => {
       <div className="buying-parent ">
         <h3>Order Now</h3>
         {location.state.id && <DeliveryProduct {...location.state} />}
-        <div style={{display:'flex',gap:'20px',flexWrap:'wrap'}}>
-        {location.state.cartcheck &&
-          location.state.cartcheck.map((item) => {
-            return <DeliveryProduct {...item} />;
-          })}
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          {location.state.cartcheck &&
+            location.state.cartcheck.map((item) => {
+              return <DeliveryProduct {...item} />;
+            })}
         </div>
         {location.state.cartcheck &&
           location.state.cartcheck.length > 1 &&
@@ -86,7 +52,7 @@ const Buying = () => {
             console.log(totalPrice);
           })}
         {totalPrice !== 0 && (
-          <div style={{display:'flex',marginBottom:'50px'}}>
+          <div style={{ display: "flex", marginBottom: "50px" }}>
             <h3>Total : </h3>
             <h2 style={{ color: "red", marginLeft: "10px" }}>
               {Intl.NumberFormat("en-IN", {
@@ -140,7 +106,13 @@ const Buying = () => {
             if (selected == "" || selectedAddress == "") {
               alert("Fill Everything");
             } else {
-              orderHandler();
+              navigate("/buy-product/payment", {
+                state: {
+                  state: location.state,
+                  payment_method: selected,
+                  address: selectedAddress,
+                },
+              });
             }
           }}
         >

@@ -1,0 +1,29 @@
+.more-information {
+    margin: 20px 100px;
+}
+
+.more-information .product img {
+    border-radius: 10px;
+    max-width: 300px;
+    max-height: 300px;
+    margin: 10px;
+}
+
+.more-information .product {
+    border: 3px solid gold;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.more-information .product .product-name {
+    height: 60px;
+    color: grey;
+    background-color: gold;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.more-information .product .product-description{
+    padding: 20px;
+}

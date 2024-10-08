@@ -11,6 +11,7 @@ const OrderBody = ({
   description,
   order,
   setRefresh,
+  setPassDeliveryStatus,
 }) => {
   const [dateShow, setDateShow] = useState();
   const [deliveryStatus, setDeliveryStatus] = useState(false);
@@ -25,10 +26,11 @@ const OrderBody = ({
       });
       setDateShow(formattedDate);
     };
-    setDeliveryStatus(
-      new Date(order.order_date).setDate(
-        new Date(order.order_date).getDate() + 5
-      ) < new Date()
+    setDeliveryStatus(()=>{
+      const dateObject = new Date(order.order_date);
+      dateObject.setDate(dateObject.getDate() + 5);
+      return dateObject < new Date()
+    }
     );
     dateFetch();
   }, [order.order_date]);
@@ -88,16 +90,51 @@ const OrderBody = ({
             View Product
           </button>
           {!deliveryStatus && (
-            <button onClick={()=>{
-              if (confirm("Do You Want to Cancel")) {
-                cancelHandler()
-              }
-            }} id="cancel-button">
+            <button
+              onClick={() => {
+                if (confirm("Do You Want to Cancel")) {
+                  cancelHandler();
+                }
+              }}
+              id="cancel-button"
+            >
               Cancel
             </button>
           )}
-          <button>Track Your Package</button>
-          <button>More Information</button>
+          <button
+            onClick={() => {
+              navigate("/orders/track-info", {
+                state: {
+                  id,
+                  name,
+                  category,
+                  image,
+                  price,
+                  description,
+                  order,
+                },
+              });
+            }}
+          >
+            Track Your Package
+          </button>
+          <button
+            onClick={() => {
+              navigate("/orders/more-info", {
+                state: {
+                  id,
+                  name,
+                  category,
+                  image,
+                  price,
+                  description,
+                  order,
+                },
+              });
+            }}
+          >
+            More Information
+          </button>
         </div>
       </div>
     </>

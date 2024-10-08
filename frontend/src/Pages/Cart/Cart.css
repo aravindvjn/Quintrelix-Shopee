@@ -34,3 +34,6 @@
     margin-top: 50px;
     margin-bottom: 65vh;
 }
+.cart-parent{
+    min-height: 65vh;
+}

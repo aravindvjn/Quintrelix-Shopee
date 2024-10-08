@@ -17,6 +17,9 @@ import Buying from "./Pages/Buying/Buying";
 import AddressPage from "./Pages/Addresses/AddressPage";
 import YourProfile from "./Pages/Profile/YourProfile/YourProfile";
 import OrderReq from "./Pages/Admin/OrderReq/OrderReq";
+import Payment from "./Pages/Payment/Payment";
+import MoreInformation from "./Pages/MoreInformation/MoreInformation";
+import TrackInfo from "./Pages/TrackInfo/TrackInfo";
 
 function App() {
   return (
@@ -41,6 +44,9 @@ function App() {
             <Route exact path="/account/addresses" element={<AddressPage />} />
             <Route exact path="/account/user" element={<YourProfile />} />
             <Route exact path="/admin/orders" element={<OrderReq />} />
+            <Route exact path="/buy-product/payment" element={<Payment />} />
+            <Route exact path="/orders/more-info" element={<MoreInformation />} />
+            <Route exact path="/orders/track-info" element={<TrackInfo />} />
             <Route path="*" element={<Home/>} />
             <Route
               exact

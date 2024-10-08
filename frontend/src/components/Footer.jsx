@@ -24,12 +24,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="nav-item mb-2">
-                <Link id="not-link" to={"/electronics"}>
+                <Link id="not-link" to={"/electronics"}   state={"Electronics"}>
                   Electronics
                 </Link>
               </li>
               <li className="nav-item mb-2">
-                <Link id="not-link" to={"/fashion"}>
+                <Link id="not-link" to={"/fashion"}  state={"Fashion"}>
                   Fashion
                 </Link>
               </li>

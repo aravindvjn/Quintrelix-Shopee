@@ -3,6 +3,7 @@ import OrderBody from "./OrderBody";
 
 const SingleOrder = ({ product, order, setRefresh }) => {
   const [dateShow, setDateShow] = useState();
+  const [passDeliveryStatus, setPassDeliveryStatus] = useState(false);
   useEffect(() => {
     const dateFetch = () => {
       const dateObject = new Date(order.order_date);
@@ -18,6 +19,7 @@ const SingleOrder = ({ product, order, setRefresh }) => {
   if (product.length <= 0) {
     return;
   }
+  console.log("or", order);
   return (
     <div className="single-order-parent">
       <div className="single-colored">
@@ -35,7 +37,7 @@ const SingleOrder = ({ product, order, setRefresh }) => {
             }).format(product[0].price)}
           </h6>
         </div>
-        <div style={{ display: "flex",gap:'5px'}}>
+        <div style={{ display: "flex", gap: "5px" }}>
           <p>Delivery Address : </p>
           {(order.customer_name + " " + order.shipping_address).length < 30 ? (
             <em> {order.customer_name + ", " + order.shipping_address}</em>
@@ -49,8 +51,29 @@ const SingleOrder = ({ product, order, setRefresh }) => {
             </em>
           )}
         </div>
+        <div>
+          {!passDeliveryStatus && (
+            <p>
+              Payment Status :{" "}
+              <span
+                style={{
+                  fontWeight: "600",
+                  color: `${
+                    order.payment_method === "Cash on Delivery"
+                      ? "red"
+                      : "green"
+                  }`,
+                }}
+              >
+                {order.payment_method === "Cash on Delivery"
+                  ? " Pending"
+                  : " Successful"}
+              </span>
+            </p>
+          )}
+        </div>
       </div>
-      <OrderBody order={order} {...product[0]} setRefresh={setRefresh} />
+      <OrderBody order={order} {...product[0]} setRefresh={setRefresh} setPassDeliveryStatus={setPassDeliveryStatus}/>
     </div>
   );
 };
