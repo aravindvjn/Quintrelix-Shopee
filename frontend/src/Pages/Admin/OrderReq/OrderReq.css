@@ -28,3 +28,61 @@
 .user-product-info::-webkit-scrollbar{
     visibility: hidden;
 }
+.user-info-customer{
+    font-size: 20px;
+}
+.user-info-username{
+    margin-top: 50px;
+}
+@media( max-width : 576px ){
+    .order-req-parent .bttn {
+        font-size: 10px;
+        
+    }
+    
+    .order-req-parent table {
+        margin: 10px 1%;
+        width: 98%;
+        font-size: 12px;
+    }
+    .order-req-parent button{
+        font-size: 10px;
+        padding: 2px 3px;
+        border-radius: 3px;
+    }
+    .user-info-username p{
+        margin-bottom: 5px;
+    }
+    .order-req-parent th,.order-req-parent td{
+        margin: 0;
+        padding: 3px;
+    }
+    .user-product-info{
+        font-size: 12px;
+    }
+    .user-product-info h4,.user-product-info h5{
+        font-size: 15px;
+        margin-top: 20px;
+
+    }
+    .user-product-info img{
+        max-width: 150px;
+        border-radius: 10px;
+        max-height: 150px;
+        margin-bottom: px;
+    }
+    .user-product-info{
+        overflow: scroll;
+        padding: 10px !important;
+        text-align: justify;
+        max-height: 90vh;
+        border-radius: 10px;
+    }
+    .user-product-info::-webkit-scrollbar{
+        visibility: hidden;
+    }
+    .user-info-customer{
+        font-size: 15px;
+    }
+    
+}

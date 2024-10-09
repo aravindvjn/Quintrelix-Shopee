@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 const SingleOrders = ({
   order_id,
   user_id,
@@ -14,31 +13,38 @@ const SingleOrders = ({
   setInfo,
 }) => {
   const [dispatch, setDispatch] = useState(false);
-  const [dateShow,setDateShow] = useState(order_date)
-  useEffect(()=>{ 
+  const [dateShow, setDateShow] = useState(order_date);
+  useEffect(() => {
     const dateFetch = () => {
-        const dateObject = new Date(order_date);
-        dateObject.setDate(dateObject.getDate() + 5);
-        const formattedDate = dateObject.toLocaleDateString("en-US", {
-          day: "numeric",
-          month: "long",
-        });
-        setDateShow(formattedDate);
-      };
-      dateFetch();
-  },[])
+      const dateObject = new Date(order_date);
+      dateObject.setDate(dateObject.getDate() + 5);
+      const formattedDate = dateObject.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+      });
+      setDateShow(formattedDate);
+    };
+    dateFetch();
+  }, []);
 
   return (
     <tr>
-
       <td>{order_id}</td>
       <td>
-        <button onClick={() => setInfo({status:true,id:user_id,product_id:product_id})} className="btn btn-info bttn">
-          user info
+        <button
+          onClick={() =>
+            setInfo({
+              status: true,
+              id: user_id,
+              product_id: product_id,
+              address: { shipping_address, customer_name },
+            })
+          }
+          className="btn btn-info bttn"
+        >
+          Info
         </button>
       </td>
-      <td>{customer_name}</td>
-      <td>{shipping_address}</td>
       <td>{payment_method}</td>
       <td>{dateShow}</td>
       <td>{total_amount}</td>

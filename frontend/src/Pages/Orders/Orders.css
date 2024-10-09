@@ -54,6 +54,7 @@
 
 .single-order-button button {
     width: 160px;
+    border: 1px solid silver;
     padding: 5px 10px;
     border-radius: 10px;
 }
@@ -82,4 +83,99 @@
 }
 .order-parent select{
     transform: translate(10px,-5px);
+}
+
+
+@media (max-width:992px){
+}
+@media (max-width:576px) {
+    .single-order {
+        grid-template-columns: 0.5fr 1fr 0.6fr;
+        width: 100%;
+        padding: 5px;
+        gap:5px
+    }
+    
+    .single-order-parent {
+        width: 98%;
+        margin: 10px 1%;
+        border: 1px solid silver;
+        border-radius: 10px;
+    }
+    
+    .order-parent {
+        width: 98%;
+        flex-direction: column;
+    }
+    
+    .single-colored {
+        padding: 10px 5px;
+        background-color: rgb(218, 218, 218);
+        gap: 10px;
+        color: rgb(103, 103, 103);
+        font-size: 12px;
+    }
+    
+    .single-colored h6 {
+        line-height: 12px;
+        font-size: 10px;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+    .delivery-status h5{
+        font-size: 13px;
+    }
+    .delivery-status {
+        padding: 10px 10px;
+        font-size: 13px;
+    }
+    
+    .single-order div{
+        font-size: 12px;
+    }
+    .single-order div h5{
+        font-size: 14px;
+    }
+    
+    .single-order-button {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .single-order-button button {
+        width: 90px;
+        padding: 3px 5px;
+        font-size: 10px;
+        line-height: 10px;
+        border-radius: 3px;
+        border: 1px solid silver;
+    }
+    
+    .single-order div:nth-child(1) {
+        padding: 0px 5px;
+    }
+    
+    .single-order img {
+        max-width: 80%;
+        border-radius: 5px;
+    
+    }
+    
+    .single-order p {
+        margin-top: 10px;
+        color: blue;
+    }
+    .order-parent select{
+        transform: translate(10px,-5px);
+        font-size: 12px;
+        padding: 5px;
+    }
+    .order-parent div:first-child{
+        font-size: 12px;
+    }
+    .order-delivery-address{
+        visibility: hidden;
+        font-size: 0;
+    }
 }

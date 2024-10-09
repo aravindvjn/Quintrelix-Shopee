@@ -117,13 +117,13 @@ const CartProduct = ({ item, cart, setRefresh, setTotal}) => {
           <strong>Rs.{price}</strong>
         </div>
         <div>
-          <Minus
+          <Minus id="qty-update"
             fontSize="small"
             onClick={decreaseQty}
             style={{ cursor: "pointer" }}
           />
           Qty:{cart && cart.quantity}
-          <Add
+          <Add id="qty-update"
             fontSize="small"
             onClick={increaseQty}
             style={{ cursor: "pointer" }}

@@ -46,10 +46,8 @@ const OrderReq = () => {
           <tbody>
             {orders.length > 0 && (
               <tr>
-                <th>Order ID</th>
+                <th>ID</th>
                 <th>Info</th>
-                <th>Customer Name</th>
-                <th>Shipping Address</th>
                 <th>Payment Method</th>
                 <th>Order Date</th>
                 <th>Price</th>

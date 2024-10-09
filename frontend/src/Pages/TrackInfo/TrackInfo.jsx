@@ -4,28 +4,44 @@ import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
 const TrackInfo = () => {
   const location = useLocation();
+  const [dateShow, setDateShow] = useState();
+  const [show, setShow] = useState(true);
+  const { state } = location;
   const { order_date } = location.state.order;
   console.log(order_date);
   const [activePoints, setActivePoints] = useState(Array(5).fill(false));
   useEffect(() => {
-    const dateObject = new Date(order_date);
-
+    const dateFetch = () => {
+      const dateObject = new Date(state.order.order_date);
+      dateObject.setDate(dateObject.getDate() + 5);
+      const formattedDate = dateObject.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+      });
+      setDateShow(formattedDate);
+    };
+    dateFetch();
+    const today = new Date();
+    const input = new Date(order_date);
+    const timeDifference = today - input;
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
     const points = Array(5).fill(false);
-    if (dateObject.getDate() + 4 < new Date().getDate()) {
+    if (daysDifference > 5) {
       points.fill(true);
-    } else if ((dateObject.getDate() + 3) < new Date().getDate()) {
+      setShow(false)
+    } else if (daysDifference > 4) {
       points[0] = true;
       points[1] = true;
       points[2] = true;
       points[3] = true;
-    } else if ((dateObject.getDate() + 2 )< new Date().getDate()) {
+    } else if (daysDifference > 3) {
       points[0] = true;
       points[1] = true;
       points[2] = true;
-    } else if ((dateObject.getDate() + 1) < new Date().getDate()) {
+    } else if (daysDifference > 1) {
       points[0] = true;
       points[1] = true;
-    } else if (dateObject.getDate() < new Date().getDate()) {
+    } else if (daysDifference > 0) {
       points[0] = true;
     }
     setActivePoints(points);
@@ -35,17 +51,24 @@ const TrackInfo = () => {
     <div>
       <Header />
       <div className="track-info-parent">
-        <div className="container">
-          <h1>Track Your Package</h1>
-          <div className="tracking-line">
-            {activePoints.map((isActive, index) => (
-              <div
-                key={index}
-                className={`tracking-point ${isActive ? "active" : ""}`}
-              />
-            ))}
-          </div>
+        <div>
+          <h3>Track Your Package</h3>
+          {activePoints.map((isActive, index) => (
+            <div key={index} className="tracking-item">
+              <div className={`tracking-point ${isActive ? "active" : ""}`} />
+              <div className="tracking-label">
+                {index === 0 && "Order Confirmation"}
+                {index === 1 && "Packaging"}
+                {index === 2 && "Shipping"}
+                {index === 3 && "Out for Delivery"}
+                {index === 4 && "Delivered"}
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+      <div className="track-info-parent">
+       {show ?  <h5><em>Expected Date :</em> {dateShow}</h5> : <h5><em>Delivered on :</em> {dateShow}</h5>}
       </div>
     </div>
   );

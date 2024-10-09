@@ -19,7 +19,7 @@ const PaymentMethod = ({
   }, []);
   return (
     <div
-      className="single-address w-25"
+      className="single-address"
       style={{ paddingLeft: "20px", fontSize: "18px" }}
     >
       <div>

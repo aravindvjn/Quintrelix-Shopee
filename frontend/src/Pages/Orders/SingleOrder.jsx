@@ -37,18 +37,23 @@ const SingleOrder = ({ product, order, setRefresh }) => {
             }).format(product[0].price)}
           </h6>
         </div>
-        <div style={{ display: "flex", gap: "5px" }}>
-          <p>Delivery Address : </p>
+        <div className="order-delivery-address" style={{ display: "flex", gap: "5px" }}>
           {(order.customer_name + " " + order.shipping_address).length < 30 ? (
-            <em> {order.customer_name + ", " + order.shipping_address}</em>
+            <p>
+              Delivery Address :{" "}
+              <em> {order.customer_name + ", " + order.shipping_address}</em>
+            </p>
           ) : (
-            <em>
-              {(order.customer_name + ", " + order.shipping_address).slice(
-                0,
-                30
-              )}
-              <strong>...</strong>
-            </em>
+            <p>
+              Delivery Address :{" "}
+              <em>
+                {(order.customer_name + ", " + order.shipping_address).slice(
+                  0,
+                  30
+                )}
+                <strong>...</strong>
+              </em>
+            </p>
           )}
         </div>
         <div>
@@ -73,7 +78,12 @@ const SingleOrder = ({ product, order, setRefresh }) => {
           )}
         </div>
       </div>
-      <OrderBody order={order} {...product[0]} setRefresh={setRefresh} setPassDeliveryStatus={setPassDeliveryStatus}/>
+      <OrderBody
+        order={order}
+        {...product[0]}
+        setRefresh={setRefresh}
+        setPassDeliveryStatus={setPassDeliveryStatus}
+      />
     </div>
   );
 };

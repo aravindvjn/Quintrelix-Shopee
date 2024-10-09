@@ -1,34 +1,30 @@
 .track-info-parent {
     margin: 20px 100px;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
-.track-info-parent .container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.track-info-parent {
     width: 100%;
-    max-width: 500px;
+    max-width: 300px;
 }
 
-.track-info-parent h1 {
+.track-info-parent h3 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
 }
 
-.tracking-line {
+.tracking-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+}
+
+.tracking-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
 .tracking-point {
@@ -37,6 +33,7 @@
     border-radius: 50%;
     background-color: #ccc;
     position: relative;
+    margin-right: 20px;
 }
 
 .tracking-point.active {
@@ -46,15 +43,15 @@
 .tracking-point::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 100%;
-    width: 80px;
-    height: 4px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 45px;
     background-color: #ccc;
-    transform: translateY(-50%);
 }
 
-.tracking-point:last-child::after {
+.tracking-item:last-child .tracking-point::after {
     display: none;
 }
 
@@ -62,3 +59,31 @@
     background-color: #007bff;
 }
 
+.tracking-point:last-child::after {
+    display: none;
+}
+
+.tracking-label {
+    font-size: 14px;
+    color: #333;
+    font-style: italic;
+}
+
+@media (max-width:992px){
+}
+@media (max-width:576px) {
+    .track-info-parent {
+        margin: 20px 20px;
+        font-family: Arial, sans-serif;
+        display: flex;
+    }
+    .tracking-label {
+        font-size: 12px;
+    }  
+    .track-info-parent h5{
+        font-size: 15px;
+    }
+    .track-info-parent h3{
+        font-size: 16px;
+    }
+}

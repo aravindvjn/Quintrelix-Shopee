@@ -93,7 +93,7 @@ const SingleAddress = ({
       <p>
         <strong>{name}</strong>
       </p>
-      <div>
+      <div className="single-address-address-body">
         <p>
           <em>
             {address} , {state}

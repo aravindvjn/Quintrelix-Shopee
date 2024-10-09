@@ -12,31 +12,31 @@ const SingleProfileFunction = () => {
     <div className="profile-function">
       <div  onClick={()=>navigate('/account/user')}>
         <div>
-          <AccountCircleIcon fontSize="large" />
+          <AccountCircleIcon fontSize="large" id="icon" />
         </div>
         <div>Your Profile</div>
       </div>
       <div onClick={()=>navigate('/account/addresses')}>
         <div>
-          <LocationOnIcon fontSize="large" />
+          <LocationOnIcon fontSize="large" id="icon" />
         </div>
         <div>Your Addresses</div>
       </div>
       <div onClick={()=> navigate('/orders')} >
         <div>
-          <SellIcon fontSize="large" />
+          <SellIcon fontSize="large" id="icon" />
         </div>
         <div>Your Orders</div>
       </div>
       <div onClick={()=> navigate('/cart')} >
         <div>
-          <ShoppingCartIcon fontSize="large" />
+          <ShoppingCartIcon fontSize="large" id="icon" />
         </div>
         <div>Your Carts</div>
       </div>
       <div >
         <div>
-          <HelpIcon fontSize="large" />
+          <HelpIcon fontSize="large" id="icon" />
         </div>
         <div>Help Center</div>
       </div>
