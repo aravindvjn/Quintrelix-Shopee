@@ -5,7 +5,7 @@ import { UserContext } from "../Pages/Context/context";
 const Footer = () => {
   const { user } = useContext(UserContext);
   return (
-    <div>
+    <div className="footer-parent">
       <div className="container">
         <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5  border-top">
           <div className="col mb-3 footer-links-div" style={{marginBottom:'0px'}}>

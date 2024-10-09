@@ -52,7 +52,7 @@ const Buying = () => {
             console.log(totalPrice);
           })}
         {totalPrice !== 0 && (
-          <div style={{ display: "flex", marginBottom: "50px" }}>
+          <div style={{ display: "flex", marginBottom: "50px" }} className="buying-total-price">
             <h3>Total : </h3>
             <h2 style={{ color: "red", marginLeft: "10px" }}>
               {Intl.NumberFormat("en-IN", {

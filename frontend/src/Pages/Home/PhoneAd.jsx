@@ -26,7 +26,7 @@ const PhoneAd = () => {
     }, []);
     const style1={backgroundImage:`url(${fetchBanner? fetchBanner.image : loadingImage})`,backgroundSize:'cover',borderRadius:'10px'}
   return (
-    <div>
+    <div className="phone-ad-parent">
       <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary" style={style1} >
         <div className="col-md-6 p-lg-5 mx-auto my-5" >
           <h1 className="display-3 fw-bold" style={{color:'white'}}>Designed for engineers</h1>

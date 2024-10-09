@@ -66,6 +66,9 @@
         position: relative;
         font-size: 14px;
     }
+    .address-parent div h5{
+        font-size: 18px;
+    }
     
     .single-address {
         border: 1px solid silver;
@@ -126,4 +129,5 @@
     .single-address-address-body p{
         width: 190px;
     }   
+
 }

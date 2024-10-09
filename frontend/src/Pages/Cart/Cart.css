@@ -84,5 +84,9 @@
     }
     .cart-parent{
         min-height: 65vh;
-    }    
+    }  
+    .cart-parent button{
+        font-size: 12px;
+        padding: 5px 7px;
+    }  
 }

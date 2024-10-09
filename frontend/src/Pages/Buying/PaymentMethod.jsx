@@ -19,10 +19,10 @@ const PaymentMethod = ({
   }, []);
   return (
     <div
-      className="single-address"
+      className="single-address payment-method-parent"
       style={{ paddingLeft: "20px", fontSize: "18px" }}
     >
-      <div>
+      <div className="payment-method">
         {defaultPayment ? (
           <input
             type="radio"

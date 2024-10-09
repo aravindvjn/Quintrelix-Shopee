@@ -64,5 +64,10 @@ p.your-account{
         width: 95%;
         padding: 30px 10px;
     }
-    
+    .footer-parent{
+        font-size: 12px;
+    }
+    .footer-parent h5{
+        font-size: 16px;
+    }
 }

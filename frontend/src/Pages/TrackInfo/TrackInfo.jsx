@@ -29,7 +29,7 @@ const TrackInfo = () => {
     if (daysDifference > 5) {
       points.fill(true);
       setShow(false)
-    } else if (daysDifference > 4) {
+    } else if (daysDifference > 5) {
       points[0] = true;
       points[1] = true;
       points[2] = true;
