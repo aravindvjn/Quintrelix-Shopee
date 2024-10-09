@@ -11,7 +11,6 @@ const CartProduct = ({ item, cart, setRefresh, setTotal}) => {
   const [checked, setChecked] = useState(false);
   const check = useRef();
   const { user } = useContext(UserContext);
-
   const removeFromCartHandler = async () => {
     try {
     

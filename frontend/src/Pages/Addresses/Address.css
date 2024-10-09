@@ -10,7 +10,9 @@
     border: 1px solid silver;
     border-radius: 10px;
     width: 40%;
-    padding: 10px 20px;
+    padding: 30px 20px;
+    position: relative;
+
     margin-bottom: 30px;
 }
 
@@ -43,6 +45,15 @@
     font-size: 14px;
 }
 
+.single-address-edit-div {
+    position: absolute;
+    display: flex;
+    top: 20px;
+    right: 20px;
+    justify-content: end;
+    gap: 10px;
+}
+
 
 .add-address-div label {
     margin-top: 20px;
@@ -59,6 +70,72 @@
     cursor: pointer;
 }
 @media (max-width:992px){
+    .address-parent {
+        margin: 20px 50px;
+        font-size: 16px;
+    }
+    .address-parent div h5{
+        font-size: 18px;
+    }
+    
+    .single-address {
+        border-radius: 10px;
+        width: 70%;
+        padding: 40px 20px;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    
+    .single-address-edit-div {
+        position: absolute;
+        display: flex;
+        top: 20px;
+        right: 20px;
+        justify-content: end;
+        gap: 10px;
+    }
+    
+    .address-add-hover {
+        position: absolute;
+        background-color: rgb(206, 206, 206);
+        padding: 2px 7px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+    
+    .add-address-parent div{
+    
+        margin: 30px 150px;
+    
+    }
+    
+    .add-address-div form{
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        width: 60%;
+        font-size: 14px;
+    }
+    
+    
+    .add-address-div label {
+        margin-top: 20px;
+    }
+    
+    .add-address-div input {
+        width: 70%;
+        border-radius: 5px;
+        border: none;
+        padding:8px;
+        font-size: 14px;
+    }
+    .single-address input{
+        cursor: pointer;
+    }
+    .single-address-address-body p{
+        width: 270px;
+    }   
 }
 @media (max-width:576px) {
     .address-parent {

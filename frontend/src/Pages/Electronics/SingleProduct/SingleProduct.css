@@ -18,6 +18,26 @@
   border-radius: 10px;
 }
 @media (max-width:992px){
+  .single-product-details {
+    margin: 50px 50px;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .single-product-details p{
+    margin-bottom: 5px;
+  }
+  .single-product-details h3{
+    font-size: 17px;
+  }
+  .single-product-details h4{
+    font-size: 20px;
+    margin-top: 15px;
+  }
+  .single-product-details>div:nth-child(1) {
+    margin-left: 50%;
+    margin-bottom: 10px;
+  
+  }
 }
 @media (max-width:576px) {
   .single-product-details {

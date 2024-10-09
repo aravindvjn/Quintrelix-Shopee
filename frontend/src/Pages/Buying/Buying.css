@@ -68,6 +68,79 @@ margin: 0;
     width: 25px;
 }
 @media (max-width:992px){
+    .buying-parent {
+        margin: 10px 50px;
+    }
+    
+    .delivery-product {
+        width: fit-content;
+        border: 3px solid gold;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 15px 0px 30px 0px;
+        max-width: 250px;
+        position: relative;
+    }
+    
+    .delivery-product img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    
+    }
+    
+    .delivery-table {
+        width: 100%;
+    }
+    
+    .delivery-table th,
+    .delivery-table td,
+    .delivery-table {
+        padding: 0px;
+        margin: 0;
+    }
+    .delivery-table td{
+        height: fit-content;
+        padding: 2px;
+    }
+    .delivery-product-total {
+        margin-top: 10px;
+        margin-right: 20px;
+    }
+    
+    .delivery-product-total div h6{
+        font-size: 16px;
+    }
+    .delivery-product-total div h2{
+        font-size: 18px;
+    }
+    .buying-total-price{
+        margin-top: 10px;
+    }
+    .buying-total-price h3,.buying-parent h2{
+        font-size: 20px;
+    }
+    .payment-method-parent.single-address{
+        display: flex;
+        align-items: center;
+        max-width: 200px;
+        padding: 10px;
+    }
+    .payment-method-parent .payment-method{
+        width: 25px;
+    }
+    .payment-method-parent.single-address p{
+        margin: 0;
+        font-size: 17px;
+    }
+    .buying-parent h4{
+        font-size: 18px;
+    }
+    .address-parent h4{
+        font-size: 20px;
+    }
 }
 @media (max-width:576px) {
     .buying-parent {
