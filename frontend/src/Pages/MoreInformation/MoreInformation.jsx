@@ -4,7 +4,7 @@ import "./MoreInformation.css";
 import { useLocation } from "react-router-dom";
 import CartLoginWarning from "../Cart/CartLoginWarning";
 import Footer from "../../components/Footer";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 const MoreInformation = () => {
   const location = useLocation();
   const { state } = location;

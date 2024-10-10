@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import URL from "../../server";
 import LoginPopUp from "../../components/LoginPopUp";
 import SingleProduct from "./SingleProduct/SingleProduct";

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authURL } from "../../server";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import Header from "../../components/Header";
 import CartLoginWarning from "../Cart/CartLoginWarning";
 import Footer from "../../components/Footer";

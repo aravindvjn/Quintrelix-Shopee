@@ -6,7 +6,7 @@ import Address from "../Addresses/Address";
 import { useLocation, useNavigate } from "react-router-dom";
 import DeliveryProduct from "./DeliveryProduct";
 import CartLoginWarning from "../Cart/CartLoginWarning";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import URL from "../../server";
 
 const Buying = () => {

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./BuyFeature.css";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import URL from "../../../server";
 import { useNavigate } from "react-router-dom";
 import LoginPopUp from "../../../components/LoginPopUp";

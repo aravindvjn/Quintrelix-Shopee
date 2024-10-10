@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import "./Customize.css";
 import Banner from "./Banner";
 import URL from "../../../server";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import UnAuth from "../../UnAuth/UnAuth";
 import PhoneAdadd from "./PhoneAd/PhoneAdAdd";
 const Customize = () => {

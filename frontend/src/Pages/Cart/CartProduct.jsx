@@ -4,7 +4,7 @@ import Minus from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import URL from "../../server";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 const CartProduct = ({ item, cart, setRefresh, setTotal}) => {
   const { id, name, category, image, price, description } = item;
   const navigate = useNavigate();

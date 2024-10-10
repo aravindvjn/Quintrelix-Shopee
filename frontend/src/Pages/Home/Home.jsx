@@ -6,7 +6,7 @@ import AdSlider from "./AdSlider";
 import "./Home.css";
 import ElectronicsSlider from "./ElectronicsSlider";
 import URL from "../../server";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import Notice from "../../components/Notice/Notice";
 
 const Home = ({ admin }) => {

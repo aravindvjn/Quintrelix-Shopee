@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./YourProfile.css";
 import Header from "../../../components/Header";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import CartLoginWarning from "../../Cart/CartLoginWarning";
 import Footer from "../../../components/Footer";
 import EditIcon from '@mui/icons-material/Edit';

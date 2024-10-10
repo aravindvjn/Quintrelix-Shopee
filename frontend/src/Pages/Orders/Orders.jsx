@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import CartLoginWarning from "../Cart/CartLoginWarning";
 import "./Orders.css";
 import SingleOrder from "./SingleOrder";

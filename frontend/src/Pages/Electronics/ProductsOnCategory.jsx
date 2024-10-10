@@ -4,7 +4,7 @@ import URL from "../../server";
 import { useLocation } from "react-router-dom";
 import "./ProductsOnCategory.css";
 import Products from "./Products";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import LoginPopUp from "../../components/LoginPopUp";
 import SingleProduct from "./SingleProduct/SingleProduct";
 import Loading from "../../components/Loading/Loading";

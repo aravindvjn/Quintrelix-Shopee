@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Header from "../../../components/Header";
 import AddProductBody from "./AddProductBody";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import UnAuth from "../../UnAuth/UnAuth";
 
 const AddProducts = () => {

@@ -19,7 +19,7 @@ import OrderReq from "./Pages/Admin/OrderReq/OrderReq";
 import Payment from "./Pages/Payment/Payment";
 import MoreInformation from "./Pages/MoreInformation/MoreInformation";
 import TrackInfo from "./Pages/TrackInfo/TrackInfo";
-import { UserProvider } from "./Pages/Context/context";
+import { UserProvider } from "./Pages/Context/Context";
 
 function App() {
   return (

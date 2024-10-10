@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Card from "./PaymentMethods/Card";
 import UPI from "./PaymentMethods/UPI";
 import "./Payment.css";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import OrderSuccessFull from "./OrderSuccessFull/OrderSuccessFull";
 import COD from "./PaymentMethods/COD";
 import Header from "../../components/Header";

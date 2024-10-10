@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { authURL } from "../../server";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import QLogo from "../../assets/Q-Shopee.png";
 import Warning from "../../components/FeatureComponents/Warning/Warning";
 

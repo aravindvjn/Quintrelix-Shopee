@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import URL from "../../../server";
 
 const PayNow = ({ setProcessing, states, setFailed, setConfirm, cod }) => {

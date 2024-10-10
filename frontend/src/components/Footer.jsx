@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../Pages/Context/context";
+import { UserContext } from "../Pages/Context/Context";
 
 const Footer = () => {
   const { user } = useContext(UserContext);

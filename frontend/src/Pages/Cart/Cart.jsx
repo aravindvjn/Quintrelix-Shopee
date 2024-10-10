@@ -3,7 +3,7 @@ import "./Cart.css";
 import "./Cart.css";
 import Header from "../../components/Header";
 import URL from "../../server";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import Products from "../Electronics/Products";
 import CartProduct from "./CartProduct";
 import CartLoginWarning from "./CartLoginWarning";

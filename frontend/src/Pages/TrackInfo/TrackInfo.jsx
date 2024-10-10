@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
 import CartLoginWarning from "../Cart/CartLoginWarning";
 import Footer from "../../components/Footer";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 const TrackInfo = () => {
   const {user} = useContext(UserContext)
   const location = useLocation();

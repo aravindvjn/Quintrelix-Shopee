@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { authURL } from "../../server";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import { useNavigate } from "react-router-dom";
 
 const SingleAddress = ({

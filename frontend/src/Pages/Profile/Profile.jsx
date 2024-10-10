@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Header from "../../components/Header";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import "./Profile.css";
 import ProfileFunctions from "./ProfileFunctions";
 import { useNavigate } from "react-router-dom";

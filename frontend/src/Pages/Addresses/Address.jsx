@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Address.css";
 import { authURL } from "../../server";
-import { UserContext } from "../Context/context";
+import { UserContext } from "../Context/Context";
 import Header from "../../components/Header";
 import SingleAddress from "./SingleAddress";
 import CartLoginWarning from "../Cart/CartLoginWarning";

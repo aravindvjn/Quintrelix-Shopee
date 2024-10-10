@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import "./SingleProduct.css";
 import { useLocation } from "react-router-dom";
 import LoginPopUp from "../../../components/LoginPopUp";
-import { UserContext } from "../../Context/context";
+import { UserContext } from "../../Context/Context";
 import URL from "../../../server";
 import BuyFeature from "../BuyFeature/BuyFeature";
 import Footer from "../../../components/Footer";
