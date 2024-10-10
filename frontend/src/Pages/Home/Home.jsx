@@ -8,10 +8,13 @@ import ElectronicsSlider from "./ElectronicsSlider";
 import URL from "../../server";
 import { UserContext } from "../Context/Context";
 import Notice from "../../components/Notice/Notice";
+import GlobalLoading from "../../components/Loading/GlobalLoading";
 
 const Home = ({ admin }) => {
+  const {loading} = useContext(UserContext)
   return (
     <div>
+      {loading && <GlobalLoading />}
       <Header admin={admin} />
       <AdSlider />
       <ElectronicsSlider name={"Electronics"} />

@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import URL from "../../server";
+import { UserContext } from "../Context/Context";
 
 const ElectronicsSlider = ({ name }) => {
   const [products, setProducts] = useState();
+  const {setLoading} = useContext(UserContext)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true)
         await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
@@ -15,6 +18,7 @@ const ElectronicsSlider = ({ name }) => {
                 return product.type === name;
               });
             });
+            setLoading(false)
           });
       } catch (err) {
         console.log("Error in Fetching Data");

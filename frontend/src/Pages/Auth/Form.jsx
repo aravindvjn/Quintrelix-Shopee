@@ -110,6 +110,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         value={input.email}
         onChange={handleChange}
         placeholder="Email"
+        required
       />
       <label htmlFor="password">Password</label>
       <input
@@ -119,6 +120,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         value={input.password}
         onChange={handleChange}
         placeholder="Password"
+        required
       />
       {page === "signup" && (
         <>
@@ -133,7 +135,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
           />
         </>
       )}
-      <button type="submit">Submit</button>
+      <button className="btn btn-success" style={{color:'black'}} type="submit">Submit</button>
       {page === "signup" ? (
         <p>
           Already Have An Account?
