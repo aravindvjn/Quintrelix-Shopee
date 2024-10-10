@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/Q-shopee.png";
+import logo from "../assets/Qshopee.png";
 import "./Components.css";
 import { UserContext } from "../Pages/Context/Context";
 import { authURL } from "../server";
