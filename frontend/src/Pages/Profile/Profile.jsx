@@ -8,8 +8,6 @@ import CartLoginWarning from "../Cart/CartLoginWarning";
 import Footer from "../../components/Footer";
 const Profile = () => {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
-  console.log(user);
   if (!user) {
     return (
       <div>

@@ -21,7 +21,6 @@ const Address = ({buyPage,setSelectedAddress,product}) => {
         const results = await fetch(authURL + "api/user/address/" + user.id);
         const data = await results.json();
         if (data.length > 0) {
-          console.log(data);
           setAddresses(data);
         } else {
           console.log("User dont have any addresses saved");
@@ -64,7 +63,7 @@ const Address = ({buyPage,setSelectedAddress,product}) => {
         )}
         {addresses.length > 0 ? (
           addresses.map((address) => {
-            return <SingleAddress {...address} setRefresh={setRefresh} buyPage={buyPage} setSelectedAddress={setSelectedAddress} product={product} />;
+            return <SingleAddress key={address.id} {...address} setRefresh={setRefresh} buyPage={buyPage} setSelectedAddress={setSelectedAddress} product={product} />;
           })
         ) : (
           <p>No Saved Addresses are available</p>

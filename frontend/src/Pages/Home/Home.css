@@ -55,6 +55,10 @@
     width: 100%;
     height: 280px;
 }
+div.phone-ad-background{
+
+    height: 450px;
+}
 
 /* Large Device */
 @media (max-width:992px){
@@ -109,6 +113,10 @@
     .electronics-slider h4{
         font-size: 16px;
     }
+    div.phone-ad-background{
+
+        height: 300px;
+    }
 }
 
 /*media*/
@@ -126,7 +134,10 @@
         gap: 7px;
         overflow-x: scroll;
     }
+    div.phone-ad-background{
 
+        height: 200px;
+    }
     .electronics-scroller img {
         height: 60px;
         width: 60px;

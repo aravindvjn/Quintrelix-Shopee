@@ -1,3 +1,70 @@
 .your-profile-parent{
     margin: 20px 100px;
 }
+#username-edit-icon{
+    margin-left: 5px;
+    width: 15px;
+    cursor: pointer;
+}
+#edit-username-close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+.edit-username-form{
+    position: relative;
+    border-radius: 8px;
+    background-color: white;
+    padding: 40px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+.edit-username-form input{
+border-radius: 7px;
+padding: 10px;
+min-width: 300px;
+margin-bottom: 20px;
+}
+@media (max-width:992px){
+}
+
+
+@media (max-width:576px) {
+    .your-profile-parent{
+        margin: 20px 20px;
+        font-size: 12px;
+    }
+    .your-profile-parent p{
+        margin-bottom: 10px;
+    }
+    #username-edit-icon{
+        margin-left: 5px;
+        width: 15px;
+    }
+    #edit-username-close{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+    .edit-username-form{
+        border-radius: 8px;
+        padding: 30px;
+        font-size: 12px;
+        max-width: 90%;
+        min-width: 80%;
+    }
+    .edit-username-form input{
+    border-radius: px;
+    padding: 7px;
+    min-width: 100%;
+    margin-bottom: 20px;
+    }   
+    button.change-password-button{
+        margin-top: 10px;
+        font-size: 12px;
+        padding: 5px 7px;
+    }
+}

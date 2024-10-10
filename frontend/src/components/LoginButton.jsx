@@ -5,7 +5,7 @@ const LoginButton = () => {
     const location = useNavigate()
   return (
     <button
-      className="btn btn-warning"
+      className="btn btn-warning login-button-component"
       onClick={() => {
         location("/login");
       }}

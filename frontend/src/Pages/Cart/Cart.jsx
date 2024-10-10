@@ -23,19 +23,16 @@ const Cart = () => {
       ([key, value]) => value !== 0
     );
     const cartcheckHelper = cartcheckArray.map((item) => item[0]);
-    console.log("heslo",cart)
     const cartcheckHelp = cart.filter((cartI)=>{
       return cartcheckHelper.some((item)=>{
         return item == cartI.id;
       })
     })
-    console.log("helo",cartcheckHelp)
     const cartcheck = cartItems.filter((pro)=>{
       return cartcheckHelp.some((item)=>{
         return pro.id === item.product_id;
       })
     })
-    console.log("the pro",cartcheck)
     if (cartcheck.length > 0) {
       navigate("/buy-product", {
         state: {
@@ -46,18 +43,14 @@ const Cart = () => {
     }
   };
   useEffect(() => {
-    console.log("Refreshed");
-  console.log("check",cartItems)
 
     const fetchCart = async () => {
       const cartResult = await fetch(URL + "cart/" + user.id);
       const cartdata = await cartResult.json();
-      console.log("cart data", cartdata);
       setCart(cartdata);
       const fetchAllProducts = async () => {
         const result = await fetch(URL);
         const data = await result.json();
-        console.log("data", data);
         setCartItems(() => {
           return data.filter((singleData) => {
             return cartdata.some((cart) => cart.product_id === singleData.id);

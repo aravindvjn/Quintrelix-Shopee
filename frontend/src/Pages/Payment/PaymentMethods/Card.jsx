@@ -9,15 +9,15 @@ const Card = ({ state }) => {
   return (
     <>
         {processing && (
-          <Processing message={"UPI"} setProcessing={setProcessing} />
+          <Processing  setProcessing={setProcessing} />
         )}
         {failed && <ProcessingFailed />}
       <div className="center upi-parent">
         <div>
           <h3>Payment Request</h3>
-          <input type="text" placeholder="Card Number" />
+          <input type="text" placeholder="Card Number" required/>
           <input type="date" placeholder="Expiration Date (MM/YY)" />
-          <input type="number" placeholder="CVV" />
+          <input type="number" placeholder="CVV"required />
          <PayNow setProcessing={setProcessing} states={state} setFailed={setFailed}/>
         </div>
       </div>

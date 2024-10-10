@@ -1,0 +1,34 @@
+.admin-phone-ad-parent{
+}
+
+.admin-phone-ad{
+    width: 80%;
+
+}
+.admin-phone-ad-form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 10px 30px;
+}
+.admin-phone-ad-form input{
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+@media (max-width:576px){
+    .admin-phone-ad{
+        width: 90%;
+    
+    }
+    .admin-phone-ad-form{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 10px 10px;
+        font-size: 12px;
+    }
+    .admin-phone-ad-form input{
+        border-radius: 5px;
+        padding: 3px 5px;
+    }
+}

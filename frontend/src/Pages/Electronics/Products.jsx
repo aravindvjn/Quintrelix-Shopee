@@ -19,8 +19,6 @@ const Products = (props) => {
   } = props;
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log("cart", cartItems);
-  console.log("user", user);
   const [screenListen, setScreenListen] = useState(
     window.outerWidth > 576 ? 200 : 100
   );

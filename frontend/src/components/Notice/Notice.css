@@ -1,0 +1,60 @@
+.notice-parent {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    backdrop-filter: blur(10px);
+    z-index: 50;
+}
+
+.notice-parent div {
+    height: fit-content;
+    max-height: 95%;
+    position: relative;
+    text-align: center;
+    overflow-y: scroll;
+    font-style: italic;
+    border-radius: 16px;
+    padding: 40px;
+    font-size: 19px;
+    background-color: gold;
+    width: 50%;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.100), -3px -3px 15px rgba(0, 0, 0, 0.100);
+}
+.notice-parent div::-webkit-scrollbar{
+    display: none;
+}
+
+.notice-parent div h3 {
+    color: red;
+}
+
+@media (max-width:1200px) {
+    .notice-parent div {
+        font-size: 17px;
+        width: 70%;
+        padding: 40px;
+
+    }
+}
+
+@media (max-width:992px) {
+    .notice-parent div {
+        font-size: 16px;
+        width: 70%;
+        padding: 30px;
+
+
+    }
+}
+
+@media (max-width:576px) {
+    .notice-parent div {
+        font-size: 13px;
+        width: 90%;
+        padding: 20px;
+
+
+    }
+}

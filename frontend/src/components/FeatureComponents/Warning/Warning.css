@@ -1,0 +1,23 @@
+div.warning-parent-div{
+    max-width: 80%;
+    width: fit-content;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    height: fit-content;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    background-color: gold;
+    color: black;
+    font-family: monospace;
+    line-height: 18px ;
+}
+@media (max-width:576px){
+    div.warning-parent-div{
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

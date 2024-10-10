@@ -7,9 +7,9 @@ import "./Home.css";
 import ElectronicsSlider from "./ElectronicsSlider";
 import URL from "../../server";
 import { UserContext } from "../Context/context";
+import Notice from "../../components/Notice/Notice";
 
 const Home = ({ admin }) => {
-  const {setCartItems,user} = useContext(UserContext)
   return (
     <div>
       <Header admin={admin} />

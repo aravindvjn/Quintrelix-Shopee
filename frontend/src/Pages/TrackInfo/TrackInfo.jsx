@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./TrackInfo.css";
 import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
+import CartLoginWarning from "../Cart/CartLoginWarning";
+import Footer from "../../components/Footer";
+import { UserContext } from "../Context/context";
 const TrackInfo = () => {
+  const {user} = useContext(UserContext)
   const location = useLocation();
   const [dateShow, setDateShow] = useState();
   const [show, setShow] = useState(true);
   const { state } = location;
   const { order_date } = location.state.order;
-  console.log(order_date);
   const [activePoints, setActivePoints] = useState(Array(5).fill(false));
   useEffect(() => {
     const dateFetch = () => {
@@ -47,6 +50,17 @@ const TrackInfo = () => {
     setActivePoints(points);
   }, []);
 
+  if (!user) {
+    return (
+      <>
+        <Header />
+        <CartLoginWarning
+          message={"Login to see the items you added previously"}
+        />
+        <Footer />
+      </>
+    );
+  }
   return (
     <div>
       <Header />

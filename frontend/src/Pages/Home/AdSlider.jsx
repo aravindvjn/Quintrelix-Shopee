@@ -19,7 +19,7 @@ const AdSlider = () => {
         setFetchBanner(results);
       } catch (err) {
         console.error("Error in fetching data at Home.jsx", err);
-      }
+      };
     };
     fetchData();
   }, []);
@@ -37,7 +37,7 @@ const AdSlider = () => {
               id="carousel-indicators-button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="0"
-              className={image === 1 && "active"}
+              className={image === 1 ? "active" : ''}
               aria-current="true"
               aria-label="Slide 1"
               fdprocessedid="jpnosm"
@@ -48,7 +48,7 @@ const AdSlider = () => {
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="1"
               aria-label="Slide 2"
-              className={image === 2 && "active"}
+              className={image === 2 ? "active" : ''}
               fdprocessedid="el68an"
             ></button>
             <button
@@ -56,13 +56,13 @@ const AdSlider = () => {
               type="button"
               data-bs-target="#carouselExampleIndicators"
               data-bs-slide-to="2"
-              className={image === 3 && "active"}
+              className={image === 3 ? "active" : ''}
               aria-label="Slide 3"
               fdprocessedid="sp1tjo"
             ></button>
           </div>
           <div className="carousel-inner">
-            <div className={`carousel-item ${image === 1 && "active"}`}>
+            <div className={`carousel-item ${image === 1 ? "active" : ''}`}>
               <img
                 style={{ backgroundColor: "black" }}
                 src={fetchBanner ? fetchBanner[0].image : loadingImage}
@@ -75,7 +75,7 @@ const AdSlider = () => {
                 focusable="false"
               ></img>
             </div>
-            <div className={`carousel-item ${image === 2 && "active"}`}>
+            <div className={`carousel-item ${image === 2 ? "active" : ''}`}>
               <img
                 style={{ backgroundColor: "black" }}
                 src={fetchBanner ? fetchBanner[1].image : loadingImage}
@@ -88,7 +88,7 @@ const AdSlider = () => {
                 focusable="false"
               ></img>
             </div>
-            <div className={`carousel-item ${image === 3 && "active"}`}>
+            <div className={`carousel-item ${image === 3 ? "active" : ''}`}>
               <img
                 style={{ backgroundColor: "black" }}
                 src={fetchBanner ? fetchBanner[2].image : loadingImage}

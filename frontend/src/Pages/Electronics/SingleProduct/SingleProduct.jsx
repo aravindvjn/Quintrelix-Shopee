@@ -63,11 +63,9 @@ const SingleProduct = () => {
   };
 
   useEffect(() => {
-    console.log("Refreshed");
     const fetchCart = async () => {
       const cartResult = await fetch(URL + "cart/" + user.id);
       const cartdata = await cartResult.json();
-      console.log("cart data", cartdata);
       const checkCartStatus = cartdata.filter((item) => {
         return item.product_id === id;
       });

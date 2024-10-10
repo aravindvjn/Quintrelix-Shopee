@@ -17,9 +17,7 @@ const ProductsOnCategory = () => {
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  console.log(location.state);
   useEffect(() => {
-    console.log("products", products);
     const fetchProducts = async () => {
       try {
         await fetch(
@@ -34,7 +32,6 @@ const ProductsOnCategory = () => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             setProducts(data);
           });
       } catch (err) {
@@ -47,7 +44,6 @@ const ProductsOnCategory = () => {
         await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
-            console.log("category", data);
             setCategoryList(data);
             fetchAllProducts();
           });
@@ -60,12 +56,9 @@ const ProductsOnCategory = () => {
         await fetch(URL)
           .then((response) => response.json())
           .then((data) => {
-            console.log("all products", data);
-            console.log("categorylist", categoryList);
             const categoryListFiltered = categoryList.filter((cat) => {
               return cat.type === location.state;
             });
-            console.log("categoryListFiltered", categoryListFiltered);
             setProducts(() => {
               return data.filter((singleData) => {
                 return categoryListFiltered.some(
@@ -73,7 +66,6 @@ const ProductsOnCategory = () => {
                 );
               });
             });
-            console.log("products", products);
             setTimeout(() => {
               setRefresh(true);
             }, 100);
@@ -86,7 +78,6 @@ const ProductsOnCategory = () => {
     const fetchCart = async () => {
       const cartResult = await fetch(URL + "cart/" + user.id);
       const cartdata = await cartResult.json();
-      console.log("cart data", cartdata);
       cartdata.map((item) => {
         setCartItems((prev) => {
           return [...prev, item.product_id];
@@ -110,10 +101,11 @@ const ProductsOnCategory = () => {
     <div>
       <Header />
       <div className="products-on-category">
-        {products ?
+        {products.length !==0 ?
           products.map((product) => {
             return (
               <Products
+              key={product.id}
                 {...product}
                 cartItems={cartItems.includes(product.id) ? true : false}
                 setRefresh={setRefresh}
@@ -122,6 +114,7 @@ const ProductsOnCategory = () => {
               />
             );
           }): <Loading />}
+
       </div>
     </div>
   );

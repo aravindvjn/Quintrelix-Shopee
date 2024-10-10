@@ -10,7 +10,6 @@ const ElectronicsSlider = ({ name }) => {
         await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
-            console.log("category", data);
             setProducts(() => {
               return data.filter((product) => {
                 return product.type === name;
@@ -36,6 +35,7 @@ const ElectronicsSlider = ({ name }) => {
           products.map((product) => {
             return (
               <Link
+              key={product.id}
                 to={"/category"}
                 state={product.idname}
                 style={{ textDecoration: "none", color: "black" }}

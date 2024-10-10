@@ -24,6 +24,7 @@ const SingleAddress = ({
   const navigate = useNavigate();
   const deleteAddresss = async () => {
     try {
+     if(confirm("Do You Want to Proceed")){
       const response = await fetch(authURL + "api/user/address/" + id, {
         method: "DELETE",
         headers: {
@@ -37,6 +38,7 @@ const SingleAddress = ({
       } else {
         alert("Failed");
       }
+     }
     } catch (err) {
       console.log("Error in Deleting an address", err);
     }

@@ -5,6 +5,7 @@ import Banner from "./Banner";
 import URL from "../../../server";
 import { UserContext } from "../../Context/context";
 import UnAuth from "../../UnAuth/UnAuth";
+import PhoneAdadd from "./PhoneAd/PhoneAdAdd";
 const Customize = () => {
   const { user } = useContext(UserContext);
   const [fetchBanner, setFetchBanner] = useState();
@@ -48,6 +49,7 @@ const Customize = () => {
               );
             })}
         </div>
+        <PhoneAdadd />
       </div>
     </div>
   );

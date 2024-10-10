@@ -19,7 +19,6 @@ const SingleOrder = ({ product, order, setRefresh }) => {
   if (product.length <= 0) {
     return;
   }
-  console.log("or", order);
   return (
     <div className="single-order-parent">
       <div className="single-colored">
@@ -71,7 +70,7 @@ const SingleOrder = ({ product, order, setRefresh }) => {
                 }}
               >
                 {order.payment_method === "Cash on Delivery"
-                  ? " Pending"
+                  ? " COD"
                   : " Successful"}
               </span>
             </p>

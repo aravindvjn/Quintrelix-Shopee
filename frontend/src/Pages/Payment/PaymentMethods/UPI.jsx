@@ -16,7 +16,7 @@ const UPI = ({ state }) => {
       <div className="center upi-parent">
         <div>
           <h3>UPI Payment Request</h3>
-          <input type="text" placeholder="Enter UPI ID" />
+          <input type="text" placeholder="Enter UPI ID" required />
           <PayNow setProcessing={setProcessing} states={state} setFailed={setFailed}/>
         </div>
       </div>

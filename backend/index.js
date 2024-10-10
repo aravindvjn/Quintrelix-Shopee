@@ -19,7 +19,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 60 * 60,
+      maxAge: 1000 * 60 * 60 * 60 * 60 * 60,
     },
   })
 );
@@ -61,7 +61,6 @@ app.post("/register", async (req, res) => {
         );
         const user = results.rows[0];
         req.login(user, (err) => {
-          console.log("success,user:", user);
           res.status(201).json({
             id: user.id,
             username: user.fullname,
@@ -85,13 +84,11 @@ app.post("/login", async (req, res) => {
     if (results.rows.length > 0) {
       const user = results.rows[0];
       const data = user.password;
-      console.log(data);
       bcrypt.compare(password, data, (err, valid) => {
         if (err) {
           console.error("Error in comparing password", err);
         } else {
           if (valid) {
-            console.log("user bro", user);
             res.status(201).json({
               id: user.id,
               username: user.fullname,
@@ -121,14 +118,12 @@ passport.use(
       if (results.rows.length > 0) {
         const user = results.rows[0];
         const storedHashedPassword = user.password;
-        console.log("password", password);
         bcrypt.compare(password, storedHashedPassword, (err, valid) => {
           if (err) {
             console.error("Error in comparing password", err);
             return cb(err);
           } else {
             if (valid) {
-              console.log("user bro", user);
               return cb(null, user);
             } else {
               return cb(null, false);
@@ -163,8 +158,11 @@ app.get("/logout", (req, res) => {
 
 app.get("/api/user-data/:id", async (req, res) => {
   try {
-    const {id} = req.params;
-    const results = await pool.query("SELECT email,fullname FROM users WHERE id=$1",[id]);
+    const { id } = req.params;
+    const results = await pool.query(
+      "SELECT email,fullname FROM users WHERE id=$1",
+      [id]
+    );
     if (results.rows.length > 0) {
       res.status(200).json(results.rows[0]);
     } else {
@@ -175,12 +173,73 @@ app.get("/api/user-data/:id", async (req, res) => {
   }
 });
 
+app.put("/api/user-name-edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { fullname } = req.body;
+    const results = await pool.query(
+      "UPDATE users SET fullname=$1 WHERE id=$2 RETURNING *",
+      [fullname, id]
+    );
+    if (results.rows.length > 0) {
+      res.status(201).json(results.rows[0]);
+    } else {
+      res.status(404).json("user not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating username");
+  }
+});
+//Change Password
+app.put("/api/user-pass-edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { newPass, oldPass } = req.body;
+
+    const results = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    if (results.rows.length > 0) {
+      const user = results.rows[0];
+      const data = user.password;
+      bcrypt.compare(oldPass, data, (err, valid) => {
+        if (err) {
+          console.error("Error in comparing password", err);
+        } else {
+          if (valid) {
+            console.log("user bro", user);
+            bcrypt.hash(newPass, saltRounds, async (err, hash) => {
+              if (err) {
+                console.log("error in hashing", err);
+              } else {
+                const results = await pool.query(
+                  "UPDATE users SET password=$1 WHERE id=$2 RETURNING *",
+                  [hash, id]
+                );
+                if (results.rows.length > 0) {
+                  res.status(201).json({ message: "success" });
+                } else {
+                  res.status(404).json("Failed");
+                }
+              }
+            });
+          } else {
+            res.status(400).json({ message: "Invalid password" });
+          }
+        }
+      });
+    } else {
+      res.status(400).json({ message: "Invalid username or password" });
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating username");
+  }
+});
+
 //PRODUCTS
 
 //get all products
 app.get("/api/products", async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM products");
+    const results = await pool.query("SELECT * FROM products ORDER BY id DESC");
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -190,9 +249,7 @@ app.get("/api/products", async (req, res) => {
 //get all orders
 app.get("/api/products/orders/all", async (req, res) => {
   try {
-    const results = await pool.query(
-      "SELECT * FROM orders"
-    );
+    const results = await pool.query("SELECT * FROM orders");
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -225,6 +282,15 @@ app.get("/api/products/banner", async (req, res) => {
 app.get("/api/products/category", async (req, res) => {
   try {
     const results = await pool.query("SELECT * FROM category");
+    res.status(200).json(results.rows);
+  } catch (err) {
+    res.status(404).json("Error in getting all products");
+  }
+});
+//get all phone ad
+app.get("/api/advertisement", async (req, res) => {
+  try {
+    const results = await pool.query("SELECT * FROM phonead");
     res.status(200).json(results.rows);
   } catch (err) {
     res.status(404).json("Error in getting all products");
@@ -306,7 +372,6 @@ app.get("/api/products/category/:category", async (req, res) => {
 //create a orders
 app.post("/api/products/orders", async (req, res) => {
   try {
-    console.log(req.body);
     const {
       user_id,
       product_id,
@@ -357,7 +422,6 @@ app.post("/api/user/address", async (req, res) => {
 //create a products
 app.post("/api/products", async (req, res) => {
   try {
-    console.log(req.body);
     const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
       "INSERT INTO products (name,description,price,stock,category,idcategory,image) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
@@ -380,7 +444,6 @@ app.post("/api/products", async (req, res) => {
 //create a category group
 app.post("/api/products/category", async (req, res) => {
   try {
-    console.log(req.body);
     const { name, type, image } = req.body;
     const results = await pool.query(
       "INSERT INTO category (name,type,idname,image) VALUES ($1,$2,$3,$4) RETURNING *",
@@ -399,7 +462,6 @@ app.post("/api/products/category", async (req, res) => {
 //create and add cart item
 app.post("/api/products/cart", async (req, res) => {
   try {
-    console.log(req.body);
     const { id, productId, quantity } = req.body;
     const results = await pool.query(
       "INSERT INTO cart (cart_id,product_id,quantity) VALUES ($1,$2,$3) RETURNING *",
@@ -411,10 +473,27 @@ app.post("/api/products/cart", async (req, res) => {
   }
 });
 
+//updating advertisement
+app.put("/api/advertisement/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, heading, subheading, buylink, learnmore, image } = req.body;
+    const results = await pool.query(
+      " UPDATE phonead SET name = $1, heading = $2, subheading = $3, buylink =$4, learnmore =$5, image = $6 WHERE id = $7 RETURNING *",
+      [name, heading, subheading, buylink, learnmore, image, id]
+    );
+    if (results.rows.length > 0) {
+      res.status(201).json(results.rows[0]);
+    } else {
+      res.status(404).json("product not found");
+    }
+  } catch (err) {
+    res.status(404).json("Error in updating products");
+  }
+});
 //updating a products
 app.put("/api/products/:id", async (req, res) => {
   try {
-    console.log(req.body);
     const { id } = req.params;
     const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
@@ -433,7 +512,6 @@ app.put("/api/products/:id", async (req, res) => {
 //updating a cart
 app.put("/api/products/cart/:id", async (req, res) => {
   try {
-    console.log(req.body);
     const { id } = req.params;
     const { operation } = req.body;
     if (operation === "increase") {
@@ -464,7 +542,6 @@ app.put("/api/products/cart/:id", async (req, res) => {
 //updating a banner
 app.put("/api/products/banner/:id", async (req, res) => {
   try {
-    console.log(req.body);
     const { id } = req.params;
     const { name, image } = req.body;
     const results = await pool.query(
@@ -493,7 +570,6 @@ app.put("/api/user/address/:id", async (req, res) => {
       postal_code,
       phone_number,
     } = req.body;
-    console.log(req.body);
     const { id } = req.params;
     const results = await pool.query(
       "UPDATE addresses SET phone_number=$1,name=$2,address=$3,state=$4,country=$5,postal_code=$6 WHERE id=$7 AND user_id=$8 RETURNING *",

@@ -18,9 +18,6 @@ const Buying = () => {
   let totalPrice = 0;
   const { user } = useContext(UserContext);
   useEffect(() => {
-    console.log("selected", selected);
-    console.log("selected Address", selectedAddress);
-    console.log("state", location.state);
   }, [refresh, selectedAddress]);
 
   if (!user) {
@@ -49,7 +46,6 @@ const Buying = () => {
           location.state.cartcheck.length > 1 &&
           location.state.cartcheck.map((item) => {
             totalPrice = totalPrice + Number(item.price);
-            console.log(totalPrice);
           })}
         {totalPrice !== 0 && (
           <div style={{ display: "flex", marginBottom: "50px" }} className="buying-total-price">

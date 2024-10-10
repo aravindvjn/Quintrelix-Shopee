@@ -31,12 +31,12 @@
     cursor: pointer;
 }
 
-p.your-account{
+p.your-account {
     visibility: hidden;
     background-color: rgba(128, 128, 128, 0.43);
     padding: 3px 5px;
     backdrop-filter: blur(10px);
-    transform: translate(19px,8px);
+    transform: translate(19px, 8px);
     border-radius: 4px;
     text-align: center;
     font-size: 12px;
@@ -44,30 +44,74 @@ p.your-account{
     margin: 0;
     opacity: 0.6;
 }
-.header-account:hover p.your-account{
+
+.header-account:hover p.your-account {
     visibility: visible;
 }
 
-@media (max-width:992px) {
-    .display-hide{
-       display: none;
+#edit-username-close.waring-icon {
+    top: 20px;
+    right: 20px;
+    color: gold;
+    position: fixed;
+    z-index: 5;
+    background-color: black;
+    outline-style: auto;
+    padding: 8px;
+    border-radius: 7px;
+    width: 40px;
+    height: 40px;
+    animation: pulse 1s infinite;
+    
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
     }
-    .header-parent{
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width:992px) {
+    .display-hide {
+        display: none;
+    }
+
+    .header-parent {
         font-size: 15px;
     }
 }
+
 @media (max-width:576px) {
-    .header-parent{
+    .header-parent {
         font-size: 12px;
     }
+
     .login-pop-up div {
-        width: 95%;
+        width: 80%;
         padding: 30px 10px;
     }
-    .footer-parent{
+
+    .footer-parent {
         font-size: 12px;
     }
-    .footer-parent h5{
+
+    .login-pop-up div h5 {
         font-size: 16px;
+    }
+
+    .footer-parent h5 {
+        font-size: 16px;
+    }
+
+    button.login-button-component {
+        font-size: 13px;
     }
 }

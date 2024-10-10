@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { authURL } from "../../server";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/context";
-import QLogo from '../../assets/Q-Shopee.png'
+import QLogo from "../../assets/Q-Shopee.png";
+import Warning from "../../components/FeatureComponents/Warning/Warning";
 
 const Form = ({ input, handleChange, setInput, page }) => {
   const [message, setMessage] = useState("");
@@ -14,7 +15,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         e.preventDefault();
         if (page === "signup") {
           if (input.password.length < 8) {
-            setMessage("Must have more than 8 charactors");
+            setMessage("Password must be at least 8 characters long.");
             return;
           }
           if (input.password !== input.cpassword) {
@@ -31,12 +32,11 @@ const Form = ({ input, handleChange, setInput, page }) => {
                   body: JSON.stringify(input),
                 });
                 if (response.status === 400) {
-                  setMessage("mail exists");
+                  setMessage("User already exists");
                   return;
                 }
                 if (response.ok) {
                   const data = await response.json();
-                  console.log("user data", data);
                   setUser(data);
                   setInput({
                     fullName: "",
@@ -62,14 +62,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 },
                 body: JSON.stringify(input),
               });
-              console.log("response",response)
               if (response.status === 400) {
                 setMessage("Invalid email or password");
                 return;
               }
               if (response.ok) {
                 const data = await response.json();
-                console.log("user data", data);
                 setUser(data);
                 setInput({
                   fullName: "",
@@ -88,8 +86,8 @@ const Form = ({ input, handleChange, setInput, page }) => {
         }
       }}
     >
-      <img id='logo' src={QLogo} alt="" />
-      {message && <center>{message}</center>}
+      <img id="logo" src={QLogo} alt="" />
+      {message && <Warning message={message} />}
 
       {page === "signup" && (
         <>
@@ -112,7 +110,6 @@ const Form = ({ input, handleChange, setInput, page }) => {
         value={input.email}
         onChange={handleChange}
         placeholder="Email"
-
       />
       <label htmlFor="password">Password</label>
       <input
@@ -122,7 +119,6 @@ const Form = ({ input, handleChange, setInput, page }) => {
         value={input.password}
         onChange={handleChange}
         placeholder="Password"
-
       />
       {page === "signup" && (
         <>
@@ -134,7 +130,6 @@ const Form = ({ input, handleChange, setInput, page }) => {
             value={input.cpassword}
             onChange={handleChange}
             placeholder="Confirm Password"
-
           />
         </>
       )}
@@ -144,6 +139,11 @@ const Form = ({ input, handleChange, setInput, page }) => {
           Already Have An Account?
           <strong
             onClick={() => {
+              setInput({
+                fullName: "",
+                email: "",
+                password: "",
+              });
               navigate("/login");
             }}
           >
@@ -155,6 +155,11 @@ const Form = ({ input, handleChange, setInput, page }) => {
           Doesnot Have An Account?
           <strong
             onClick={() => {
+              setInput({
+                fullName: "",
+                email: "",
+                password: "",
+              });
               navigate("/signup");
             }}
           >

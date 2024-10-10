@@ -90,7 +90,7 @@ select{
     border-radius: 7px;
 }
 
-@media (max-width:676px){
+@media (max-width:576px){
     td button{
         margin: 5px 2px;
         border-radius: 7px;

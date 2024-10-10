@@ -21,7 +21,6 @@ const Orders = () => {
         if (data.length > 0) {
           setOrderData(() => {
             return data.filter((item) => {
-              console.log("test", Number(selected.slice(0, 1)));
               return (
                 new Date().setMonth(
                   new Date().getMonth() - Number(selected.trim().split(" ")[0])
@@ -29,7 +28,6 @@ const Orders = () => {
               );
             });
           });
-          console.log("order", orderData);
         } else {
           console.log("No orders");
         }
@@ -50,8 +48,10 @@ const Orders = () => {
         console.log("Error in fetching Products", err);
       }
     };
+   if(user){
     fetchOrders();
     fetchProducts();
+   }
   }, [refresh, selected]);
   const selectElement = useRef();
 

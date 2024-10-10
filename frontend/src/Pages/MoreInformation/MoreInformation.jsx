@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import "./MoreInformation.css";
 import { useLocation } from "react-router-dom";
+import CartLoginWarning from "../Cart/CartLoginWarning";
+import Footer from "../../components/Footer";
+import { UserContext } from "../Context/context";
 const MoreInformation = () => {
   const location = useLocation();
-  console.log(location.state);
   const { state } = location;
+  const {user} =useContext(UserContext)
   const [dateShow, setDateShow] = useState();
   useEffect(() => {
     const dateFetch = () => {
@@ -19,6 +22,17 @@ const MoreInformation = () => {
     };
     dateFetch();
   });
+  if (!user) {
+    return (
+      <>
+        <Header />
+        <CartLoginWarning
+          message={"Login to see the items you added previously"}
+        />
+        <Footer />
+      </>
+    );
+  }
   return (
     <div>
       <Header />
