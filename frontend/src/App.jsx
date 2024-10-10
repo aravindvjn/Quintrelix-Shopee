@@ -7,7 +7,6 @@ import Electronics from "./Pages/Electronics/Electronics";
 import AddProducts from "./Pages/Admin/Add Products/AddProducts";
 import ProductsOnCategory from "./Pages/Electronics/ProductsOnCategory";
 import Auth from "./Pages/Auth/Auth";
-import { UserProvider } from "./Pages/Context/context.jsx";
 import Customize from "./Pages/Admin/Customize/Customize";
 import Cart from "./Pages/Cart/Cart";
 import SingleProduct from "./Pages/Electronics/SingleProduct/SingleProduct";
@@ -20,6 +19,7 @@ import OrderReq from "./Pages/Admin/OrderReq/OrderReq";
 import Payment from "./Pages/Payment/Payment";
 import MoreInformation from "./Pages/MoreInformation/MoreInformation";
 import TrackInfo from "./Pages/TrackInfo/TrackInfo";
+import { UserProvider } from "./Pages/Context/context";
 
 function App() {
   return (
