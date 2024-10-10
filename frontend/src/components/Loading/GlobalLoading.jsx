@@ -5,6 +5,7 @@ const GlobalLoading = () => {
   return (
     <div className='global-loading'>
       <Loading />
+      <center>Loading...</center>
     </div>
   )
 }
