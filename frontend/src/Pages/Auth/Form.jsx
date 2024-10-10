@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { authURL } from "../../server";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/Context";
-import QLogo from "../../assets/QShopee.png";
+import QLogo from "../../assets/Qshopee.png";
 import Warning from "../../components/FeatureComponents/Warning/Warning";
 
 const Form = ({ input, handleChange, setInput, page }) => {
