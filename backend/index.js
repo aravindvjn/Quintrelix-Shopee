@@ -15,7 +15,7 @@ const saltRounds = 10;
 //MIDDLEWARES
 app.use(
   session({
-    secret: "TATAKAE",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
