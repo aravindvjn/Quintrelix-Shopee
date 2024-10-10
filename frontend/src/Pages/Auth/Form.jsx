@@ -10,7 +10,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   return (
-    <form
+    <form className="auth-form"
       onSubmit={(e) => {
         e.preventDefault();
         if (page === "signup") {

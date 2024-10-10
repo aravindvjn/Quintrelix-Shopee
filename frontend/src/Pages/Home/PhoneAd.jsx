@@ -4,7 +4,7 @@ import URL, { authURL } from "../../server";
 const PhoneAd = () => {
   const [fetchPhoneAd, setFetchPhoneAd] = useState();
   const loadingImage =
-    "https://cdn.dribbble.com/users/1053052/screenshots/3600670/_____.gif";
+    "https://cdn-images-1.medium.com/max/688/1*82D2cg8Gpe9CVISaph6RPg.gif";
   const [image, setImage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {

@@ -13,20 +13,24 @@ form strong{
     margin-bottom: 20px;
 }
 
-@media (max-width:676px){
+@media (max-width:576px){
     .auth-inputs{
-        width: 220px;
-        height: 30px;
+        width: 100%;
+        height: 35px;
         font-size: 12px;
     }
-    label{
-       font-size: 12px; 
-    }
+
     .auth-inputs::placeholder{
         font-size: 12px;
     }
     #logo{
         width: 100px;
         margin-bottom: 10px;
+    }
+    .auth-form p{
+        font-size: 13px;
+    }
+    .auth-form{
+        width: 100%;
     }
 }
