@@ -48,10 +48,10 @@ const Orders = () => {
         console.log("Error in fetching Products", err);
       }
     };
-   if(user){
-    fetchOrders();
-    fetchProducts();
-   }
+    if (user) {
+      fetchOrders();
+      fetchProducts();
+    }
   }, [refresh, selected]);
   const selectElement = useRef();
 
@@ -68,7 +68,7 @@ const Orders = () => {
   return (
     <div>
       <Header />
-      <div className="center order-parent" style={{minHeight:'65vh'}}>
+      <div className="center order-parent" style={{ minHeight: "65vh" ,justifyContent:'start'}}>
         <div className="center">
           <p>Orders within</p>
           <select
@@ -81,7 +81,7 @@ const Orders = () => {
             <option>12 Months</option>
           </select>
         </div>
-        {orderData.length > 0 &&
+        {orderData.length > 0 ? (
           orderData.map((order) => {
             return (
               <SingleOrder
@@ -92,7 +92,10 @@ const Orders = () => {
                 })}
               />
             );
-          })}
+          })
+        ) : (
+          <center>No Orders</center>
+        )}
       </div>
       <Footer />
     </div>

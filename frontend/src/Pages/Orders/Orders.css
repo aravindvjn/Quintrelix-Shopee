@@ -195,7 +195,11 @@
     .order-parent {
         width: 98%;
         margin: 1%;
+        margin-top: 20px;
         flex-direction: column;
+    }
+    .order-parent center{
+        font-size: 13px;
     }
     
     .single-colored {
