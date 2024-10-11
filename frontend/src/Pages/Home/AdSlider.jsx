@@ -4,7 +4,7 @@ import URL from "../../server";
 const AdSlider = () => {
   const [fetchBanner, setFetchBanner] = useState();
   const loadingImage =
-    "https://cdn-images-1.medium.com/max/688/1*82D2cg8Gpe9CVISaph6RPg.gif";
+    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fvaporwave--40039884179288668%2F&psig=AOvVaw3FnIZz5TNUFJcx8S5NNInh&ust=1728719553428000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKDWpcfshYkDFQAAAAAdAAAAABAJ";
   const [image, setImage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
