@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import URL from "../../server";
-
+import defaultPic from '../../assets/default.jpg'
 const AdSlider = () => {
   const [fetchBanner, setFetchBanner] = useState();
-  const loadingImage =
-    "https://i.pinimg.com/originals/72/98/a2/7298a259e46ced8d8d636b3081a1ed57.gif";
+  const loadingImage = defaultPic
   const [image, setImage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
