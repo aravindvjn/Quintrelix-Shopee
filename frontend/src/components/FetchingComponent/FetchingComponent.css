@@ -17,8 +17,8 @@
 
   .skeleton-line {
     width: 100%;
-    height: 15px;
-    margin: 10px 0;
+    height: 10px;
+    margin: 12px 0;
   }
 
   .skeleton-line.short {
@@ -34,6 +34,14 @@
     }
     100% {
       background-color: #e0e0e0;
+    }
+  }
+  @media (max-width:992px){
+        
+    .skeleton-line {
+      width: 100%;
+      height: 7px;
+      margin: 8px 0;
     }
   }
 
