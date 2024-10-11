@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import URL from "../../server";
 import { UserContext } from "../Context/Context";
+import FetchingComponent from "../../components/FetchingComponent/FetchingComponent";
 
 const ElectronicsSlider = ({ name }) => {
   const [products, setProducts] = useState();
-  const {setLoading} = useContext(UserContext)
+  const { setLoading } = useContext(UserContext);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true)
         await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
@@ -18,7 +18,7 @@ const ElectronicsSlider = ({ name }) => {
                 return product.type === name;
               });
             });
-            setLoading(false)
+            setLoading(false);
           });
       } catch (err) {
         console.log("Error in Fetching Data");
@@ -26,6 +26,10 @@ const ElectronicsSlider = ({ name }) => {
     };
     fetchProducts();
   }, []);
+  if (!products) {
+    return <FetchingComponent />;
+  }
+
   return (
     <div className="electronics-slider">
       <Link
@@ -39,7 +43,7 @@ const ElectronicsSlider = ({ name }) => {
           products.map((product) => {
             return (
               <Link
-              key={product.id}
+                key={product.id}
                 to={"/category"}
                 state={product.idname}
                 style={{ textDecoration: "none", color: "black" }}

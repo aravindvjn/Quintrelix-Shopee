@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import URL, { authURL } from "../../server";
 import defaultPic from '../../assets/default.jpg'
+import FetchingComponent from "../../components/FetchingComponent/FetchingComponent";
 
 const PhoneAd = () => {
   const [fetchPhoneAd, setFetchPhoneAd] = useState();
@@ -27,6 +28,10 @@ const PhoneAd = () => {
     backgroundImage: `url(${fetchPhoneAd ? fetchPhoneAd.image : loadingImage})`,
     backgroundSize: "cover",
   };
+
+  if (!fetchPhoneAd) {
+    return <FetchingComponent />;
+  }
   return (
     <div className="phone-ad-parent">
       <div
