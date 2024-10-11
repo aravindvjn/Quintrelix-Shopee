@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import URL from "../../server";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ProductsOnCategory.css";
 import Products from "./Products";
 import { UserContext } from "../Context/Context";
@@ -12,6 +12,7 @@ import FetchingComponent from "../../components/FetchingComponent/FetchingCompon
 import ProductFetching from "../../components/FetchingComponent/ProductFetching/ProductFetching";
 
 const ProductsOnCategory = () => {
+  const navigate = useNavigate()
   const { user } = useContext(UserContext);
   const [showDetail, setShowDetail] = useState(false);
   const [products, setProducts] = useState([]);
@@ -19,6 +20,9 @@ const ProductsOnCategory = () => {
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  if(!location.state){
+    navigate('/')
+  }
   useEffect(() => {
     const fetchProducts = async () => {
       try {
