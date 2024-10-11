@@ -4,7 +4,7 @@ import URL, { authURL } from "../../server";
 const PhoneAd = () => {
   const [fetchPhoneAd, setFetchPhoneAd] = useState();
   const loadingImage =
-    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fvaporwave--40039884179288668%2F&psig=AOvVaw3FnIZz5TNUFJcx8S5NNInh&ust=1728719553428000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKDWpcfshYkDFQAAAAAdAAAAABAJ";
+    "https://i.pinimg.com/originals/72/98/a2/7298a259e46ced8d8d636b3081a1ed57.gif";
   const [image, setImage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +26,6 @@ const PhoneAd = () => {
   const style1 = {
     backgroundImage: `url(${fetchPhoneAd ? fetchPhoneAd.image : loadingImage})`,
     backgroundSize: "cover",
-    borderRadius: "10px",
   };
   return (
     <div className="phone-ad-parent">
