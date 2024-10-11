@@ -9,6 +9,7 @@ const ElectronicsSlider = ({ name }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true)
         await fetch(URL + "category")
           .then((response) => response.json())
           .then((data) => {
