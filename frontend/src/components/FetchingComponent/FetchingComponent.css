@@ -36,3 +36,33 @@
       background-color: #e0e0e0;
     }
   }
+
+  @media (max-width:576px){
+    .skeleton-container {
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+      }
+    
+      .skeleton {
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+    
+      .skeleton-header {
+        width: 100%;
+        height: 100px;
+      }
+    
+      .skeleton-line {
+        width: 100%;
+        height: 8px;
+        margin: 5px 0;
+      }
+    
+      .skeleton-line.short {
+        width: 60%;
+      }
+    
+  }
