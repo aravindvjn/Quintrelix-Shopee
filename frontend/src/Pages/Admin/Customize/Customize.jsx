@@ -9,7 +9,7 @@ import PhoneAdadd from "./PhoneAd/PhoneAdAdd";
 const Customize = () => {
   const { user } = useContext(UserContext);
   const [fetchBanner, setFetchBanner] = useState();
-  const [edit, setEdit] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +26,7 @@ const Customize = () => {
       }
     };
     fetchData();
-  }, [edit]);
+  }, [refresh]);
 
   if (!user) {
     return <UnAuth />;
@@ -45,7 +45,7 @@ const Customize = () => {
           {fetchBanner &&
             fetchBanner.map((banner, index) => {
               return (
-                <Banner key={index} {...banner} setEdit={setEdit} edit={edit} />
+                <Banner key={index} {...banner} setRefresh={setRefresh} />
               );
             })}
         </div>
