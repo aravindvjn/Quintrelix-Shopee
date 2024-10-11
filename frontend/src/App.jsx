@@ -45,14 +45,18 @@ function App() {
             <Route exact path="/account/user" element={<YourProfile />} />
             <Route exact path="/admin/orders" element={<OrderReq />} />
             <Route exact path="/buy-product/payment" element={<Payment />} />
-            <Route exact path="/orders/more-info" element={<MoreInformation />} />
+            <Route
+              exact
+              path="/orders/more-info"
+              element={<MoreInformation />}
+            />
             <Route exact path="/orders/track-info" element={<TrackInfo />} />
-            <Route path="*" element={<Home/>} />
             <Route
               exact
               path="/account/addresses/add"
               element={<AddAddress />}
             />
+            <Route path="*" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>
