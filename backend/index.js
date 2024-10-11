@@ -8,7 +8,7 @@ import { Strategy } from "passport-local";
 import session from "express-session";
 dotenv.config();
 const { Pool } = pg;
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const saltRounds = 10;
 
@@ -47,6 +47,10 @@ pool
   .connect()
   .then(() => console.log("Connected to Neon PostgreSQL database!"))
   .catch((err) => console.error("Connection error", err.stack));
+
+app.get("/", (req, res) => {
+  res.send("Hello from the Node.js API!");
+});
 
 //AUTH
 //register
