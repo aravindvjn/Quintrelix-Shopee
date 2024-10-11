@@ -1,0 +1,12 @@
+.skeleton-product-parent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.skeleton-product-fetch{
+    gap:10px
+}
+@media (max-width:992px){
+    .skeleton-product-fetch>div{
+        padding-right: 10px;
+    }
+}

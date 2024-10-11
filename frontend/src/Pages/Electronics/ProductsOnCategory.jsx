@@ -8,6 +8,8 @@ import { UserContext } from "../Context/Context";
 import LoginPopUp from "../../components/LoginPopUp";
 import SingleProduct from "./SingleProduct/SingleProduct";
 import Loading from "../../components/Loading/Loading";
+import FetchingComponent from "../../components/FetchingComponent/FetchingComponent";
+import ProductFetching from "../../components/FetchingComponent/ProductFetching/ProductFetching";
 
 const ProductsOnCategory = () => {
   const { user } = useContext(UserContext);
@@ -95,26 +97,26 @@ const ProductsOnCategory = () => {
     }
   }, [location.state, refresh]);
   if (showDetail.status) {
-    return <SingleProduct {...showDetail}/>;
+    return <SingleProduct {...showDetail} />;
   }
   return (
     <div>
       <Header />
       <div className="products-on-category">
-        {products.length !==0 ?
-          products.map((product) => {
-            return (
-              <Products
-              key={product.id}
-                {...product}
-                cartItems={cartItems.includes(product.id) ? true : false}
-                setRefresh={setRefresh}
-                refresh={refresh}
-                setShowDetail={setShowDetail}
-              />
-            );
-          }): <Loading />}
-
+        {products.length !== 0
+          ? products.map((product) => {
+              return (
+                <Products
+                  key={product.id}
+                  {...product}
+                  cartItems={cartItems.includes(product.id) ? true : false}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
+                  setShowDetail={setShowDetail}
+                />
+              );
+            })
+          : Array(8).fill(<ProductFetching />)}
       </div>
     </div>
   );

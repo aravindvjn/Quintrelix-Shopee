@@ -372,7 +372,7 @@ app.get("/api/products/category/:category", async (req, res) => {
   try {
     const { category } = req.params;
     const results = await pool.query(
-      "SELECT * FROM products WHERE idcategory = $1",
+      "SELECT * FROM products WHERE idcategory = $1 ORDER BY id DESC",
       [category]
     );
     res.json(results.rows);

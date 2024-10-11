@@ -6,7 +6,6 @@ import FetchingComponent from "../../components/FetchingComponent/FetchingCompon
 
 const ElectronicsSlider = ({ name }) => {
   const [products, setProducts] = useState();
-  const { setLoading } = useContext(UserContext);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -18,7 +17,6 @@ const ElectronicsSlider = ({ name }) => {
                 return product.type === name;
               });
             });
-            setLoading(false);
           });
       } catch (err) {
         console.log("Error in Fetching Data");

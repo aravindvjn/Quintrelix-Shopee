@@ -59,8 +59,10 @@
 }
 
 div.phone-ad-background {
-
-    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
 }
 
 .phone-ad-background {
