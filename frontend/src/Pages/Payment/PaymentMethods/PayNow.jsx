@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../../Context/Context";
 import URL from "../../../server";
 
-const PayNow = ({ setProcessing, states, setFailed, setConfirm, cod }) => {
+const PayNow = ({states,setConfirm, cod }) => {
   const { user } = useContext(UserContext);
   const { state, payment_method, address } = states;
   const buyHandler = async (state1) => {
@@ -22,17 +22,9 @@ const PayNow = ({ setProcessing, states, setFailed, setConfirm, cod }) => {
         }),
       });
       if (response.ok) {
-        if (cod) {
-          setConfirm({ success: true });
-        } else {
-          setProcessing(true);
-        }
+        setConfirm({ success: true });
       } else {
-        if (cod) {
-          setConfirm({ failed: true });
-        } else {
-          setFailed(true);
-        }
+        setConfirm({ failed: true });
       }
     } catch (err) {
       console.log("Error in adding order", err);

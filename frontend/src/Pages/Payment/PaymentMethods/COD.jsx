@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OrderSuccessFull from "../OrderSuccessFull/OrderSuccessFull";
 import PayNow from "./PayNow";
 
-const COD = ({ address,state }) => {
+const COD = ({ address,state,cod }) => {
   const [confirm, setConfirm] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const COD = ({ address,state }) => {
             <strong>{address.name}</strong>
           </p>
           <p>{address.shipping_address}</p>
-          <PayNow setConfirm={setConfirm} states={state} cod={true}/>
+          <PayNow setConfirm={setConfirm} states={state} cod={cod}/>
         </div>
       </div>
     </>

@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import Card from "./PaymentMethods/Card";
-import UPI from "./PaymentMethods/UPI";
 import "./Payment.css";
 import { UserContext } from "../Context/Context";
-import OrderSuccessFull from "./OrderSuccessFull/OrderSuccessFull";
 import COD from "./PaymentMethods/COD";
 import Header from "../../components/Header";
 import CartLoginWarning from "../Cart/CartLoginWarning";
@@ -30,22 +27,20 @@ const Payment = () => {
   if (method === "Cash on Delivery") {
     return (
       <div>
-        <COD address={location.state.address} state={location.state} />
-      </div>
-    );
-  }
-  if (method === "Credit & Debit Card") {
-    return (
-      <div>
-        <Card state={location.state} />
+        <COD
+          address={location.state.address}
+          state={location.state}
+          cod={true}
+        />
       </div>
     );
   }
   return (
     <div>
-      <UPI state={location.state} />
+      <COD address={location.state.address} state={location.state} />
     </div>
   );
+  return;
 };
 
 export default Payment;

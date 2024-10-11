@@ -42,7 +42,6 @@ const OrderBody = ({
       });
       if (response.ok) {
         setRefresh((prev) => !prev);
-        alert("Cancelled the product");
       } else {
         alert("Failed in canceling product");
       }
