@@ -63,7 +63,7 @@ const PhoneAdadd = () => {
         <div className="phone-ad-parent">
         <h4 style={{textAlign:'center'}}>ADVERTISMENT</h4>
           <div
-            className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary phone-ad-background"
+            className=" overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary phone-ad-background"
             style={style1}
           >
             {fetchPhoneAd && (
