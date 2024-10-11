@@ -198,7 +198,9 @@ div.phone-ad-background {
     .phone-ad-parent h3 {
         font-size: 14px;
     }
-
+    #change-ad-slider-button{
+        width: 50px;
+    }
     .phone-ad-parent h1 {
         font-size: 25px;
     }

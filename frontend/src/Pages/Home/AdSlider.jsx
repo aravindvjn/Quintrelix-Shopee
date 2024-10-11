@@ -105,6 +105,7 @@ const AdSlider = () => {
             </div>
           </div>
           <button
+          id="change-ad-slider-button"
             className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleIndicators"
@@ -132,6 +133,7 @@ const AdSlider = () => {
             }}
             className="carousel-control-next"
             type="button"
+            id="change-ad-slider-button"
             data-bs-target="#carouselExampleIndicators"
             data-bs-slide="next"
             fdprocessedid="dd9c4l"
