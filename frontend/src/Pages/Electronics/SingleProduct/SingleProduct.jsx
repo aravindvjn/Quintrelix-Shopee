@@ -93,7 +93,7 @@ const SingleProduct = () => {
           <img src={image} alt={name} />
         </div>
         <div>
-          <h3>{name}</h3>
+          <h3><strong>{name}</strong></h3>
           <p>
             <strong>
               <em>{category}</em>
