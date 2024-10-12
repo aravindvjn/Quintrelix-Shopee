@@ -37,6 +37,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 }
                 if (response.ok) {
                   const data = await response.json();
+                  localStorage.setItem('user', JSON.stringify(data));
                   setUser(data);
                   setInput({
                     fullName: "",
@@ -68,6 +69,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
               }
               if (response.ok) {
                 const data = await response.json();
+                localStorage.setItem('user', JSON.stringify(data));
                 setUser(data);
                 setInput({
                   fullName: "",

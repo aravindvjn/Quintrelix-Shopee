@@ -3,10 +3,10 @@ import "./FetchingComponent.css";
 const FetchingComponent = () => {
   return (
     <div>
-      <div class="skeleton-container">
-        <div class="skeleton skeleton-header"></div>
-        <div class="skeleton skeleton-line"></div>
-        <div class="skeleton skeleton-line"></div>
+      <div className="skeleton-container">
+        <div className="skeleton skeleton-header"></div>
+        <div className="skeleton skeleton-line"></div>
+        <div className="skeleton skeleton-line"></div>
       </div>
     </div>
   );
