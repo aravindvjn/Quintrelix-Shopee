@@ -48,11 +48,11 @@ const Products = (props) => {
         </div>
         <div>
           {name.length < 60 ? (
-            <h5>{name}</h5>
+            <h5><strong>{name}</strong></h5>
           ) : (
             <h5>
-              {name.slice(0, 60)}
-              <strong>...</strong>
+              <strong>{name.slice(0, 60)}
+              ...</strong>
             </h5>
           )}
           <p className="category-em">
