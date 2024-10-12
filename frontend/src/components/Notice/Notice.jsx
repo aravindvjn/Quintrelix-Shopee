@@ -18,7 +18,7 @@ const Notice = ({ setNotice }) => {
           used on this website are sourced from external sources. If you are the
           copyright owner of any content featured on this site and believe it
           has been used without proper authorization, please contact us
-          immediately at
+          immediately at 
           <a href="mailto:aravind284479@gmail.com">mail</a>. We will address
           your concerns and take the necessary steps to either credit or remove
           the content as needed.
