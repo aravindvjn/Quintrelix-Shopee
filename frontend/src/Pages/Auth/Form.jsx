@@ -4,13 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/Context";
 import QLogo from "../../assets/Qshopee.png";
 import Warning from "../../components/FeatureComponents/Warning/Warning";
+import Loading from "../../components/Loading/Loading";
+import GlobalLoading from "../../components/Loading/GlobalLoading";
 
 const Form = ({ input, handleChange, setInput, page }) => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   return (
-    <form className="auth-form"
+    <form
+      className="auth-form"
       onSubmit={(e) => {
         e.preventDefault();
         if (page === "signup") {
@@ -24,6 +28,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
             console.log(input);
             const sendData = async () => {
               try {
+                setLoading(true);
                 const response = await fetch(authURL + "register/", {
                   method: "POST",
                   headers: {
@@ -33,11 +38,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 });
                 if (response.status === 400) {
                   setMessage("User already exists");
+                  setLoading(false);
                   return;
                 }
                 if (response.ok) {
                   const data = await response.json();
-                  localStorage.setItem('user', JSON.stringify(data));
+                  localStorage.setItem("user", JSON.stringify(data));
                   setUser(data);
                   setInput({
                     fullName: "",
@@ -45,10 +51,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
                     password: "",
                     cpassword: "",
                   });
+                  setLoading(false);
                   navigate("/");
                 }
               } catch (err) {
                 console.log("error in register", err);
+                setLoading(false);
               }
             };
             sendData();
@@ -56,6 +64,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         } else if (page === "login") {
           const sendLoginData = async () => {
             try {
+              setLoading(true);
               const response = await fetch(authURL + "login/", {
                 method: "POST",
                 headers: {
@@ -65,11 +74,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
               });
               if (response.status === 400) {
                 setMessage("Invalid email or password");
+                setLoading(false);
                 return;
               }
               if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('user', JSON.stringify(data));
+                localStorage.setItem("user", JSON.stringify(data));
                 setUser(data);
                 setInput({
                   fullName: "",
@@ -77,10 +87,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
                   password: "",
                   cpassword: "",
                 });
+                setLoading(false);
                 navigate("/");
               }
             } catch (err) {
               console.log("Error in login", err);
+              setLoading(false);
             }
           };
 
@@ -88,6 +100,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
         }
       }}
     >
+      {loading && <GlobalLoading />}
       <img id="logo" src={QLogo} alt="" />
       {message && <Warning message={message} />}
 
@@ -137,7 +150,9 @@ const Form = ({ input, handleChange, setInput, page }) => {
           />
         </>
       )}
-      <button className="btn btn-info" style={{margin:'10px'}} type="submit">{page.toUpperCase()}</button>
+      <button className="btn btn-info" style={{ margin: "10px" }} type="submit">
+        {page.toUpperCase()}
+      </button>
       {page === "signup" ? (
         <p>
           Already Have An Account?

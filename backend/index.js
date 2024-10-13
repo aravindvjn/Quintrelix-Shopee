@@ -68,7 +68,6 @@ app.post("/register", async (req, res) => {
     }
 
     // Hash password
-    const saltRounds = 10;
     bcrypt.hash(password, saltRounds, async (err, hash) => {
       if (err) {
         return res.status(500).json({ message: "Error hashing password", err });

@@ -15,7 +15,6 @@ const Search = () => {
           const filteredProduct = data.filter((product) => {
             return product.name.toLowerCase().replace(/\s+/g, ' ').trim().includes(input.toLowerCase().replace(/\s+/g, ' ').trim());
           });
-          console.log(filteredProduct);
           setSearchResult(filteredProduct);
           navigate("/search-product", {state: filteredProduct });
         });
