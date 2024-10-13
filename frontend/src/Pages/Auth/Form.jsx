@@ -137,7 +137,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
           />
         </>
       )}
-      <button className="btn btn-dark"  type="submit">{page.toUpperCase()}</button>
+      <button className="btn btn-info" style={{margin:'10px'}} type="submit">{page.toUpperCase()}</button>
       {page === "signup" ? (
         <p>
           Already Have An Account?
