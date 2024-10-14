@@ -12,7 +12,7 @@ import FetchingComponent from "../../components/FetchingComponent/FetchingCompon
 import ProductFetching from "../../components/FetchingComponent/ProductFetching/ProductFetching";
 
 const ProductsOnCategory = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const [showDetail, setShowDetail] = useState(false);
   const [products, setProducts] = useState([]);
@@ -20,8 +20,8 @@ const ProductsOnCategory = () => {
   const [categoryList, setCategoryList] = useState([{}]);
   const [refresh, setRefresh] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  if(!location.state){
-    navigate('/')
+  if (!location.state) {
+    navigate("/");
   }
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,7 +34,11 @@ const ProductsOnCategory = () => {
               .join("-")
               .split("'")
               .join("")
-              .toLowerCase()
+              .toLowerCase(),
+          {
+            method: "GET",
+            credentials: "include",
+          }
         )
           .then((response) => response.json())
           .then((data) => {
@@ -47,7 +51,10 @@ const ProductsOnCategory = () => {
 
     const fetchAllCategory = async () => {
       try {
-        await fetch(URL + "category")
+        await fetch(URL + "category", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => response.json())
           .then((data) => {
             setCategoryList(data);
@@ -59,7 +66,10 @@ const ProductsOnCategory = () => {
     };
     const fetchAllProducts = async () => {
       try {
-        await fetch(URL)
+        await fetch(URL, {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => response.json())
           .then((data) => {
             const categoryListFiltered = categoryList.filter((cat) => {

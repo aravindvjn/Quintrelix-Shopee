@@ -6,10 +6,10 @@ import URL from "../../../server";
 import PhotoPreview from "../../../components/FeatureComponents/PhotoPreview";
 
 const AddProductBody = () => {
-  const [photoPreview,setPhotoPreview] = useState({status : false})
+  const [photoPreview, setPhotoPreview] = useState({ status: false });
   const [selected, setSelected] = useState("Electronics");
   const [addNewProducts, setAddNewProducts] = useState();
-  const [editPanel, setEditPanel] = useState({ status: false , id: 0 });
+  const [editPanel, setEditPanel] = useState({ status: false, id: 0 });
   const [products, setProducts] = useState();
   const [refresh, setRefresh] = useState(false);
   const [categoryList, setCategoryList] = useState([{}]);
@@ -21,7 +21,10 @@ const AddProductBody = () => {
   useEffect(() => {
     const fetchAllCategory = async () => {
       try {
-        await fetch(URL + "category")
+        await fetch(URL + "category", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => response.json())
           .then((data) => {
             console.log("category", data);
@@ -35,7 +38,10 @@ const AddProductBody = () => {
 
     const fetchAllProducts = async () => {
       try {
-        await fetch(URL)
+        await fetch(URL, {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => response.json())
           .then((data) => {
             console.log("all products", data);
@@ -66,7 +72,12 @@ const AddProductBody = () => {
 
   return (
     <div>
-      {photoPreview.status && <PhotoPreview image={photoPreview.image} setPhotoPreview={setPhotoPreview} />}
+      {photoPreview.status && (
+        <PhotoPreview
+          image={photoPreview.image}
+          setPhotoPreview={setPhotoPreview}
+        />
+      )}
       {addNewProducts && (
         <AddProductForm
           setAddNewProducts={setAddNewProducts}

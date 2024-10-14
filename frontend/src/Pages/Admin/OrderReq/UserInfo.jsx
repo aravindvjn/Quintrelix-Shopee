@@ -16,7 +16,10 @@ const UserInfo = ({ setInfo, info }) => {
 
     const fetchUser = async () => {
       try {
-        const results = await fetch(authURL + "api/user-data/" + info.id);
+        const results = await fetch(authURL + "api/user-data/" + info.id, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data) {
           setUser(data);
@@ -31,7 +34,10 @@ const UserInfo = ({ setInfo, info }) => {
     fetchUser();
     const fetchProducts = async () => {
       try {
-        const results = await fetch(URL + info.product_id);
+        const results = await fetch(URL + info.product_id, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data) {
           setProducts(data);
@@ -66,7 +72,11 @@ const UserInfo = ({ setInfo, info }) => {
             <p className="m-0 user-info-customer">
               {info.address.customer_name}
             </p>
-            {cutAddress.phone && <h6><em>{cutAddress.phone}</em></h6>}
+            {cutAddress.phone && (
+              <h6>
+                <em>{cutAddress.phone}</em>
+              </h6>
+            )}
             <p className="m-0">{info.address.shipping_address}</p>
           </div>
 

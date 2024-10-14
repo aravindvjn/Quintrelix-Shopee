@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
@@ -19,48 +19,100 @@ import OrderReq from "./Pages/Admin/OrderReq/OrderReq";
 import Payment from "./Pages/Payment/Payment";
 import MoreInformation from "./Pages/MoreInformation/MoreInformation";
 import TrackInfo from "./Pages/TrackInfo/TrackInfo";
-import { UserProvider } from "./Pages/Context/Context";
+import { UserContext } from "./Pages/Context/Context";
+import { authURL } from "./server";
 
 function App() {
+  const { user, setUser } = useContext(UserContext);
+  let admin = false;
+  if (user) {
+    admin = user.admin;
+  }
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const result = await fetch(authURL + "api/user", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await result.json();
+        if (data) {
+          setUser(data);
+        } else {
+          setUser(false);
+        }
+      } catch (err) {
+        console.error("Error in fetching User details");
+      }
+    };
+    fetchUser();
+  }, [user]);
   return (
-    <>
-      <UserProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/fashion" element={<Electronics />} />
-            <Route path="/electronics" element={<Electronics />} />
-            <Route path="/category" element={<ProductsOnCategory />} />
-            <Route exact path="/admin/add-products" element={<AddProducts />} />
-            <Route exact path="/signup" element={<Auth page={"signup"} />} />
-            <Route exact path="/login" element={<Auth page={"login"} />} />
-            <Route exact path="/customize" element={<Customize />} />
-            <Route exact path="/show-product" element={<SingleProduct />} />
-            <Route exact path="/buy-product" element={<Buying />} />
-            <Route exact path="/search-product" element={<SearchResult />} />
-            <Route exact path="/account/addresses" element={<AddressPage />} />
-            <Route exact path="/account/user" element={<YourProfile />} />
-            <Route exact path="/admin/orders" element={<OrderReq />} />
-            <Route exact path="/buy-product/payment" element={<Payment />} />
-            <Route
-              exact
-              path="/orders/more-info"
-              element={<MoreInformation />}
-            />
-            <Route exact path="/orders/track-info" element={<TrackInfo />} />
-            <Route
-              exact
-              path="/account/addresses/add"
-              element={<AddAddress />}
-            />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </BrowserRouter>
-      </UserProvider>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route
+          path="/profile"
+          element={user ? <Profile /> : <Auth page={"login"} />}
+        />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/fashion" element={<Electronics />} />
+        <Route path="/electronics" element={<Electronics />} />
+        <Route path="/category" element={<ProductsOnCategory />} />
+        <Route exact path="/admin/add-products" element={<AddProducts />} />
+        <Route exact path="/signup" element={<Auth page={"signup"} />} />
+        <Route exact path="/login" element={<Auth page={"login"} />} />
+        <Route
+          exact
+          path="/customize"
+          element={admin ? <Customize /> : <Home />}
+        />
+        <Route exact path="/show-product" element={<SingleProduct />} />
+        <Route
+          exact
+          path="/buy-product"
+          element={user ? <Buying /> : <Auth page={"login"} />}
+        />
+        <Route exact path="/search-product" element={<SearchResult />} />
+        <Route
+          exact
+          path="/account/addresses"
+          element={user ? <AddressPage /> : <Auth page={"login"} />}
+        />
+        <Route
+          exact
+          path="/account/user"
+          element={user ? <YourProfile /> : <Auth page={"login"} />}
+        />
+        <Route
+          exact
+          path="/admin/orders"
+          element={admin ? <OrderReq /> : <Home />}
+        />
+        <Route
+          exact
+          path="/buy-product/payment"
+          element={user ? <Payment /> : <Auth page={"login"} />}
+        />
+        <Route
+          exact
+          path="/orders/more-info"
+          element={user ? <MoreInformation /> : <Auth page={"login"} />}
+        />
+        <Route
+          exact
+          path="/orders/track-info"
+          element={user ? <TrackInfo /> : <Auth page={"login"} />}
+        />
+        <Route
+          exact
+          path="/account/addresses/add"
+          element={user ? <AddAddress /> : <Auth page={"login"} />}
+        />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

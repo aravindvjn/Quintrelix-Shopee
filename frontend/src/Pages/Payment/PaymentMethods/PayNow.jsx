@@ -12,6 +12,7 @@ const PayNow = ({states,setConfirm, cod }) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials:'include',
         body: JSON.stringify({
           user_id: user.id,
           product_id: state1.id,

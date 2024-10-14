@@ -12,6 +12,7 @@ const ElectronicsAdd = ({
     try {
       const response = await fetch(URL + id, {
         method: "DELETE",
+        credentials:'include'
       });
       if (response.ok) {
         alert("Product deleted");

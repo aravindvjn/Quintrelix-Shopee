@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import URL, { authURL } from "../../server";
-import defaultPic from '../../assets/default.jpg'
+import defaultPic from "../../assets/default.jpg";
 import FetchingComponent from "../../components/FetchingComponent/FetchingComponent";
 
 const PhoneAd = () => {
@@ -10,7 +10,10 @@ const PhoneAd = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(authURL + "api/advertisement")
+        const results = await fetch(authURL + "api/advertisement", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => {
             return response.json();
           })
@@ -48,7 +51,7 @@ const PhoneAd = () => {
             </h3>
             <div className="d-flex gap-3 justify-content-center lead fw-normal">
               <a
-                style={{ color: "white",textDecoration:'none' }}
+                style={{ color: "white", textDecoration: "none" }}
                 href={fetchPhoneAd.learnmore}
                 target="_blank"
               >
@@ -56,7 +59,7 @@ const PhoneAd = () => {
               </a>
               <a
                 className="icon-link"
-                style={{ color: "white",textDecoration:'none' }}
+                style={{ color: "white", textDecoration: "none" }}
                 href={fetchPhoneAd.buylink}
                 target="_blank"
               >

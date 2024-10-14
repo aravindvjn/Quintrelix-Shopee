@@ -23,33 +23,38 @@ const Cart = () => {
       ([key, value]) => value !== 0
     );
     const cartcheckHelper = cartcheckArray.map((item) => item[0]);
-    const cartcheckHelp = cart.filter((cartI)=>{
-      return cartcheckHelper.some((item)=>{
+    const cartcheckHelp = cart.filter((cartI) => {
+      return cartcheckHelper.some((item) => {
         return item == cartI.id;
-      })
-    })
-    const cartcheck = cartItems.filter((pro)=>{
-      return cartcheckHelp.some((item)=>{
+      });
+    });
+    const cartcheck = cartItems.filter((pro) => {
+      return cartcheckHelp.some((item) => {
         return pro.id === item.product_id;
-      })
-    })
+      });
+    });
     if (cartcheck.length > 0) {
       navigate("/buy-product", {
         state: {
-          id:false,
+          id: false,
           cartcheck,
         },
       });
     }
   };
   useEffect(() => {
-
     const fetchCart = async () => {
-      const cartResult = await fetch(URL + "cart/" + user.id);
+      const cartResult = await fetch(URL + "cart/" + user.id, {
+        method: "GET",
+        credentials: "include",
+      });
       const cartdata = await cartResult.json();
       setCart(cartdata);
       const fetchAllProducts = async () => {
-        const result = await fetch(URL);
+        const result = await fetch(URL, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await result.json();
         setCartItems(() => {
           return data.filter((singleData) => {

@@ -15,6 +15,7 @@ const CategoryAdd = ({
     try {
       const response = await fetch(URL + "category/" + id, {
         method: "DELETE",
+        credentials:'include'
       });
 
       if (response.ok) {

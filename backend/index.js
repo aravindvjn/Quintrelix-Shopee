@@ -4,8 +4,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import passport from "passport";
-import { Strategy as LocalStrategy  } from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
+
+const PgSession = connectPgSimple(session);
+
 dotenv.config();
 const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
@@ -20,23 +24,6 @@ const saltRounds = 10;
 //   database: process.env.DB_NAME,
 // });
 
-// MIDDLEWARES
-app.use(
-  session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60, // 1 hour
-    },
-  })
-);
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
 // DATABASE CONNECTION
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -48,6 +35,41 @@ pool
   .then(() => console.log("Connected to Neon PostgreSQL database!"))
   .catch((err) => console.error("Connection error", err.stack));
 
+// MIDDLEWARES
+const isAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && req.user.admin) {
+    next();
+  } else {
+    console.log("not the admin");
+    res.send(404).json({ msg: "Unauthorized page" });
+  }
+};
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+app.use(
+  session({
+    store: new PgSession({
+      pool: pool,
+      tableName: "session",
+    }),
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 1 hour
+    },
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 // ROOT ROUTE
 app.get("/", (req, res) => {
   res.send("Hello from the Node.js API!");
@@ -78,11 +100,13 @@ app.post("/register", async (req, res) => {
         [fullName, email, hash]
       );
       const user = results.rows[0];
-      
+
       // Log in the user after registration
       req.login(user, (err) => {
         if (err) {
-          return res.status(500).json({ message: "Login failed after registration", err });
+          return res
+            .status(500)
+            .json({ message: "Login failed after registration", err });
         }
         res.status(201).json({
           id: user.id,
@@ -98,13 +122,28 @@ app.post("/register", async (req, res) => {
 });
 
 // Login
-app.post("/login", passport.authenticate('local'), (req, res) => {
-  res.status(200).json({
-    id: req.user.id,
-    username: req.user.fullname,
-    email: req.user.email,
-    admin: req.user.admin,
-  });
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: info.message || "User Not Found" });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ message: "Login failed" });
+      }
+      return res.status(200).json({
+        id: user.id,
+        username: user.fullname,
+        email: user.email,
+        admin: user.admin,
+      });
+    });
+  })(req, res, next);
 });
 
 // LOGOUT
@@ -120,21 +159,26 @@ app.get("/logout", (req, res) => {
 // PASSPORT STRATEGY
 passport.use(
   new LocalStrategy(
-    { usernameField: 'email' }, // Use email instead of default username
+    { usernameField: "email" },
     async (email, password, done) => {
       try {
-        const results = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
-        
+        console.log("The email is", email);
+        const results = await pool.query(
+          "SELECT * FROM users WHERE email = $1",
+          [email]
+        );
+
         if (results.rows.length === 0) {
           return done(null, false, { message: "User not found" });
         }
-        
+
         const user = results.rows[0];
         const storedHashedPassword = user.password;
-        
+
         // Compare password
         bcrypt.compare(password, storedHashedPassword, (err, isValid) => {
           if (err) {
+            console.log("err");
             return done(err);
           }
           if (!isValid) {
@@ -151,6 +195,7 @@ passport.use(
 
 // SERIALIZE USER
 passport.serializeUser((user, done) => {
+  console.log("The serialize User", user);
   done(null, user.id);
 });
 
@@ -168,6 +213,19 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+//Get user Data
+app.get("/api/user", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({
+      id: req.user.id,
+      username: req.user.fullname,
+      email: req.user.email,
+      admin: req.user.admin,
+    });
+  } else {
+    res.json(false);
+  }
+});
 
 app.get("/api/user-data/:id", async (req, res) => {
   try {
@@ -433,7 +491,7 @@ app.post("/api/user/address", async (req, res) => {
   }
 });
 //create a products
-app.post("/api/products", async (req, res) => {
+app.post("/api/products", isAdmin, async (req, res) => {
   try {
     const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
@@ -687,8 +745,6 @@ app.delete("/api/products/cart/:cart_id/:product_id", async (req, res) => {
     res.status(404).json("Error in deleting a category");
   }
 });
-
-app.post("/api/add-product", (req, res) => {});
 
 app.listen(PORT, () => {
   console.log("Server is running at ", PORT);

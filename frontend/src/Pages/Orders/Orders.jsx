@@ -16,7 +16,10 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const results = await fetch(URL + "orders/" + user.id);
+        const results = await fetch(URL + "orders/" + user.id, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data.length > 0) {
           setOrderData(() => {
@@ -37,7 +40,10 @@ const Orders = () => {
     };
     const fetchProducts = async () => {
       try {
-        const results = await fetch(URL);
+        const results = await fetch(URL, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data.length > 0) {
           setProducts(data);
@@ -68,7 +74,10 @@ const Orders = () => {
   return (
     <div>
       <Header />
-      <div className="center order-parent" style={{ minHeight: "65vh" ,justifyContent:'start'}}>
+      <div
+        className="center order-parent"
+        style={{ minHeight: "65vh", justifyContent: "start" }}
+      >
         <div className="center">
           <p>Orders within</p>
           <select

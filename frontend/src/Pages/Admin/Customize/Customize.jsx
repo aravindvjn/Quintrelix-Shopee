@@ -13,7 +13,10 @@ const Customize = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(URL + "banner")
+        const results = await fetch(URL + "banner", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => {
             return response.json();
           })
@@ -44,9 +47,7 @@ const Customize = () => {
         <div className="customize-banner">
           {fetchBanner &&
             fetchBanner.map((banner, index) => {
-              return (
-                <Banner key={index} {...banner} setRefresh={setRefresh} />
-              );
+              return <Banner key={index} {...banner} setRefresh={setRefresh} />;
             })}
         </div>
         <PhoneAdadd />

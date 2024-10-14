@@ -22,6 +22,7 @@ const SingleProduct = () => {
       try {
         const response = await fetch(URL + "cart/" + user.id + "/" + id, {
           method: "DELETE",
+          credentials:'include'
         });
         if (response.ok) {
           setToggleBtn(!toggleBtn);
@@ -44,6 +45,7 @@ const SingleProduct = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials:'include',
           body: JSON.stringify({
             id: user.id,
             productId: id,

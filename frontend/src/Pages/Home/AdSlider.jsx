@@ -9,7 +9,10 @@ const AdSlider = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(URL + "banner")
+        const results = await fetch(URL + "banner", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => {
             return response.json();
           })
@@ -105,7 +108,7 @@ const AdSlider = () => {
             </div>
           </div>
           <button
-          id="change-ad-slider-button"
+            id="change-ad-slider-button"
             className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleIndicators"

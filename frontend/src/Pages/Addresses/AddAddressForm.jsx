@@ -30,6 +30,7 @@ const AddAddressForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
             user_id: user.id,
             name: input.lastName
@@ -63,7 +64,11 @@ const AddAddressForm = () => {
     const fetchAddressData = async () => {
       try {
         const results = await fetch(
-          authURL + "api/user/address/" + user.id + "/" + location.state.id
+          authURL + "api/user/address/" + user.id + "/" + location.state.id,
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
         const data = await results.json();
         if (data.length > 0) {

@@ -30,6 +30,7 @@ const SingleAddress = ({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials:'include',
         body: JSON.stringify({ user_id: user.id }),
       });
       if (response.ok) {

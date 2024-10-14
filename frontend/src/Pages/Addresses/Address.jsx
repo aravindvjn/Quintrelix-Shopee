@@ -9,16 +9,19 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAddress from "./AddAddress";
 import { useNavigate } from "react-router-dom";
 
-const Address = ({buyPage,setSelectedAddress,product}) => {
+const Address = ({ buyPage, setSelectedAddress, product }) => {
   const { user } = useContext(UserContext);
   const [addresses, setAddresses] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        const results = await fetch(authURL + "api/user/address/" + user.id);
+        const results = await fetch(authURL + "api/user/address/" + user.id, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data.length > 0) {
           setAddresses(data);
@@ -32,43 +35,53 @@ const Address = ({buyPage,setSelectedAddress,product}) => {
     fetchAddresses();
   }, [refresh]);
   return (
-
-      <div className="address-parent">
-        {user ? (
-          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-            <h5>Saved Addresses </h5>
-            <div className="address-add-div">
-              <AddCircleIcon style={{cursor:'pointer'}} onClick={()=>{
-                navigate('/account/addresses/add',{
+    <div className="address-parent">
+      {user ? (
+        <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+          <h5>Saved Addresses </h5>
+          <div className="address-add-div">
+            <AddCircleIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/account/addresses/add", {
                   state: {
-                    id:'',
-                    buyPage:buyPage,
-                    state:product
-                  }
-                })
+                    id: "",
+                    buyPage: buyPage,
+                    state: product,
+                  },
+                });
               }}
-                onMouseEnter={() => {
-                  setIsHovered(true);
-                }}
-                onMouseLeave={() => {
-                  setIsHovered(false);
-                }}
-              />
+              onMouseEnter={() => {
+                setIsHovered(true);
+              }}
+              onMouseLeave={() => {
+                setIsHovered(false);
+              }}
+            />
 
-             {isHovered &&  <p className="address-add-hover">Add new address</p>}
-            </div>
+            {isHovered && <p className="address-add-hover">Add new address</p>}
           </div>
-        ) : (
-          <CartLoginWarning />
-        )}
-        {addresses.length > 0 ? (
-          addresses.map((address) => {
-            return <SingleAddress key={address.id} {...address} setRefresh={setRefresh} buyPage={buyPage} setSelectedAddress={setSelectedAddress} product={product} />;
-          })
-        ) : (
-          <p>No Saved Addresses are available</p>
-        )}
-      </div>
+        </div>
+      ) : (
+        <CartLoginWarning />
+      )}
+      {addresses.length > 0 ? (
+        addresses.map((address) => {
+          return (
+            <SingleAddress
+              key={address.id}
+              {...address}
+              setRefresh={setRefresh}
+              buyPage={buyPage}
+              setSelectedAddress={setSelectedAddress}
+              product={product}
+            />
+          );
+        })
+      ) : (
+        <p>No Saved Addresses are available</p>
+      )}
+    </div>
   );
 };
 

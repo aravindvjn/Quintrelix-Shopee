@@ -20,7 +20,10 @@ const AddProductForm = ({
     const fetchProductData = async (id) => {
       try {
         console.log(URL + id);
-        const results = await fetch(URL + id);
+        const results = await fetch(URL + id, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (results) {
           setInput({
@@ -44,7 +47,10 @@ const AddProductForm = ({
 
     const fetchProducts = async () => {
       try {
-        await fetch(URL + "category")
+        await fetch(URL + "category", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => response.json())
           .then((data) => {
             console.log(data);

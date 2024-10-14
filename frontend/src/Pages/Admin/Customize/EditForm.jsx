@@ -33,6 +33,7 @@ const EditForm = ({ initialName, initialImage, setEdit,id }) => {
                 headers:{
                     'Content-Type': 'application/json',
                 },
+                credentials:'include',
                 body:JSON.stringify(input)
             });
             if(response.ok){

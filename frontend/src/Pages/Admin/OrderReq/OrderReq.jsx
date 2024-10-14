@@ -15,7 +15,10 @@ const OrderReq = () => {
   useEffect(() => {
     const FetchAllOrders = async () => {
       try {
-        const results = await fetch(URL + "orders/all");
+        const results = await fetch(URL + "orders/all",    {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await results.json();
         if (data.length > 0) {
           setOrders(data);

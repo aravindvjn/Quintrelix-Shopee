@@ -6,7 +6,7 @@ import { UserContext } from "../Pages/Context/Context";
 import { authURL } from "../server";
 import Search from "./Search/Search";
 import Notice from "./Notice/Notice";
-import WarningIcon from '@mui/icons-material/Warning';
+import WarningIcon from "@mui/icons-material/Warning";
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   let admin;
@@ -15,6 +15,23 @@ const Header = () => {
   }
   const [notice, setNotice] = useState(false);
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const result = await fetch(authURL + "api/user", {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await result.json();
+        if (data) {
+          setUser(data);
+        } else {
+          setUser(false);
+        }
+      } catch (err) {
+        console.error("Error in fetching User details");
+      }
+    };
+    fetchUser();
     window.addEventListener("beforeunload", () => {
       localStorage.clear();
     });
@@ -32,7 +49,7 @@ const Header = () => {
       <nav className="py-2 bg-body-tertiary border-bottom">
         <div className="container d-flex flex-wrap">
           <ul className="nav me-auto">
-            <li className="nav-item" >
+            <li className="nav-item">
               <Link
                 to={"/"}
                 href="#"
@@ -116,15 +133,16 @@ const Header = () => {
               </li>
             )}
             <li
-              className="nav-item"
+              className="nav-item nav-link link-body-emphasis px-2"
               onClick={async () => {
                 if (user) {
                   try {
-                    const response = await fetch(authURL + "logout/");
-                    console.log("response");
+                    const response = await fetch(authURL + "logout/", {
+                      method: "GET",
+                      credentials: "include",
+                    });
                     if (response.ok) {
                       history("/");
-                      console.log("OK");
                       setUser("");
                     } else {
                       history("/");
@@ -132,15 +150,12 @@ const Header = () => {
                   } catch (err) {
                     console.log("Error in logout", err);
                   }
+                } else {
+                  history("/signup");
                 }
               }}
             >
-              <Link
-                to={user ? "/logout" : "/signup"}
-                className="nav-link link-body-emphasis px-2"
-              >
-                {user ? "Logout" : "Sign up "}
-              </Link>
+              {user ? "Logout" : "Sign up "}
             </li>
           </ul>
         </div>
@@ -151,7 +166,7 @@ const Header = () => {
             to={"/"}
             className="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none"
           >
-            <img className="Q-logo" src={logo} alt=""  />
+            <img className="Q-logo" src={logo} alt="" />
           </Link>
           <Search />
         </div>

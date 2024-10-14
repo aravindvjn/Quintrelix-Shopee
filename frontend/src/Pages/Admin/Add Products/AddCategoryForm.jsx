@@ -32,6 +32,7 @@ const AddCategoryForm = ({ setAddCategoryForm,setRefresh }) => {
               headers: {
                 "Content-Type": "application/json",
               },
+              credentials:'include',
               body: JSON.stringify(input),
             });
 

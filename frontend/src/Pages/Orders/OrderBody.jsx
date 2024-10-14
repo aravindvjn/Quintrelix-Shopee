@@ -26,12 +26,11 @@ const OrderBody = ({
       });
       setDateShow(formattedDate);
     };
-    setDeliveryStatus(()=>{
+    setDeliveryStatus(() => {
       const dateObject = new Date(order.order_date);
       dateObject.setDate(dateObject.getDate() + 5);
-      return dateObject < new Date()
-    }
-    );
+      return dateObject < new Date();
+    });
     dateFetch();
   }, [order.order_date]);
 
@@ -39,6 +38,7 @@ const OrderBody = ({
     try {
       const response = await fetch(URL + "orders/" + order.order_id, {
         method: "DELETE",
+        credentials: "include",
       });
       if (response.ok) {
         setRefresh((prev) => !prev);

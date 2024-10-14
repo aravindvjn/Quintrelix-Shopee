@@ -34,6 +34,7 @@ const EditEmailAndPass = ({ user, setEdit }) => {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials:'include',
             body: JSON.stringify(input),
           }
         );

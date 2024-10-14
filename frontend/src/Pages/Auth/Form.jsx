@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { authURL } from "../../server";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../Context/Context";
 import QLogo from "../../assets/Qshopee.png";
 import Warning from "../../components/FeatureComponents/Warning/Warning";
 import Loading from "../../components/Loading/Loading";
@@ -10,7 +9,6 @@ import GlobalLoading from "../../components/Loading/GlobalLoading";
 const Form = ({ input, handleChange, setInput, page }) => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   return (
     <form
@@ -34,6 +32,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
                   headers: {
                     "Content-Type": "application/json",
                   },
+                  credentials: "include",
                   body: JSON.stringify(input),
                 });
                 if (response.status === 400) {
@@ -43,8 +42,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 }
                 if (response.ok) {
                   const data = await response.json();
-                  localStorage.setItem("user", JSON.stringify(data));
-                  setUser(data);
+                  // setUser(data);
                   setInput({
                     fullName: "",
                     email: "",
@@ -70,8 +68,10 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 headers: {
                   "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify(input),
               });
+
               if (response.status === 400) {
                 setMessage("Invalid email or password");
                 setLoading(false);
@@ -79,8 +79,7 @@ const Form = ({ input, handleChange, setInput, page }) => {
               }
               if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem("user", JSON.stringify(data));
-                setUser(data);
+                // setUser(data);
                 setInput({
                   fullName: "",
                   email: "",
@@ -89,6 +88,12 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 });
                 setLoading(false);
                 navigate("/");
+              } else {
+                const data = await response.json();
+                if (data.message) {
+                  setMessage(data.message);
+                }
+                setLoading(false);
               }
             } catch (err) {
               console.log("Error in login", err);

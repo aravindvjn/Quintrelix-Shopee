@@ -17,13 +17,14 @@ const PhoneAdadd = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials:'include',
           body: JSON.stringify(fetchPhoneAd),
         }
       );
-      if(response.ok){
-        alert("Successfully Updated")
-      }else{
-        alert("Failed to update")
+      if (response.ok) {
+        alert("Successfully Updated");
+      } else {
+        alert("Failed to update");
       }
     } catch (err) {
       console.log("Error in updating advertisement");
@@ -38,7 +39,10 @@ const PhoneAdadd = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(authURL + "api/advertisement")
+        const results = await fetch(authURL + "api/advertisement", {
+          method: "GET",
+          credentials: "include",
+        })
           .then((response) => {
             return response.json();
           })
@@ -61,7 +65,7 @@ const PhoneAdadd = () => {
     <div className="admin-phone-ad-parent center">
       <div className="admin-phone-ad">
         <div className="phone-ad-parent">
-        <h4 style={{textAlign:'center'}}>ADVERTISMENT</h4>
+          <h4 style={{ textAlign: "center" }}>ADVERTISMENT</h4>
           <div
             className=" overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary phone-ad-background"
             style={style1}
@@ -113,30 +117,39 @@ const PhoneAdadd = () => {
                 type="text"
                 name="subheading"
                 value={fetchPhoneAd.subheading}
-                onChange={changeHandler} required
+                onChange={changeHandler}
+                required
               />
               <label htmlFor="">Image URL</label>
               <input
                 name="image"
                 type="text"
                 value={fetchPhoneAd.image}
-                onChange={changeHandler} required
+                onChange={changeHandler}
+                required
               />
               <label htmlFor="">Visit Link</label>
               <input
                 name="buylink"
                 type="text"
                 value={fetchPhoneAd.buylink}
-                onChange={changeHandler} required
+                onChange={changeHandler}
+                required
               />
               <label htmlFor="">Learn More Link</label>
               <input
                 name="learnmore"
                 type="text"
                 value={fetchPhoneAd.learnmore}
-                onChange={changeHandler} 
+                onChange={changeHandler}
               />
-              <button style={{marginTop:'20px'}} type="submit" className="btn btn-success">Save</button>
+              <button
+                style={{ marginTop: "20px" }}
+                type="submit"
+                className="btn btn-success"
+              >
+                Save
+              </button>
             </form>
           )}
         </div>

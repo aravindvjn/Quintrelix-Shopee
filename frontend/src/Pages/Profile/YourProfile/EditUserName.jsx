@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 const EditUserName = ({ user, setEditUserName }) => {
   const [username, setUsername] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -13,11 +13,12 @@ const EditUserName = ({ user, setEditUserName }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({fullname : username}),
+        credentials: "include",
+        body: JSON.stringify({ fullname: username }),
       });
       if (response.ok) {
         alert("Success,Please Login Again");
-        navigate("/login")
+        navigate("/login");
       } else {
         alert("Update failed");
       }
