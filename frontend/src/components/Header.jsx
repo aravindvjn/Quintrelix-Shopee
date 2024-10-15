@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/Qshopee.png";
 import "./Components.css";
 import { UserContext } from "../Pages/Context/Context";
@@ -13,6 +13,7 @@ const Header = () => {
   if (user) {
     admin = user.admin;
   }
+  const location = useLocation();
   const [notice, setNotice] = useState(false);
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,8 +26,9 @@ const Header = () => {
         if (data) {
           setUser(data);
         } else {
-          setUser(false);
+          // setUser(false);
         }
+        console.log("user in header", user, data);
       } catch (err) {
         console.error("Error in fetching User details");
       }
@@ -40,7 +42,7 @@ const Header = () => {
       setNotice(true);
       localStorage.setItem("message", "true");
     }
-  }, []);
+  }, [location.pathname]);
   const history = useNavigate();
   return (
     <div className="header-parent">

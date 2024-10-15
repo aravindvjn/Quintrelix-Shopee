@@ -42,15 +42,14 @@ function App() {
           setUser(data);
           console.log("user",user)
         } else {
-          console.log("Failed")
-          setUser(false);
+          console.log("No User")
         }
       } catch (err) {
         console.error("Error in fetching User details");
       }
     };
     fetchUser();
-  });
+  },[]);
   return (
     <BrowserRouter>
       <Routes>
