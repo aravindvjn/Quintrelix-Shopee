@@ -11,10 +11,10 @@ const PhoneAd = () => {
     const fetchData = async () => {
       try {
         const results = await fetch(authURL + "api/advertisement", 
-        //   {
-        //   method: "GET",
-        //   credentials: "include",
-        // }
+          {
+          method: "GET",
+          credentials: "include",
+        }
       )
           .then((response) => {
             return response.json();

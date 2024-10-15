@@ -10,10 +10,10 @@ const ElectronicsSlider = ({ name }) => {
     const fetchProducts = async () => {
       try {
         await fetch(URL + "category",
-        //    {
-        //   method: "GET",
-        //   credentials: "include",
-        // }
+           {
+          method: "GET",
+          credentials: "include",
+        }
       )
           .then((response) => response.json())
           .then((data) => {
