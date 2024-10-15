@@ -133,7 +133,9 @@ const ProductsOnCategory = () => {
                 />
               );
             })
-          : Array(8).fill(<ProductFetching />)}
+          : Array(8)
+              .fill(<ProductFetching />)
+              .map((_, index) => <ProductFetching key={index} />)}
       </div>
     </div>
   );
