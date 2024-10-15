@@ -29,6 +29,7 @@ function App() {
     admin = user.admin;
   }
   useEffect(() => {
+    console.log("Refreshed")
     const fetchUser = async () => {
       try {
         const result = await fetch(authURL + "api/user", {
@@ -37,8 +38,11 @@ function App() {
         });
         const data = await result.json();
         if (data) {
+          console.log("data",data)
+          console.log("user",user)
           setUser(data);
         } else {
+          console.log("Failed")
           setUser(false);
         }
       } catch (err) {
@@ -46,7 +50,7 @@ function App() {
       }
     };
     fetchUser();
-  });
+  },[]);
   return (
     <BrowserRouter>
       <Routes>
