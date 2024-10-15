@@ -8,7 +8,6 @@ import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 
-
 dotenv.config();
 const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
@@ -46,12 +45,23 @@ pool
 //   }
 // };
 
-app.use(
-  cors({
-    origin: process.env.FRONT_END,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.FRONT_END,
+//     credentials: true,
+//   })
+// );
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.FRONT_END);
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use(
   session({
@@ -125,7 +135,7 @@ app.post("/register", async (req, res) => {
 // Login
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    console.log("authenticate Login",user);
+    console.log("authenticate Login", user);
     if (err) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
@@ -216,8 +226,8 @@ passport.deserializeUser(async (id, done) => {
 
 //Get user Data
 app.get("/api/user", (req, res) => {
-  console.log("session",req.session)
-  console.log("user",req.user)
+  console.log("session", req.session);
+  console.log("user", req.user);
   console.log("Is Authenticated", req.isAuthenticated());
   if (req.user) {
     console.log("User is here", req.user);
