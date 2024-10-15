@@ -39,8 +39,8 @@ function App() {
         const data = await result.json();
         if (data) {
           console.log("data",data)
-          console.log("user",user)
           setUser(data);
+          console.log("user",user)
         } else {
           console.log("Failed")
           setUser(false);
@@ -50,7 +50,7 @@ function App() {
       }
     };
     fetchUser();
-  },[]);
+  });
   return (
     <BrowserRouter>
       <Routes>
