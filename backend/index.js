@@ -46,12 +46,27 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-app.use(
-  cors({
-    origin: process.env.FRONT_END,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.FRONT_END,
+//     credentials: true,
+//   })
+// );
+
+
+const allowedOrigins = ['https://quintrelixshopee.vercel.app'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, origin); // Allow the specific origin without a trailing slash
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true // Allow credentials (cookies, authorization headers)
+}));
+
 
 app.use(
   session({
