@@ -61,20 +61,19 @@ function App() {
         <Route path="/electronics" element={<Electronics />} />
         <Route path="/category" element={<ProductsOnCategory />} />
         <Route exact path="/admin/add-products" element={<AddProducts />} />
-        <Route exact path="/signup" element={<Auth page={"signup"} />} />
-        <Route exact path="/login" element={<Auth page={"login"} />} />
+        <Route path="/signup" element={<Auth page={"signup"} />} />
+        <Route path="/login" element={<Auth page={"login"} />} />
         <Route
           exact
           path="/customize"
           element={admin ? <Customize /> : <Home />}
         />
-        <Route exact path="/show-product" element={<SingleProduct />} />
+        <Route path="/show-product" element={<SingleProduct />} />
         <Route
-          exact
           path="/buy-product"
           element={user ? <Buying /> : <Auth page={"login"} />}
         />
-        <Route exact path="/search-product" element={<SearchResult />} />
+        <Route path="/search-product" element={<SearchResult />} />
         <Route
           exact
           path="/account/addresses"
