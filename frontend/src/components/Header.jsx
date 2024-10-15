@@ -45,7 +45,6 @@ const Header = () => {
   return (
     <div className="header-parent">
       {notice && <Notice setNotice={setNotice} />}
-      {/* <WarningIcon id="edit-username-close" onClick={()=>setNotice(true)} className="waring-icon" fontSize="large" draggable="true"/> */}
       <nav className="py-2 bg-body-tertiary border-bottom">
         <div className="container d-flex flex-wrap">
           <ul className="nav me-auto">

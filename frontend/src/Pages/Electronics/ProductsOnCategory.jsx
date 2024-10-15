@@ -92,7 +92,10 @@ const ProductsOnCategory = () => {
     };
 
     const fetchCart = async () => {
-      const cartResult = await fetch(URL + "cart/" + user.id);
+      const cartResult = await fetch(URL + "cart/" + user.id, {
+        method: "GET",
+        credentials: "include",
+      });
       const cartdata = await cartResult.json();
       cartdata.map((item) => {
         setCartItems((prev) => {
