@@ -51,13 +51,13 @@ const corsOptions = {
   credentials: true,
 };
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "*",
+//   })
+// );
 
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set the origin
