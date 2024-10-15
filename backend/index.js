@@ -73,7 +73,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 // ROOT ROUTE
 app.get("/", (req, res) => {
-  res.send("Hello from the Node.js API!");
+  res.send("Hai,Its me Quintrelix API!");
 });
 
 // AUTH ROUTES
