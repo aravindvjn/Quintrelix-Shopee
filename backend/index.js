@@ -216,7 +216,7 @@ passport.deserializeUser(async (id, done) => {
 
 //Get user Data
 app.get("/api/user", (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.user) {
     res.json({
       id: req.user.id,
       username: req.user.fullname,
@@ -492,7 +492,7 @@ app.post("/api/user/address", async (req, res) => {
   }
 });
 //create a products
-app.post("/api/products",async (req, res) => {
+app.post("/api/products", async (req, res) => {
   try {
     const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
