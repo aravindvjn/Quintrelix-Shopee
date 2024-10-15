@@ -37,36 +37,21 @@ pool
   .catch((err) => console.error("Connection error", err.stack));
 
 // MIDDLEWARES
-const isAdmin = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.admin) {
-    next();
-  } else {
-    console.log("not the admin");
-    res.send(404).json({ msg: "Unauthorized page" });
-  }
-};
+// const isAdmin = (req, res, next) => {
+//   if (req.isAuthenticated() && req.user.admin) {
+//     next();
+//   } else {
+//     console.log("not the admin");
+//     res.send(404).json({ msg: "Unauthorized page" });
+//   }
+// };
 
-// app.use(
-//   cors({
-//     origin: process.env.FRONT_END,
-//     credentials: true,
-//   })
-// );
-
-
-const allowedOrigins = [process.env.FRONT_END];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, origin); // Allow the specific origin without a trailing slash
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true // Allow credentials (cookies, authorization headers)
-}));
-
+app.use(
+  cors({
+    origin: process.env.FRONT_END,
+    credentials: true,
+  })
+);
 
 app.use(
   session({
@@ -507,7 +492,7 @@ app.post("/api/user/address", async (req, res) => {
   }
 });
 //create a products
-app.post("/api/products", isAdmin, async (req, res) => {
+app.post("/api/products",async (req, res) => {
   try {
     const { name, description, price, stock, category, image } = req.body;
     const results = await pool.query(
