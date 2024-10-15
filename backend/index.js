@@ -15,6 +15,7 @@ const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
 const app = express();
 const saltRounds = 10;
+
 //DataBase Connection
 // const pool = new Pool({
 //   host: process.env.DB_HOST,
