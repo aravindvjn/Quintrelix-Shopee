@@ -45,23 +45,13 @@ pool
 //   }
 // };
 
-// app.use(
-//   cors({
-//     origin: process.env.FRONT_END,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.FRONT_END,
+    credentials: true,
+  })
+);
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONT_END);
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 app.use(
   session({
