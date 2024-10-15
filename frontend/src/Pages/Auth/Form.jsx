@@ -23,7 +23,6 @@ const Form = ({ input, handleChange, setInput, page }) => {
           if (input.password !== input.cpassword) {
             setMessage("Password does not match");
           } else {
-            console.log(input);
             const sendData = async () => {
               try {
                 setLoading(true);
@@ -42,7 +41,6 @@ const Form = ({ input, handleChange, setInput, page }) => {
                 }
                 if (response.ok) {
                   const data = await response.json();
-                  // setUser(data);
                   setInput({
                     fullName: "",
                     email: "",
