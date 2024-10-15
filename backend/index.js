@@ -50,21 +50,18 @@ const corsOptions = {
   origin: process.env.FRONT_END,
   credentials: true,
 };
-const allowedOrigins = [process.env.FRONT_END];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, origin); // Allow the specific origin
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Enable credentials (cookies, auth headers, etc.)
-  })
-);
-
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set the origin
+  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use(
   session({
