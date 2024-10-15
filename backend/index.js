@@ -47,21 +47,21 @@ const isAdmin = (req, res, next) => {
 };
 
 const corsOptions = {
-  origin: "https://quintrelixshopee.vercel.app",
+  origin: "https://quintrelixshopee.vercel.app/",
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set the origin
-  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set the origin
+//   res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 app.use(
   session({
