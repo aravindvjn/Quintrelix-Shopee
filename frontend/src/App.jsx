@@ -46,7 +46,7 @@ function App() {
       }
     };
     fetchUser();
-  }, []);
+  });
   return (
     <BrowserRouter>
       <Routes>

@@ -117,7 +117,6 @@ const AdSlider = () => {
             data-bs-slide="prev"
             fdprocessedid="1bamp"
             onClick={() => {
-              console.log(image);
               if (image > 1 && image <= 3) {
                 setImage(image - 1);
               }
@@ -131,7 +130,6 @@ const AdSlider = () => {
           </button>
           <button
             onClick={() => {
-              console.log(image);
               if (image >= 1 && image < 3) {
                 setImage(image + 1);
               }
