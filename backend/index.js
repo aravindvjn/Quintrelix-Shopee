@@ -54,7 +54,7 @@ const isAdmin = (req, res, next) => {
 // );
 
 
-const allowedOrigins = ['https://quintrelixshopee.vercel.app'];
+const allowedOrigins = [process.env.FRONT_END];
 
 app.use(cors({
     origin: function (origin, callback) {
