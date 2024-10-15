@@ -64,7 +64,6 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hour
-      secure: false,
     },
   })
 );
@@ -126,18 +125,22 @@ app.post("/register", async (req, res) => {
 // Login
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
+    console.log("authenticate Login")
     if (err) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
     if (!user) {
+      console.log("Not user")
       return res
         .status(401)
         .json({ message: info.message || "User Not Found" });
     }
     req.logIn(user, (err) => {
       if (err) {
+        console.log("req.login Errror")
         return res.status(500).json({ message: "Login failed" });
       }
+      console.log("Data send to front end")
       return res.status(200).json({
         id: user.id,
         username: user.fullname,
@@ -217,7 +220,9 @@ passport.deserializeUser(async (id, done) => {
 
 //Get user Data
 app.get("/api/user", (req, res) => {
+  console.log("Is Authenticated",req.isAuthenticated())
   if (req.user) {
+    console.log("User is here",req.user)
     res.json({
       id: req.user.id,
       username: req.user.fullname,
@@ -225,6 +230,7 @@ app.get("/api/user", (req, res) => {
       admin: req.user.admin,
     });
   } else {
+    console.log("No user Here")
     res.json(false);
   }
 });
