@@ -29,7 +29,7 @@ function App() {
     admin = user.admin;
   }
   useEffect(() => {
-    console.log("Refreshed")
+    console.log("Refreshed");
     const fetchUser = async () => {
       try {
         const result = await fetch(authURL + "api/user", {
@@ -37,19 +37,19 @@ function App() {
           credentials: "include",
         });
         const data = await result.json();
+        console.log("data", data);
         if (data) {
-          console.log("data",data)
           setUser(data);
-          console.log("user",user)
+          console.log("user", user);
         } else {
-          console.log("No User")
+          console.log("No User");
         }
       } catch (err) {
         console.error("Error in fetching User details");
       }
     };
     fetchUser();
-  },[]);
+  }, []);
   return (
     <BrowserRouter>
       <Routes>

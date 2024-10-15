@@ -23,6 +23,7 @@ const Header = () => {
           credentials: "include",
         });
         const data = await result.json();
+        console.log("Header user",data)
         if (data) {
           setUser(data);
         } else {

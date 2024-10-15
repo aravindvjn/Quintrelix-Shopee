@@ -8,13 +8,13 @@ import { Strategy as LocalStrategy } from "passport-local";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 
-const PgSession = connectPgSimple(session);
 
 dotenv.config();
 const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
 const app = express();
 const saltRounds = 10;
+const PgSession = connectPgSimple(session);
 
 //DataBase Connection
 // const pool = new Pool({
@@ -125,7 +125,7 @@ app.post("/register", async (req, res) => {
 // Login
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    console.log("authenticate Login");
+    console.log("authenticate Login",user);
     if (err) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
@@ -137,10 +137,8 @@ app.post("/login", (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) {
-        console.log("req.login Errror");
         return res.status(500).json({ message: "Login failed" });
       }
-      console.log("Data send to front end");
       return res.status(200).json({
         id: user.id,
         username: user.fullname,
@@ -183,7 +181,6 @@ passport.use(
         // Compare password
         bcrypt.compare(password, storedHashedPassword, (err, isValid) => {
           if (err) {
-            console.log("err");
             return done(err);
           }
           if (!isValid) {
@@ -219,6 +216,8 @@ passport.deserializeUser(async (id, done) => {
 
 //Get user Data
 app.get("/api/user", (req, res) => {
+  console.log("session",req.session)
+  console.log("user",req.user)
   console.log("Is Authenticated", req.isAuthenticated());
   if (req.user) {
     console.log("User is here", req.user);
