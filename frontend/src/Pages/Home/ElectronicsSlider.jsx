@@ -9,10 +9,12 @@ const ElectronicsSlider = ({ name }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await fetch(URL + "category", {
-          method: "GET",
-          credentials: "include",
-        })
+        await fetch(URL + "category",
+        //    {
+        //   method: "GET",
+        //   credentials: "include",
+        // }
+      )
           .then((response) => response.json())
           .then((data) => {
             setProducts(() => {

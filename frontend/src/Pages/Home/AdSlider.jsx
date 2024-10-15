@@ -9,10 +9,13 @@ const AdSlider = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(URL + "banner", {
-          method: "GET",
-          credentials: "include",
-        })
+        const results = await fetch(
+          URL + "banner"
+          //    {
+          //   method: "GET",
+          //   credentials: "include",
+          // }
+        )
           .then((response) => {
             return response.json();
           })

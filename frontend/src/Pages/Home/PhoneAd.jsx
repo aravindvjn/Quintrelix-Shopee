@@ -10,10 +10,12 @@ const PhoneAd = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const results = await fetch(authURL + "api/advertisement", {
-          method: "GET",
-          credentials: "include",
-        })
+        const results = await fetch(authURL + "api/advertisement", 
+        //   {
+        //   method: "GET",
+        //   credentials: "include",
+        // }
+      )
           .then((response) => {
             return response.json();
           })
