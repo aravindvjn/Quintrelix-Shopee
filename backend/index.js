@@ -47,7 +47,7 @@ const isAdmin = (req, res, next) => {
 };
 
 const corsOptions = {
-  origin: process.env.FRONT_END,
+  origin: "https://quintrelixshopee.vercel.app",
   credentials: true,
 };
 
