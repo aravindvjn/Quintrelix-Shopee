@@ -64,16 +64,7 @@ app.use(
     credentials: true, // Enable credentials (cookies, auth headers, etc.)
   })
 );
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set the origin
-  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 
 app.use(
   session({
