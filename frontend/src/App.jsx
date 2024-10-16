@@ -21,6 +21,7 @@ import MoreInformation from "./Pages/MoreInformation/MoreInformation";
 import TrackInfo from "./Pages/TrackInfo/TrackInfo";
 import { UserContext } from "./Pages/Context/Context";
 import { authURL } from "./server";
+import UnderMaintenance from "./components/UnderMaintenance/UnderMaintenance";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -50,6 +51,10 @@ function App() {
     };
     fetchUser();
   }, []);
+  const [maintenance, setMaintenance] = useState(true);
+  if (maintenance) {
+    return <UnderMaintenance />;
+  }
   return (
     <BrowserRouter>
       <Routes>
